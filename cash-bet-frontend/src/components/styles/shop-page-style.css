@@ -1,0 +1,40 @@
+.main {
+  position: relative;
+}
+.main .body {
+  position: relative;
+}
+.main .body .logo {
+  position: fixed;
+  top: 20px;
+  left: 50px;
+}
+.main .body .page-heading {
+  z-index: 100;
+  position: fixed;
+  background-color: #8d8d8d;
+}
+
+.shops {
+  position: relative;
+}
+.shops .credit-action-div {
+  position: fixed;
+  left: 100%;
+  transition: all ease-in-out 0.5s;
+  min-height: 100vh;
+  background-color: rgba(50, 50, 50, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.shops .credit-action-div .close-credit-div {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.shops .credit-action-div.active {
+  left: 17%;
+}/*# sourceMappingURL=shop-page-style.css.map */

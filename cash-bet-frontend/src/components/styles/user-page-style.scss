@@ -1,0 +1,131 @@
+@import "./colors.scss";
+
+.main {
+  position: relative;
+  overflow: hidden;
+  .body {
+    position: relative;
+
+    .logo {
+      position: fixed;
+      top: 20px;
+      left: 50px;
+    }
+    .page-heading {
+      position: fixed;
+      background-color: rgba($color: $gray-color, $alpha: 0.5);
+    }
+  }
+}
+
+.user {
+  font-weight: 100;
+  height: fit-content;
+  border-bottom: 1px solid rgba($color: $gray-color, $alpha: 0.3);
+  .user-first-inner {
+    padding: 10px 30px;
+
+    .user-name {
+      .login-status {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .login-status.active {
+        background-color: rgb(23, 207, 23);
+      }
+      .login-status.not-active {
+        background-color: $dark-gray;
+      }
+    }
+
+    div {
+      .user-icon {
+        font-size: 60px;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: rgba($color: $gray-color, $alpha: 0.1);
+  }
+}
+
+.users,
+.partners {
+  position: relative;
+  .credit-action-div {
+    // display: none;
+    position: fixed;
+    left: 100%;
+    transition: all ease-in-out 0.5s;
+    min-height: 100vh;
+    background-color: rgba($color: $main-theme-color, $alpha: 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    .close-credit-div {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+
+  .credit-action-div.active {
+    left: 17%;
+    // display: block;
+  }
+}
+
+div.col-6.p-3 {
+  border-bottom: 1px solid rgba($color: $btn-text-bg, $alpha: 0.2);
+  padding: 20px 20px 20px 100px;
+  &:hover {
+    background-color: rgba($color: $btn-text-bg, $alpha: 0.1);
+  }
+  p {
+    font-size: 20px;
+  }
+
+  .switch-button {
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    border-radius: 40px;
+    transition: all 0.5s;
+    text-align: center;
+
+    .switch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba($color: $btn-text-bg, $alpha: 1);
+      padding: 2px;
+      transition: all 0.5s;
+    }
+  }
+
+  .switch-button.on {
+    box-shadow: inset 0 0 10px rgba($color: $btn-text-bg, $alpha: 1);
+    background-color: rgba($color: $btn-text-bg, $alpha: 0.1);
+
+    .switch {
+      margin-left: 50%;
+      background-color: rgba($color: $btn-text-bg, $alpha: 1);
+    }
+  }
+
+  .switch-button.off {
+    box-shadow: inset 0 0 10px rgba($color: $gray-color, $alpha: 1);
+    background-color: rgba($color: $gray-color, $alpha: 0.1);
+
+    .switch {
+      color: black;
+      margin-left: 0;
+      background-color: rgba($color: $gray-color, $alpha: 1);
+    }
+  }
+}

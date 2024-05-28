@@ -1,0 +1,267 @@
+@import "./colors.scss";
+.main {
+  background-color: rgba($color: $main-theme-color, $alpha: 0.8);
+  color: $white-color;
+  min-height: 100vh;
+
+  .manager-header,
+  .cashier-header {
+    background-color: rgba($color: $dark-color, $alpha: 0.7);
+    height: 10%;
+    font-size: 15px;
+    z-index: 10;
+    top: 0;
+  }
+
+  .body {
+    background-color: rgba($color: $dark-color, $alpha: 0.4);
+    min-height: 105vh;
+    position: relative;
+    .side-bar {
+      background-color: rgba($color: $gray-color, $alpha: 0.2);
+      padding: 100px 0;
+      position: relative;
+      min-height: 100vh;
+
+      .links {
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        width: 250px;
+        transition: all 1.5s;
+
+        .link {
+          list-style: none;
+          background-color: $dark-color;
+          width: 100%;
+          font-size: 20px;
+          padding: 10px;
+          border: 1px solid rgba($color: $gray-color, $alpha: 0.5);
+          cursor: pointer;
+          &:hover {
+            background-color: rgba($color: $dark-color, $alpha: 0.5);
+            transition: all 1.5s;
+          }
+          &:active {
+            transform: scale(0.99);
+            transition: all 1.5s;
+          }
+          transition: all 1.5s;
+        }
+
+        .link.active {
+          background-color: rgba($color: $dark-color, $alpha: 0.5);
+          margin-left: 10px;
+          border-radius: 10px;
+          transition: all 1.5s;
+        }
+      }
+    }
+    .games {
+      font-size: 12px;
+      min-height: 80%;
+      padding: 100px 0px;
+
+      .games-list {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        .game {
+          transition: all 0.2s;
+          &:hover {
+            background-color: rgba($color: $dark-color, $alpha: 0.2);
+          }
+        }
+      }
+
+      .game-details {
+        font-size: 12px;
+        position: relative;
+        background-color: rgba($color: $btn-text-bg, $alpha: 0.2);
+        padding: 1px;
+        .back-button {
+          padding: 0 10px;
+          border-radius: 0;
+          position: absolute;
+          font-size: 12px;
+          top: 0;
+          left: 0;
+          transition: 0.2s;
+          &:active {
+            left: 0;
+            transform: scale(0.8);
+          }
+        }
+      }
+
+      .heading {
+        background-color: rgba($color: $dark-blue, $alpha: 1);
+        padding: 20px 0;
+        margin-bottom: 1px;
+      }
+
+      .details-body {
+        background-color: rgba($color: $dark-blue, $alpha: 1);
+        .left {
+          table {
+            tbody {
+              tr {
+                text-align: center;
+                td {
+                  border: 1px solid rgba($color: $gray-color, $alpha: 0.1);
+                }
+              }
+              .column {
+                text-align: left;
+                border: none;
+                background-color: rgba($color: $gray-color, $alpha: 0.1);
+              }
+            }
+          }
+        }
+
+        .right {
+          table {
+            tbody {
+              tr {
+                td {
+                  padding: 0 10px;
+                  border: 1px 1px solid rgba($color: $gray-color, $alpha: 0.1);
+                }
+              }
+              .column {
+                background-color: rgba($color: $gray-color, $alpha: 0.1);
+                padding: 10px 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .receipt {
+      position: fixed;
+      top: 55%;
+      left: 87%;
+      transform: translate(-50%, -50%);
+      width: 23%;
+      min-height: 80%;
+      max-height: fit-content;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      background-color: rgba($color: $dark-color, $alpha: 0.1);
+
+      .top {
+        h6 {
+          .clean-btn {
+            background-color: rgba($color: $gray-color, $alpha: 0.2);
+            color: $white-color;
+            transition: 0.2s;
+            border: none;
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+        }
+
+        .receipt-category {
+          background-color: rgba($color: $gray-color, $alpha: 0.2);
+          span.active {
+            border-bottom: 3px solid $white-color;
+          }
+        }
+      }
+
+      .midle {
+        min-height: 310px;
+        max-height: 310px;
+        overflow-y: auto;
+        transition: all 0.2s;
+        .game {
+          padding: 10px 20px;
+          div {
+            background-color: rgba($color: $gray-color, $alpha: 0.2);
+            .btn-remove {
+              border: 1px solid rgba($color: $dark-color, $alpha: 0.5);
+              border-radius: 5px 0 0 0;
+              cursor: pointer;
+              &:active {
+                transform: scale(0.5);
+              }
+            }
+
+            .game-details {
+              border: 1px solid rgba($color: $dark-color, $alpha: 0.5);
+              border-radius: 0 5px 0 0;
+            }
+          }
+          .bet {
+            border: 1px solid rgba($color: $dark-color, $alpha: 0.5);
+            border-radius: 0 0 5px 5px;
+          }
+        }
+      }
+
+      .bottom {
+        div {
+          .odds-change {
+            background-color: rgba($color: $gray-color, $alpha: 0.2);
+            border-radius: 5px;
+            input {
+              width: 15px;
+              height: 15px;
+            }
+          }
+
+          .paiments {
+            background-color: rgba($color: $gray-color, $alpha: 0.2);
+
+            div {
+              input {
+                background-color: rgba($color: $dark-color, $alpha: 0.5);
+                outline: none;
+                border: none;
+                padding-left: 20px;
+                color: $white-color;
+                &::placeholder {
+                  text-align: left;
+                }
+              }
+              span {
+                background-color: rgba($color: $gray-color, $alpha: 0.2);
+                border: none;
+                outline: none;
+                &:active {
+                  transform: scale(0.9);
+                }
+              }
+            }
+          }
+
+          .betting {
+            background-color: rgba($color: $gray-color, $alpha: 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn.btn-text {
+  background-color: $btn-text-bg;
+  color: $white-color;
+  transition: 0.2s;
+  font-size: 16px;
+  border: none;
+  box-shadow: none;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: rgba($color: $btn-text-bg, $alpha: 0.3);
+  }
+
+  &:active {
+    background-color: $btn-text-bg;
+    transform: scale(0.95);
+  }
+}

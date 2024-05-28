@@ -1,0 +1,218 @@
+@import "./colors.scss";
+
+* {
+  font-size: 98%;
+  font-weight: 100;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+P,
+span,
+b,
+label,
+button,
+input,
+select,
+li {
+  font-size: 99%;
+}
+
+.main {
+  background-color: rgba($color: $main-theme-color, $alpha: 0.8);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  .signin__form,
+  .admin__signup__form {
+    background-color: rgba($color: $main-theme-color, $alpha: 0.1);
+    color: $white-color;
+    border-radius: 10px;
+    box-shadow: 0 0 10000px 0.5px $white-color;
+
+    form {
+      .form-group {
+        .form-control {
+          border: none;
+          outline: none;
+          font-size: 18px;
+        }
+
+        small,
+        span {
+          color: $red-color;
+        }
+
+        .form-control.btn.btn-text {
+          background-color: $btn-text-bg;
+          color: $white-color;
+          transition: 0.2s;
+          font-size: 20px;
+          border: none;
+          box-shadow: none;
+          padding: 5px 10px;
+
+          &:active {
+            background-color: $btn-text-bg;
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+
+  .body {
+    .side-bar {
+      .links {
+        .li {
+          width: 100%;
+          height: 75vh;
+          overflow-y: auto;
+          padding: 20px 0;
+          overflow-x: hidden;
+          transition: all 0.5s;
+        }
+      }
+    }
+  }
+}
+
+table {
+  tbody {
+    tr {
+      td {
+        cursor: pointer;
+        &:hover {
+          transform: scale-y(1.2);
+          background-color: $main-theme-color;
+        }
+      }
+    }
+  }
+}
+
+.results {
+  .close-btn {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+  }
+
+  .header {
+    width: 100%;
+    line-height: 0;
+    border-bottom: 2px solid rgba($color: $main-theme-color, $alpha: 0.1);
+
+    p {
+      width: 100%;
+      text-align: left;
+      b {
+        font-size: 14px;
+      }
+    }
+  }
+
+  position: absolute;
+  background-color: $main-theme-color;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  padding: 10px;
+
+  .inner-div {
+    position: absolute;
+    background-color: $main-theme-color;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    padding: 5px;
+    overflow-y: auto;
+  }
+
+  .cash-out {
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+.bets {
+  border-bottom: 1px solid rgba($color: $gray-color, $alpha: 0.3);
+  border-top: 1px solid rgba($color: $gray-color, $alpha: 0.3);
+}
+
+.payment-details {
+  position: relative;
+}
+
+.receipt-status {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  translate: (-50%, -50%);
+  transform: rotate(290deg);
+  font-size: 30px;
+}
+
+.fixture-head {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.table-bordered {
+  tr:hover {
+    background-color: $main-theme-color;
+    padding: 5px 0;
+  }
+  td {
+    padding: 0 2px;
+    font-size: 10px;
+    font-weight: 600;
+    overflow-x: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 2px solid black;
+  }
+
+  th {
+    padding: 2px;
+    font-size: 10px;
+    font-weight: 800;
+    border: 2px solid black;
+  }
+}
+
+.receipt-table {
+  tr:hover {
+    background-color: $main-theme-color;
+    padding: 5px 0;
+  }
+  td {
+    padding: 12px;
+    font-size: 10px;
+    font-weight: 500;
+    overflow-x: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 2px solid black;
+  }
+
+  th {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    border: 2px solid black;
+  }
+}
+
+.fixed-column {
+  max-width: 90px;
+}

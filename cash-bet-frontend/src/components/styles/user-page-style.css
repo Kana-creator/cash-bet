@@ -1,0 +1,115 @@
+.main {
+  position: relative;
+  overflow: hidden;
+}
+.main .body {
+  position: relative;
+}
+.main .body .logo {
+  position: fixed;
+  top: 20px;
+  left: 50px;
+}
+.main .body .page-heading {
+  position: fixed;
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
+.user {
+  font-weight: 100;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.3);
+}
+.user .user-first-inner {
+  padding: 10px 30px;
+}
+.user .user-first-inner .user-name .login-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.user .user-first-inner .user-name .login-status.active {
+  background-color: rgb(23, 207, 23);
+}
+.user .user-first-inner .user-name .login-status.not-active {
+  background-color: #8d8d8d;
+}
+.user .user-first-inner div .user-icon {
+  font-size: 60px;
+}
+.user:hover {
+  background-color: rgba(211, 211, 211, 0.1);
+}
+
+.users,
+.partners {
+  position: relative;
+}
+.users .credit-action-div,
+.partners .credit-action-div {
+  position: fixed;
+  left: 100%;
+  transition: all ease-in-out 0.5s;
+  min-height: 100vh;
+  background-color: rgba(50, 50, 50, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.users .credit-action-div .close-credit-div,
+.partners .credit-action-div .close-credit-div {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.users .credit-action-div.active,
+.partners .credit-action-div.active {
+  left: 17%;
+}
+
+div.col-6.p-3 {
+  border-bottom: 1px solid rgba(51, 153, 187, 0.2);
+  padding: 20px 20px 20px 100px;
+}
+div.col-6.p-3:hover {
+  background-color: rgba(51, 153, 187, 0.1);
+}
+div.col-6.p-3 p {
+  font-size: 20px;
+}
+div.col-6.p-3 .switch-button {
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  border-radius: 40px;
+  transition: all 0.5s;
+  text-align: center;
+}
+div.col-6.p-3 .switch-button .switch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #3399bb;
+  padding: 2px;
+  transition: all 0.5s;
+}
+div.col-6.p-3 .switch-button.on {
+  box-shadow: inset 0 0 10px #3399bb;
+  background-color: rgba(51, 153, 187, 0.1);
+}
+div.col-6.p-3 .switch-button.on .switch {
+  margin-left: 50%;
+  background-color: #3399bb;
+}
+div.col-6.p-3 .switch-button.off {
+  box-shadow: inset 0 0 10px lightgray;
+  background-color: rgba(211, 211, 211, 0.1);
+}
+div.col-6.p-3 .switch-button.off .switch {
+  color: black;
+  margin-left: 0;
+  background-color: lightgray;
+}/*# sourceMappingURL=user-page-style.css.map */

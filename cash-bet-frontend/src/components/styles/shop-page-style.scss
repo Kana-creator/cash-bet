@@ -1,0 +1,47 @@
+@import "./colors.scss";
+
+.main {
+  position: relative;
+  .body {
+    position: relative;
+
+    .logo {
+      position: fixed;
+      top: 20px;
+      left: 50px;
+    }
+    .page-heading {
+      z-index: 100;
+      position: fixed;
+      background-color: rgba($color: $dark-gray, $alpha: 1);
+    }
+  }
+}
+
+.shops {
+  position: relative;
+  .credit-action-div {
+    // display: none;
+    position: fixed;
+    left: 100%;
+    transition: all ease-in-out 0.5s;
+    min-height: 100vh;
+    background-color: rgba($color: $main-theme-color, $alpha: 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    .close-credit-div {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+
+  .credit-action-div.active {
+    left: 17%;
+    // display: block;
+  }
+}

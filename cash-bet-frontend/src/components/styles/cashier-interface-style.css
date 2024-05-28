@@ -1,0 +1,183 @@
+.main {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: #f0ead6;
+  min-height: 100vh;
+}
+.main .cashier-header {
+  position: fixed;
+  top: 50%;
+  background-color: #121212;
+  height: 10%;
+  font-size: 20px;
+  z-index: 10;
+}
+.main .body {
+  background-color: rgba(18, 18, 18, 0.4);
+  min-height: 105vh;
+  position: relative;
+}
+.main .body .games {
+  min-height: 90%;
+  padding: 100px 0px;
+}
+.main .body .games .games-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main .body .games .games-list .game {
+  transition: all 0.2s;
+}
+.main .body .games .games-list .game:hover {
+  background-color: rgba(18, 18, 18, 0.2);
+}
+.main .body .games .game-details {
+  font-size: 12px;
+  position: relative;
+  background-color: rgba(51, 153, 187, 0.2);
+  padding: 1px;
+}
+.main .body .games .game-details .back-button {
+  padding: 0 10px;
+  border-radius: 0;
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  left: 0;
+  transition: 0.2s;
+}
+.main .body .games .game-details .back-button:active {
+  left: 0;
+  transform: scale(0.8);
+}
+.main .body .games .heading {
+  background-color: #1a224b;
+  padding: 20px 0;
+  margin-bottom: 1px;
+}
+.main .body .games .details-body {
+  background-color: #1a224b;
+}
+.main .body .games .details-body .left table tbody tr {
+  text-align: center;
+}
+.main .body .games .details-body .left table tbody tr td {
+  border: 1px solid rgba(211, 211, 211, 0.1);
+}
+.main .body .games .details-body .left table tbody .column {
+  text-align: left;
+  border: none;
+  background-color: rgba(211, 211, 211, 0.1);
+}
+.main .body .games .details-body .right table tbody tr td {
+  padding: 0 10px;
+  border: 1px 1px solid rgba(211, 211, 211, 0.1);
+}
+.main .body .games .details-body .right table tbody .column {
+  background-color: rgba(211, 211, 211, 0.1);
+  padding: 10px 10px;
+}
+.main .body .receipt {
+  position: fixed;
+  top: 55%;
+  left: 82%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  min-height: 80%;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: rgba(18, 18, 18, 0.1);
+}
+.main .body .receipt .top h6 .clean-btn {
+  background-color: rgba(211, 211, 211, 0.2);
+  color: #f0ead6;
+  transition: 0.2s;
+  border: none;
+}
+.main .body .receipt .top h6 .clean-btn:active {
+  transform: scale(0.9);
+}
+.main .body .receipt .top .receipt-category {
+  background-color: rgba(211, 211, 211, 0.2);
+}
+.main .body .receipt .top .receipt-category span.active {
+  border-bottom: 3px solid #f0ead6;
+}
+.main .body .receipt .midle {
+  min-height: 310px;
+  max-height: 310px;
+  overflow-y: auto;
+  transition: all 0.2s;
+}
+.main .body .receipt .midle .game {
+  padding: 10px 20px;
+}
+.main .body .receipt .midle .game div {
+  background-color: rgba(211, 211, 211, 0.2);
+}
+.main .body .receipt .midle .game div .btn-remove {
+  border: 1px solid rgba(18, 18, 18, 0.5);
+  border-radius: 5px 0 0 0;
+  cursor: pointer;
+}
+.main .body .receipt .midle .game div .btn-remove:active {
+  transform: scale(0.5);
+}
+.main .body .receipt .midle .game div .game-details {
+  border: 1px solid rgba(18, 18, 18, 0.5);
+  border-radius: 0 5px 0 0;
+}
+.main .body .receipt .midle .game .bet {
+  border: 1px solid rgba(18, 18, 18, 0.5);
+  border-radius: 0 0 5px 5px;
+}
+.main .body .receipt .bottom div .odds-change {
+  background-color: rgba(211, 211, 211, 0.2);
+  border-radius: 5px;
+}
+.main .body .receipt .bottom div .odds-change input {
+  width: 15px;
+  height: 15px;
+}
+.main .body .receipt .bottom div .paiments {
+  background-color: rgba(211, 211, 211, 0.2);
+}
+.main .body .receipt .bottom div .paiments div input {
+  background-color: rgba(18, 18, 18, 0.5);
+  outline: none;
+  border: none;
+  padding-left: 20px;
+  color: #f0ead6;
+}
+.main .body .receipt .bottom div .paiments div input::-moz-placeholder {
+  text-align: left;
+}
+.main .body .receipt .bottom div .paiments div input::placeholder {
+  text-align: left;
+}
+.main .body .receipt .bottom div .paiments div span {
+  background-color: rgba(211, 211, 211, 0.2);
+  border: none;
+  outline: none;
+}
+.main .body .receipt .bottom div .paiments div span:active {
+  transform: scale(0.9);
+}
+.main .body .receipt .bottom div .betting {
+  background-color: rgba(211, 211, 211, 0.2);
+}
+
+.btn.btn-text {
+  background-color: #39b;
+  color: #f0ead6;
+  transition: 0.2s;
+  font-size: 20px;
+  border: none;
+  box-shadow: none;
+  padding: 5px 10px;
+}
+.btn.btn-text:active {
+  background-color: #39b;
+  transform: scale(0.95);
+}/*# sourceMappingURL=cashier-interface-style.css.map */
