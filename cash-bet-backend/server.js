@@ -142,7 +142,7 @@ const GAMES_URL = process.env.GAMES_API_URL;
 // });
 
 // CREATING A SUPER ADMIN ACCOUNT
-app.post("/adminSignup", (req, res) => {
+app.post("/api/adminSignup", (req, res) => {
   !dbConn
     ? res
         .status(500)
@@ -151,41 +151,41 @@ app.post("/adminSignup", (req, res) => {
 });
 
 // CHECKING IF ADMIN ACCOUNT IS CREATED
-app.get("/adminStatus", (req, res) => {
+app.get("/api/adminStatus", (req, res) => {
   !dbConn
     ? res.status(500).json({ message: "Internal server error" })
     : CheckAdminAccount(res, dbConn);
 });
 
 // USER LOGIN
-app.post("/userLogin", (req, res) => {
+app.post("/api/userLogin", (req, res) => {
   UserLogin(req, res, dbConn, jwt);
 });
 
 // USER LOGOUT
-app.post("/log-out", (req, res) => {
+app.post("/api/log-out", (req, res) => {
   UserLogOut(req, res, dbConn);
 });
 
 // ADDING A NEW USER TO THE DATABASE
-app.post("/addUser", verifyAuth, (req, res) => {
+app.post("/api/addUser", verifyAuth, (req, res) => {
   AddUser(req, res, dbConn);
 });
 
-app.post("/addShop/:user_id", verifyAuth, (req, res) => {
+app.post("/api/addShop/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   AddShop(req, res, dbConn, user_id);
 });
 
 // FECTCHING PARTNERS
-app.get("/fetchPartners/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetchPartners/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchPartners(res, dbConn, user_id);
 });
 
 // FETCHING ALL USERS THAT ARE CREATED BY A PARTICULAR ADMIN
 app.get(
-  "/fetchUsers/:user_id/:user_role/:linked_to",
+  "/api/fetchUsers/:user_id/:user_role/:linked_to",
   verifyAuth,
   (req, res) => {
     const { user_id, user_role, linked_to } = req.params;
@@ -194,25 +194,25 @@ app.get(
 );
 
 // FETCHING SHOPS
-app.get("/fetchShops/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetchShops/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   fetchShops(res, dbConn, user_id);
 });
 
 // FETCHING DUTY STATIONS
-app.get("/fetch-duty-stations/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetch-duty-stations/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   fetchDutyStations(res, dbConn, user_id);
 });
 
 // FETCHING OPERATORS
-app.get("/fetchOperators/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetchOperators/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchOperators(res, dbConn, user_id);
 });
 
 // DELETING A USER
-app.get("/delete-user/:user_id", verifyAuth, (req, res) => {
+app.get("/api/delete-user/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   DeleteUser(res, dbConn, user_id);
 });
@@ -224,114 +224,126 @@ app.delete("/delete-shop/:shop_id", verifyAuth, (req, res) => {
 });
 
 // BLOCKING A USER
-app.get("/block-user/:user_id", verifyAuth, (req, res) => {
+app.get("/api/block-user/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   BlockUser(res, dbConn, user_id);
 });
 
 // UNBLOCKING A USER
-app.get("/unblock-user/:user_id", verifyAuth, (req, res) => {
+app.get("/api/unblock-user/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   UnBlockUser(res, dbConn, user_id);
 });
 
 // FETCHING SINGLE USER DETAILS
-app.get("/fetch-user-details/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetch-user-details/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchUserDetails(res, dbConn, user_id);
 });
 
 // FETCHING SINGLE USER DETAILS
-app.get("/fetch-admin-user-details/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetch-admin-user-details/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchAdminUserDetails(res, dbConn, user_id);
 });
 
 // UPDATING USER DETAILS
-app.post("/update-user/:user_id", verifyAuth, (req, res) => {
+app.post("/api/update-user/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
 
   UpdateUser(req, res, dbConn, user_id);
 });
 
 // UPDATING ADMIN USER DETAILS
-app.post("/update-admin-user/:user_id", verifyAuth, (req, res) => {
+app.post("/api/update-admin-user/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   UpdateAdminUser(req, res, dbConn, user_id);
 });
 
 // ADD A CREDIT TRANSACTION
-app.post("/credit-transaction/:user_id/:user_role", verifyAuth, (req, res) => {
-  const { user_id, user_role } = req.params;
-  CreditTransaction(req, res, dbConn, user_id, user_role);
-});
+app.post(
+  "/api/credit-transaction/:user_id/:user_role",
+  verifyAuth,
+  (req, res) => {
+    const { user_id, user_role } = req.params;
+    CreditTransaction(req, res, dbConn, user_id, user_role);
+  }
+);
 
 // FETCHING USER INCOMING CREDIT
-app.get("/fetch-credit-balance/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetch-credit-balance/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchCreditBalance(res, dbConn, user_id);
 });
 
 // FETCH USER BLOCK STATUS
-app.get("/fetch-block-status/:user_id", verifyAuth, (req, res) => {
+app.get("/api/fetch-block-status/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   FetchBlockStatus(res, dbConn, user_id);
 });
 
 // FETCH SHOP DETAILS
-app.get("/fetch-shop-details/:shop_id/:operator_id", verifyAuth, (req, res) => {
-  const { shop_id, operator_id } = req.params;
-  FetchShopDetails(res, dbConn, shop_id, operator_id);
-});
+app.get(
+  "/api/api/fetch-shop-details/:shop_id/:operator_id",
+  verifyAuth,
+  (req, res) => {
+    const { shop_id, operator_id } = req.params;
+    FetchShopDetails(res, dbConn, shop_id, operator_id);
+  }
+);
 
 // UPDATING SHOP INFO
-app.patch("/update-shop/:shop_id", verifyAuth, (req, res) => {
+app.patch("/api/update-shop/:shop_id", verifyAuth, (req, res) => {
   const { shop_id } = req.params;
   UpdateShop(req, res, dbConn, shop_id);
 });
 
 // FETCHING CASHIERS
-app.get("/fetchCashiers/:shop_id", verifyAuth, (req, res) => {
+app.get("/api/fetchCashiers/:shop_id", verifyAuth, (req, res) => {
   const { shop_id } = req.params;
   FetchCashiers(res, dbConn, shop_id);
 });
 
-app.get("/fetch-games", async (req, res) => {
+app.get("/api/fetch-games", async (req, res) => {
   FetchGames(res, axios);
 });
 
 // FETCH ALL FUTURE ODDS
-app.get("/fetch-all-future-odds", (req, res) => {
+app.get("/api/fetch-all-future-odds", (req, res) => {
   FetchFutureOdds(res, axios, API_KEY);
 });
 
 // STARTING SESSION
-app.get("/start-session/:user_id", verifyAuth, (req, res) => {
+app.get("/api/start-session/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   StartSession(res, dbConn, user_id);
 });
 
 // ENDING SESSION
-app.get("/end-session/:user_id", verifyAuth, (req, res) => {
+app.get("/api/end-session/:user_id", verifyAuth, (req, res) => {
   const { user_id } = req.params;
   EndSession(res, dbConn, user_id);
 });
 
 // FETCHING SINGLE USER SESSION
-app.get("/fetch-single-user-session/:user_id", (req, res) => {
+app.get("/api/fetch-single-user-session/:user_id", (req, res) => {
   const { user_id } = req.params;
   FetchSingleUserSession(res, dbConn, user_id);
 });
 
 // FETCHING ADMIN RIGHTS
-app.get("/fetch-admin-rights/:user_id/:user_role", verifyAuth, (req, res) => {
-  const { user_id, user_role } = req.params;
-  FetchAdminRights(res, dbConn, user_id, user_role);
-});
+app.get(
+  "/api/api/fetch-admin-rights/:user_id/:user_role",
+  verifyAuth,
+  (req, res) => {
+    const { user_id, user_role } = req.params;
+    FetchAdminRights(res, dbConn, user_id, user_role);
+  }
+);
 
 // FETCHING ALL SYSTEM USERS
 app.get(
-  "/fetch-all-system-users/:user_role/:view_dashboard",
+  "/api/fetch-all-system-users/:user_role/:view_dashboard",
   verifyAuth,
   (req, res) => {
     const { user_role, view_dashboard } = req.params;
@@ -341,7 +353,7 @@ app.get(
 
 // FETCH ALL SYSTEM PARTNERS
 app.get(
-  "/fetch-all-system-partners/:user_role/:view_dashboard",
+  "/api/fetch-all-system-partners/:user_role/:view_dashboard",
   verifyAuth,
   (req, res) => {
     const { user_role, view_dashboard } = req.params;
@@ -351,7 +363,7 @@ app.get(
 
 // FETCH ALL ADMIN STAFF
 app.get(
-  "/fetch-all-admin-staff/:user_id/:linked_to/:user_role/:view_dashboard",
+  "/api/fetch-all-admin-staff/:user_id/:linked_to/:user_role/:view_dashboard",
   verifyAuth,
   (req, res) => {
     const { user_id, linked_to, user_role, view_dashboard } = req.params;
@@ -368,7 +380,7 @@ app.get(
 
 // FETCH ALL ADMIN STAFF
 app.get(
-  "/fetch-monthly-users-registration/:user_role/:view_dashboard/:year",
+  "/api/fetch-monthly-users-registration/:user_role/:view_dashboard/:year",
   verifyAuth,
   (req, res) => {
     const { user_role, view_dashboard, year } = req.params;
@@ -378,7 +390,7 @@ app.get(
 
 // FETCH ALL USERS BY CATEGORY
 app.get(
-  "/fetch-all-users-by-category/:user_role/:view_dashboard",
+  "/api/fetch-all-users-by-category/:user_role/:view_dashboard",
   verifyAuth,
   (req, res) => {
     const { user_role, view_dashboard } = req.params;
@@ -387,49 +399,53 @@ app.get(
 );
 
 // FETCHING NUMBER OF ALL EXISINTING SHOPS
-app.get("/fetch-number-od-all-shops", verifyAuth, (req, res) => {
+app.get("/api/fetch-number-od-all-shops", verifyAuth, (req, res) => {
   FetchNumberOfAllShops(res, dbConn);
 });
 
 // FETCH NUMBER OF OUR SHOPS
-app.get("/fetch-our-shops", verifyAuth, (req, res) => {
+app.get("/api/fetch-our-shops", verifyAuth, (req, res) => {
   FetchOurShops(res, dbConn);
 });
 
 // FETCH SHOPS PER LOCATION
-app.get("/fetch-shops-per-location", verifyAuth, (req, res) => {
+app.get("/api/fetch-shops-per-location", verifyAuth, (req, res) => {
   FetchShopsPerLocation(res, dbConn);
 });
 
 // FETCH TOTAL CREDIT SUBSCRIPTION
-app.get("/fetch-total-credit-subscription/:user_id", verifyAuth, (req, res) => {
-  const { user_id } = req.params;
-  FetchTotalCreditSubscription(res, dbConn, user_id);
-});
+app.get(
+  "/api/api/fetch-total-credit-subscription/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { user_id } = req.params;
+    FetchTotalCreditSubscription(res, dbConn, user_id);
+  }
+);
 
 // FETCH CREDIT SUBSCRIPTION FOR THIS YEAR
-app.get("/fetch-subscription-this-year", verifyAuth, (req, res) => {
+app.get("/api/fetch-subscription-this-year", verifyAuth, (req, res) => {
   FetchSubscriptionThisYear(res, dbConn);
 });
 
 // FETCH SUBSCRIPTION THIS MONTH
-app.get("/fetch-subscription-this-month", verifyAuth, (req, res) => {
+app.get("/api/fetch-subscription-this-month", verifyAuth, (req, res) => {
   FetchSubscriptionThisMonth(res, dbConn);
 });
 
 // FETCH MONTHLY SUBSCRIPTION
-app.get("/fetch-monthly-subscription/:year", verifyAuth, (req, res) => {
+app.get("/api/fetch-monthly-subscription/:year", verifyAuth, (req, res) => {
   const { year } = req.params;
   FetchMonthlySubscription(res, dbConn, year);
 });
 
 // FETCH ANNUAL SUBSCRIPTION
-app.get("/fetch-annual-subscription", verifyAuth, (req, res) => {
+app.get("/api/fetch-annual-subscription", verifyAuth, (req, res) => {
   FetchAnualSubscription(res, dbConn);
 });
 
 // SAVING EVENTS IDs
-app.post("/save-event-numbers", (req, res) => {
+app.post("/api/save-event-numbers", (req, res) => {
   const values = req.body.event_numbers.map((en) => [en]);
 
   const query = "TRUNCATE TABLE event_id";
@@ -452,7 +468,7 @@ app.post("/save-event-numbers", (req, res) => {
 });
 
 // FETCHING EVENT IDs
-app.get("/fetch-event-numbers", (req, res) => {
+app.get("/api/fetch-event-numbers", (req, res) => {
   const query = "SELECT * FROM event_id";
   dbConn.query(query, (error, results) => {
     if (error) {
@@ -464,28 +480,28 @@ app.get("/fetch-event-numbers", (req, res) => {
 });
 
 // SAVING RECEIPT GAMES
-app.post("/save-receipt-games", (req, res) => {
+app.post("/api/save-receipt-games", (req, res) => {
   SaveReceiptGames(req, res, dbConn, dbConn2);
 });
 
 // FETCHING CASHIER DAILY RECEIPTS
-app.get("/fetch-cashier-daily-receipts/:cashier_id", (req, res) => {
+app.get("/api/fetch-cashier-daily-receipts/:cashier_id", (req, res) => {
   const { cashier_id } = req.params;
   FetchCashierDailyReceipts(res, cashier_id, dbConn);
 });
 
 // FETCHING RECEIPT RESULTS
-app.get("/fetch-receipt-results/:receipt_number/:shop_id", (req, res) => {
+app.get("/api/fetch-receipt-results/:receipt_number/:shop_id", (req, res) => {
   FetchReceiptResults(req, res, dbConn);
 });
 
 // FETCHING RESULT GAMES FROM THE DATABASE
-app.get("/fetch-result-games/:receipt_number", (req, res) => {
+app.get("/api/fetch-result-games/:receipt_number", (req, res) => {
   FetchResultGames(req, res, dbConn);
 });
 
 // FETCHING ADMIN ID
-app.get("/fetch-admin-id", (req, res) => {
+app.get("/api/fetch-admin-id", (req, res) => {
   dbConn.query(
     "SELECT user_id FROM user WHERE user_role='Admin'",
     (error, result) => {
@@ -499,79 +515,81 @@ app.get("/fetch-admin-id", (req, res) => {
 });
 
 // FETCHING GAME RESULTS
-app.get("/fetch-api-results/:event_id", (req, res) => {
+app.get("/api/fetch-api-results/:event_id", (req, res) => {
   FetchGameResults(req, res, axios);
 });
 
-// CASHING OUT A RECEIPT
-// app.put("/pay-receipt/:receipt_number", (req, res) => {
-//   PayReceipt(req, res, dbConn);
-// });
-
 // FETCHING SHOP BALANCE
-app.get("/fetch-shop-balance/:shop_id", (req, res) => {
+app.get("/api/fetch-shop-balance/:shop_id", (req, res) => {
   FetchShopBalance(req, res, dbConn);
 });
 
 // FETCHING MANAGER OR CASHIER BALANCE
-app.get("/fetch-manager-balance/:user_id", (req, res) => {
+app.get("/api/fetch-manager-balance/:user_id", (req, res) => {
   FetchManagerBalance(req, res, dbConn);
 });
 
 // FETCHING RESULT IDs
-app.get("/fetch-result-ids", (req, res) => {
+app.get("/api/fetch-result-ids", (req, res) => {
   FetchResultIDs(res, dbConn);
 });
 
-// CANCELLING A RECEIPT
-// app.put("/cancel-receipt/:receipt_number", (req, res) => {
-//   console.log(req.params);
-//   CancelReceipt(req, res, dbConn);
-// });
-
 // CHANGING RECEIPT STATUS
-app.put("/change-receipt-status/:status/:receipt_number", (req, res) => {
+app.put("/api/change-receipt-status/:status/:receipt_number", (req, res) => {
   ChangeReceiptStatus(req, res, dbConn);
 });
 
 // SAVING RESULTS
-app.put("/save-results", (req, res) => {
+app.put("/api/save-results", (req, res) => {
   SaveGameResults(req, res, dbConn);
 });
 
 // FETCHING DATABASE RESULTS
-app.get("/fetch-database-results", (req, res) => {
+app.get("/api/fetch-database-results", (req, res) => {
   FetchDatabaseResults(res, dbConn);
 });
 
 // FETCHING RECEIPTS
-app.get("/fetch-receipts/:linked_to/:role", (req, res) => {
+app.get("/api/fetch-receipts/:linked_to/:role", (req, res) => {
   FetchReceipts(req, res, dbConn);
 });
 
 // FETCHING SHOP NAME
-app.get("/fetch-shop-name/:shopId", (req, res) => {
+app.get("/api/fetch-shop-name/:shopId", (req, res) => {
   FetchShopName(req, res, dbConn);
 });
 
 // FETCHING CASHIER NAME
-app.get("/fetch-cashier-name/:userId", (req, res) => {
+app.get("/api/fetch-cashier-name/:userId", (req, res) => {
   FetchCashierName(req, res, dbConn);
 });
 
 // FETCHING RESULTS BASING ON THE RECEIPT NUMBER
-app.get("/fetch-results/:receiptNumber", (req, res) => {
+app.get("/api/fetch-results/:receiptNumber", (req, res) => {
   FetchResults(req, res, dbConn);
 });
 
 // FETCH RECEIPTS CASHIERS
-app.get("/fetch-receipts-cashiers/:user_id", (req, res) => {
+app.get("/api/fetch-receipts-cashiers/:user_id", (req, res) => {
   FetchReceiptsCachiers(req, res, dbConn);
 });
 
 // FETCH RECEIPTS SHOPS
-app.get("/fetch-receipts-shops/:user_id", (req, res) => {
+app.get("/api/fetch-receipts-shops/:user_id", (req, res) => {
   FetchReceiptsShops(req, res, dbConn);
+});
+
+app.get("/api/health", (req, res) => {
+  res.status(200).send("App is healthy");
+});
+
+//unhandled routes
+app.all("*", (req, res) => {
+  console.log(`Unhandled route: ${req.url}`);
+  res.status(404).json({
+    status: "NOT FOUND",
+    message: `Route ${req.originalUrl} not found`,
+  });
 });
 
 httpServer.listen(1992, () => console.log(`Server listening on port ${1992}`));
