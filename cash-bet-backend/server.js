@@ -284,7 +284,7 @@ app.get("/api/fetch-block-status/:user_id", verifyAuth, (req, res) => {
 
 // FETCH SHOP DETAILS
 app.get(
-  "/api/api/fetch-shop-details/:shop_id/:operator_id",
+  "/api/fetch-shop-details/:shop_id/:operator_id",
   verifyAuth,
   (req, res) => {
     const { shop_id, operator_id } = req.params;
@@ -333,7 +333,7 @@ app.get("/api/fetch-single-user-session/:user_id", (req, res) => {
 
 // FETCHING ADMIN RIGHTS
 app.get(
-  "/api/api/fetch-admin-rights/:user_id/:user_role",
+  "/api/fetch-admin-rights/:user_id/:user_role",
   verifyAuth,
   (req, res) => {
     const { user_id, user_role } = req.params;
@@ -415,7 +415,7 @@ app.get("/api/fetch-shops-per-location", verifyAuth, (req, res) => {
 
 // FETCH TOTAL CREDIT SUBSCRIPTION
 app.get(
-  "/api/api/fetch-total-credit-subscription/:user_id",
+  "/api/fetch-total-credit-subscription/:user_id",
   verifyAuth,
   (req, res) => {
     const { user_id } = req.params;
@@ -570,12 +570,12 @@ app.get("/api/fetch-results/:receiptNumber", (req, res) => {
 });
 
 // FETCH RECEIPTS CASHIERS
-app.get("/api/fetch-receipts-cashiers/:user_id", (req, res) => {
+app.get("/api/fetch-receipts-cashiers/:user_id/:user_role", (req, res) => {
   FetchReceiptsCachiers(req, res, dbConn);
 });
 
 // FETCH RECEIPTS SHOPS
-app.get("/api/fetch-receipts-shops/:user_id", (req, res) => {
+app.get("/api/fetch-receipts-shops/:user_id/:user_role", (req, res) => {
   FetchReceiptsShops(req, res, dbConn);
 });
 

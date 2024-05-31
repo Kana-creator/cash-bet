@@ -12,6 +12,7 @@ const FetchReceipts = (req, res, dbConn) => {
         console.log(error.sqlMessage);
       } else {
         const admin_id = results[0].user_id;
+        console.log("Admin id = :  " + admin_id);
         const query =
           "SELECT * FROM receipt WHERE (MONTH(date_added)=? OR MONTH(date_added)=?) AND admin_id=?";
         dbConn.query(query, [month, month + 1, admin_id], (error, results) => {

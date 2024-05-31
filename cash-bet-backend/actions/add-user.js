@@ -10,7 +10,7 @@ const AddUser = async (req, res, dbConn) => {
     req.body.lastName,
     req.body.email,
     req.body.telephone,
-    req.body.role,
+    req.body.user_role,
     req.body.dutyStation,
     hashedPassword,
     new Date(),

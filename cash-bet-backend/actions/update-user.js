@@ -4,7 +4,7 @@ const UpdateUser = (req, res, dbConn, user_id) => {
   dbConn.query(
     query,
     [
-      req.body.role,
+      req.body.user_role,
       req.body.dutyStation,
       req.body.firstName,
       req.body.lastName,

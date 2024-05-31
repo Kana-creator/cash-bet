@@ -273,7 +273,7 @@ const ReceiptsTable: React.FC<Props> = ({
 
     // FETCH CASHIERS
     axios
-      .get(`${AppUrl()}/fetch-receipts-cashiers/${user_id}`)
+      .get(`${AppUrl()}/fetch-receipts-cashiers/${user_id}/${user.user_role}`)
       .then((res) => {
         setCashiers(res.data.cashiers);
       })
@@ -281,7 +281,7 @@ const ReceiptsTable: React.FC<Props> = ({
 
     // FETCH SHOPS
     axios
-      .get(`${AppUrl()}/fetch-receipts-shops/${user_id}`)
+      .get(`${AppUrl()}/fetch-receipts-shops/${user_id}/${user.user_role}`)
       .then((res) => {
         setShops(res.data.shops);
         setAdminId(res.data.admin_id);

@@ -99,6 +99,7 @@ const ShopForm: React.FC<Props> = ({ showShopForm, setShowShopForm }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // FETCH SHOP DETAILS FOR UPDATES
   useEffect(() => {
     const token: string = localStorage.getItem("token") as string;
     axios

@@ -137,7 +137,7 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
               {currentUserName} {<MdSettings />}
             </span>
           </summary>
-          <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p>
+          {/* <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p> */}
           <p
             className="btn btn-secondary px-2 py-2 col-12"
             onClick={() => UserLogOut(currentUserRole, currentUserId)}
