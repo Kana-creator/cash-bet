@@ -25,7 +25,7 @@ const AdminSignupForm: React.FC<Props> = ({ axios }) => {
   });
 
   return (
-    <div className="admin__signup__form col-md-12 col-sm-12 col-lg-8 col-xl-8 p-4">
+    <div className="admin__signup__form col-md-12 col-sm-12 col-lg-6 col-xl-6 p-4">
       <h2>SignUp (Admin)</h2>
       <form
         action=""
