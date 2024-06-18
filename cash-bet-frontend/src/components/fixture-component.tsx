@@ -55,19 +55,6 @@ const FixtureComponent: React.FC<Props> = ({
           Refresh game IDs
         </button>
 
-        {/* <div className="days col-4 d-flex justify-content-between">
-          <h4>Number of days </h4>
-          <select name="" id="" className="col-8 fs-5">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-        </div> */}
-
         <button className="btn btn-secondary" onClick={handlePrint}>
           Print fixture
         </button>
@@ -100,12 +87,13 @@ const FixtureComponent: React.FC<Props> = ({
           const sortedGames = gg.sort(
             (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
           );
-          return loading ? (
+          return !loading ? (
             <div className="main d-flex justify-content-center align-items-center">
               <ScreenPreloader />
             </div>
           ) : (
             <table key={index} className="table-bordered my-5">
+              <div className="bg-danger col-12 h-100"></div>
               <thead>
                 <tr>
                   <th
