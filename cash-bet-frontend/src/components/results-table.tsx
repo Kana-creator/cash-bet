@@ -7,6 +7,7 @@ import axios from "axios";
 import { AppUrl } from "./activities/app-url";
 import xml2js from "xml2js";
 import { SelectedGameModule } from "./modules/selected-game-module";
+import ScreenPreloader from "./screen-preloader";
 
 interface Props {
   currentUserId: number;
@@ -2033,19 +2034,6 @@ const ResultsTable: React.FC<Props> = ({
           </button>
         </div>
 
-        {/* <div className="days col-4 d-flex justify-content-between">
-          <h4>Number of days </h4>
-          <select name="" id="" className="col-8 fs-5">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-        </div> */}
-
         <div
           className="days col-4 d-flex justify-content-between align-items-center"
           style={{ maxHeight: "30px" }}
@@ -2079,43 +2067,44 @@ const ResultsTable: React.FC<Props> = ({
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
 
-        {groupedGames.map((gg, index) => {
-          const sortedGames = gg.sort(
-            (a: any, b: any) => Number(a.game_number) - Number(b.game_number)
-          );
-          return (
-            <table key={index} className="table-bordered my-5 col-12">
-              <thead>
-                <tr>
-                  <th
-                    className="fs-5 py-3 border-bottom-0"
-                    key={index}
-                    colSpan={11}
-                  >
-                    {new Date(gg[0].date_played).toDateString()}
-                  </th>
-                </tr>
-                <tr>
-                  <th colSpan={5} className="border-top-0"></th>
-                  <th colSpan={2}>FULL TIME</th>
-                  <th colSpan={2}>FIRST HALF</th>
-                  <th colSpan={2}>SECOND HALF</th>
-                  {/* <th colSpan={12} className="border-top-0"></th> */}
-                </tr>
-                <tr>
-                  <th rowSpan={2}>No</th>
-                  <th rowSpan={2}>Time</th>
-                  <th rowSpan={2}>League</th>
-                  <th rowSpan={2}>Home Team</th>
-                  <th rowSpan={2}>Away Team</th>
-                  <th colSpan={1}>Home</th>
-                  <th colSpan={1}>Away</th>
-                  <th colSpan={1}>Home</th>
-                  <th colSpan={1}>Away</th>
-                  <th colSpan={1}>Home</th>
-                  <th colSpan={1}>Away</th>
-                </tr>
-                {/* <tr>
+        {groupedGames.length > 0 ? (
+          groupedGames.map((gg, index) => {
+            const sortedGames = gg.sort(
+              (a: any, b: any) => Number(a.game_number) - Number(b.game_number)
+            );
+            return (
+              <table key={index} className="table-bordered my-5 col-12">
+                <thead>
+                  <tr>
+                    <th
+                      className="fs-5 py-3 border-bottom-0"
+                      key={index}
+                      colSpan={11}
+                    >
+                      {new Date(gg[0].date_played).toDateString()}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th colSpan={5} className="border-top-0"></th>
+                    <th colSpan={2}>FULL TIME</th>
+                    <th colSpan={2}>FIRST HALF</th>
+                    <th colSpan={2}>SECOND HALF</th>
+                    {/* <th colSpan={12} className="border-top-0"></th> */}
+                  </tr>
+                  <tr>
+                    <th rowSpan={2}>No</th>
+                    <th rowSpan={2}>Time</th>
+                    <th rowSpan={2}>League</th>
+                    <th rowSpan={2}>Home Team</th>
+                    <th rowSpan={2}>Away Team</th>
+                    <th colSpan={1}>Home</th>
+                    <th colSpan={1}>Away</th>
+                    <th colSpan={1}>Home</th>
+                    <th colSpan={1}>Away</th>
+                    <th colSpan={1}>Home</th>
+                    <th colSpan={1}>Away</th>
+                  </tr>
+                  {/* <tr>
                   <th>1</th>
                   <th>X</th>
                   <th>2</th>
@@ -2131,22 +2120,27 @@ const ResultsTable: React.FC<Props> = ({
                   <th>Under</th>
                   <th>Over</th>
                 </tr> */}
-              </thead>
-              <tbody>
-                {sortedGames.map((dbResult: any, index: number) => {
-                  return (
-                    <ResultsRow
-                      key={index}
-                      dbResult={dbResult}
-                      index={index}
-                      // updateReceiptStatus={updateReceiptStatus}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
-          );
-        })}
+                </thead>
+                <tbody>
+                  {sortedGames.map((dbResult: any, index: number) => {
+                    return (
+                      <ResultsRow
+                        key={index}
+                        dbResult={dbResult}
+                        index={index}
+                        // updateReceiptStatus={updateReceiptStatus}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            );
+          })
+        ) : (
+          <div className="main d-flex justify-content-center align-items-center w-100 h-30">
+            <ScreenPreloader />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -83,94 +83,96 @@ const FixtureComponent: React.FC<Props> = ({
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
 
-        {groupedGames.map((gg, index) => {
-          const sortedGames = gg.sort(
-            (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
-          );
-          return !loading ? (
-            <div className="main d-flex justify-content-center align-items-center">
-              <ScreenPreloader />
-            </div>
-          ) : (
-            <table key={index} className="table-bordered my-5">
-              <div className="bg-danger col-12 h-100"></div>
-              <thead>
-                <tr>
-                  <th
-                    className="fs-5 py-3 border-bottom-0"
-                    key={index}
-                    colSpan={31}
-                  >
-                    {new Date(gg[0].event.DT).toDateString()}
-                  </th>
-                </tr>
-                <tr>
-                  <th colSpan={5} className="border-top-0"></th>
-                  <th colSpan={7}>FULL TIME</th>
-                  <th colSpan={7}>HALF TIME</th>
-                  <th colSpan={12} className="border-top-0"></th>
-                </tr>
-                <tr>
-                  <th rowSpan={2}>No</th>
-                  <th rowSpan={2}>Time</th>
-                  <th rowSpan={2}>League</th>
-                  <th rowSpan={2}>Home</th>
-                  <th rowSpan={2}>Away</th>
-
-                  <th colSpan={3}>1x2</th>
-                  <th colSpan={2}>2.5</th>
-                  <th colSpan={2}>1.5</th>
-                  <th colSpan={3}>1x2</th>
-                  <th colSpan={2}>1.5</th>
-                  <th colSpan={2}>0.5</th>
-                  <th colSpan={3}>Double Chance</th>
-                  <th colSpan={3}>Half With Most Goals</th>
-                  <th colSpan={2}>BTS</th>
-                  <th colSpan={4}>Handicap</th>
-                </tr>
-                <tr>
-                  <th>1</th>
-                  <th>X</th>
-                  <th>2</th>
-                  <th>Under</th>
-                  <th>Over</th>
-                  <th>Under</th>
-                  <th>Over</th>
-                  <th>1</th>
-                  <th>X</th>
-                  <th>2</th>
-                  <th>Under</th>
-                  <th>Over</th>
-                  <th>Under</th>
-                  <th>Over</th>
-                  <th>1X</th>
-                  <th>12</th>
-                  <th>X2</th>
-                  <th>1st</th>
-                  <th>X</th>
-                  <th>2nd</th>
-                  <th>Yes</th>
-                  <th>No</th>
-                  <th>Arg</th>
-                  <th>1</th>
-                  <th>X</th>
-                  <th>2</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedGames.map((game: GameModule, index: number) => {
-                  return (
-                    <FixtureRow
+        {groupedGames.length > 0 ? (
+          groupedGames.map((gg, index) => {
+            const sortedGames = gg.sort(
+              (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
+            );
+            return (
+              <table key={index} className="table-bordered my-5">
+                <div className="bg-danger col-12 h-100"></div>
+                <thead>
+                  <tr>
+                    <th
+                      className="fs-5 py-3 border-bottom-0"
                       key={index}
-                      game={game}
-                      // eventNumbers={eventNumbers}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
-          );
-        })}
+                      colSpan={31}
+                    >
+                      {new Date(gg[0].event.DT).toDateString()}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th colSpan={5} className="border-top-0"></th>
+                    <th colSpan={7}>FULL TIME</th>
+                    <th colSpan={7}>HALF TIME</th>
+                    <th colSpan={12} className="border-top-0"></th>
+                  </tr>
+                  <tr>
+                    <th rowSpan={2}>No</th>
+                    <th rowSpan={2}>Time</th>
+                    <th rowSpan={2}>League</th>
+                    <th rowSpan={2}>Home</th>
+                    <th rowSpan={2}>Away</th>
+
+                    <th colSpan={3}>1x2</th>
+                    <th colSpan={2}>2.5</th>
+                    <th colSpan={2}>1.5</th>
+                    <th colSpan={3}>1x2</th>
+                    <th colSpan={2}>1.5</th>
+                    <th colSpan={2}>0.5</th>
+                    <th colSpan={3}>Double Chance</th>
+                    <th colSpan={3}>Half With Most Goals</th>
+                    <th colSpan={2}>BTS</th>
+                    <th colSpan={4}>Handicap</th>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <th>X</th>
+                    <th>2</th>
+                    <th>Under</th>
+                    <th>Over</th>
+                    <th>Under</th>
+                    <th>Over</th>
+                    <th>1</th>
+                    <th>X</th>
+                    <th>2</th>
+                    <th>Under</th>
+                    <th>Over</th>
+                    <th>Under</th>
+                    <th>Over</th>
+                    <th>1X</th>
+                    <th>12</th>
+                    <th>X2</th>
+                    <th>1st</th>
+                    <th>X</th>
+                    <th>2nd</th>
+                    <th>Yes</th>
+                    <th>No</th>
+                    <th>Arg</th>
+                    <th>1</th>
+                    <th>X</th>
+                    <th>2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedGames.map((game: GameModule, index: number) => {
+                    return (
+                      <FixtureRow
+                        key={index}
+                        game={game}
+                        // eventNumbers={eventNumbers}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            );
+          })
+        ) : (
+          <div className="main d-flex justify-content-center align-items-center w-100 h-30">
+            <ScreenPreloader />
+          </div>
+        )}
       </div>
     </div>
   );

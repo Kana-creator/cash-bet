@@ -2,15 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
 import { UserLogOut } from "./activities/signout-action";
 import { useReactToPrint } from "react-to-print";
-import ResultsRow from "./results-row";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
-import xml2js from "xml2js";
 import { ReceiptModule } from "./modules/receipt-module";
-import ShopName from "./shop-name";
-import CashierName from "./cashier-name";
 import { FormatMoney } from "./activities/format-money";
-import Receipts from "./pages/receipts-page";
 import { UserModule } from "./modules/user-module";
 import ReceiptRow from "./receipt-row";
 

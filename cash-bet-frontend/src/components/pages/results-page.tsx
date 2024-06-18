@@ -97,7 +97,6 @@ const Results: React.FC = () => {
             currentUserName={currentUserName}
             currentUserRole={currentUserRole}
             refreshGameIDs={() => refreshGameIDs()}
-            // exportToExcel={exportToExcel}
           />
         </div>
       </div>
