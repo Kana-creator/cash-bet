@@ -4,6 +4,7 @@ import { UserLogOut } from "./activities/signout-action";
 import FixtureRow from "./fixture-row";
 import { GameModule } from "./modules/game-module";
 import { useReactToPrint } from "react-to-print";
+import ScreenPreloader from "./screen-preloader";
 
 interface Props {
   currentUserId: number;
@@ -12,6 +13,7 @@ interface Props {
   games: GameModule[];
   refreshGameIDs: () => any;
   exportToExcel: () => any;
+  loading: boolean;
 }
 
 const FixtureComponent: React.FC<Props> = ({
@@ -21,6 +23,7 @@ const FixtureComponent: React.FC<Props> = ({
   games,
   refreshGameIDs,
   exportToExcel,
+  loading,
 }) => {
   const [groupedGames, setGroupedGame] = useState<any[]>([]);
 
@@ -97,7 +100,11 @@ const FixtureComponent: React.FC<Props> = ({
           const sortedGames = gg.sort(
             (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
           );
-          return (
+          return loading ? (
+            <div className="main d-flex justify-content-center align-items-center">
+              <ScreenPreloader />
+            </div>
+          ) : (
             <table key={index} className="table-bordered my-5">
               <thead>
                 <tr>

@@ -440,7 +440,7 @@ const ReceiptsTable: React.FC<Props> = ({
         <table className="receipt-table my-5 col-12">
           <thead>
             <tr>
-              <th>No {adminId}</th>
+              <th>No</th>
               <th>Receipt number</th>
               <th>Time played</th>
               <th>Shop number</th>

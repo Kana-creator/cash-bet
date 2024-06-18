@@ -226,11 +226,7 @@ const Fixture: React.FC = () => {
     FileSaver.saveAs(blob, "Fixtures.xlsx");
   };
 
-  return loading ? (
-    <div className="main d-flex justify-content-center align-items-center">
-      <ScreenPreloader />
-    </div>
-  ) : (
+  return (
     <div className="main col-12">
       <div className="body d-flex flex-wrap">
         <h1 className="logo">Logo</h1>
@@ -243,6 +239,7 @@ const Fixture: React.FC = () => {
             currentUserRole={currentUserRole}
             refreshGameIDs={() => refreshGameIDs()}
             exportToExcel={exportToExcel}
+            loading={loading}
           />
         </div>
       </div>
