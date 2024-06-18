@@ -1,5 +1,5 @@
 export const AppUrl = () => {
-  return "betcrane.com/api";
+  return "http://localhost:1991/api";
 };
 
 export const SocketUrl = () => {

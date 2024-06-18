@@ -8,22 +8,25 @@ const FetchReceiptsCachiers = (req, res, dbConn) => {
       if (error) {
         console.log(error.sqlMessage);
       } else {
-        const created_by = results[0].user_id;
+        if (results.length < 1) {
+          console.log("No internal partner found");
+        } else {
+          const created_by = results[0].user_id;
+          const query =
+            "SELECT user_id, first_name, last_name FROM user WHERE linked_to=? AND (user_role=? OR user_role=?)";
 
-        const query =
-          "SELECT user_id, first_name, last_name FROM user WHERE linked_to=? AND (user_role=? OR user_role=?)";
-
-        dbConn.query(
-          query,
-          [created_by, "cashier", "manager"],
-          (error, results) => {
-            if (error) {
-              console.log(error.sqlMessage);
-            } else {
-              return res.json({ cashiers: results, status: "success" });
+          dbConn.query(
+            query,
+            [created_by, "cashier", "manager"],
+            (error, results) => {
+              if (error) {
+                console.log(error.sqlMessage);
+              } else {
+                return res.json({ cashiers: results, status: "success" });
+              }
             }
-          }
-        );
+          );
+        }
       }
     });
   } else {

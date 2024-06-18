@@ -4,21 +4,28 @@ const FetchShopsPerLocation = (res, dbConn) => {
     if (error) {
       return res.json({ message: error.sqlMessage, staus: "error" });
     } else {
-      const user_id = result[0].user_id;
-      const query =
-        "SELECT SUM(CASE WHEN created_by=? THEN 1 ELSE 0 END) AS value, SUM(CASE WHEN created_by!=? THEN 1 ELSE 0 END) AS value2, shop_location AS name FROM shop WHERE shop_name!=? GROUP BY shop_location";
+      if (result.length < 1) {
+        console.log("No internal partner found.");
+      } else {
+        const user_id = result[0].user_id;
+        const query =
+          "SELECT SUM(CASE WHEN created_by=? THEN 1 ELSE 0 END) AS value, SUM(CASE WHEN created_by!=? THEN 1 ELSE 0 END) AS value2, shop_location AS name FROM shop WHERE shop_name!=? GROUP BY shop_location";
 
-      dbConn.query(
-        query,
-        [user_id, user_id, "Head office"],
-        (error, result) => {
-          if (error) {
-            return res.json({ message: error.sqlMessage, status: "error" });
-          } else {
-            return res.json({ shops_per_location: result, status: "success" });
+        dbConn.query(
+          query,
+          [user_id, user_id, "Head office"],
+          (error, result) => {
+            if (error) {
+              return res.json({ message: error.sqlMessage, status: "error" });
+            } else {
+              return res.json({
+                shops_per_location: result,
+                status: "success",
+              });
+            }
           }
-        }
-      );
+        );
+      }
     }
   });
 };

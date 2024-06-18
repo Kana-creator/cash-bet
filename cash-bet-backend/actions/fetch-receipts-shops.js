@@ -10,22 +10,30 @@ const FetchReceiptsShops = (req, res, dbConn) => {
       if (error) {
         console.log(error.sqlMessage);
       } else {
-        const created_by = results[0].user_id;
+        if (results.length < 1) {
+          console.log("No internal partner found.");
+        } else {
+          const created_by = results[0].user_id;
 
-        const query =
-          "SELECT created_by, shop_id, shop_name FROM shop WHERE created_by=? AND shop_name != ?";
+          const query =
+            "SELECT created_by, shop_id, shop_name FROM shop WHERE created_by=? AND shop_name != ?";
 
-        dbConn.query(query, [created_by, "Head office"], (error, results) => {
-          if (error) {
-            console.log(error.sqlMessage);
-          } else {
-            return res.json({
-              shops: results,
-              admin_id: results[0].created_by,
-              status: "error",
-            });
-          }
-        });
+          dbConn.query(query, [created_by, "Head office"], (error, results) => {
+            if (error) {
+              console.log(error.sqlMessage);
+            } else {
+              if (results < 1) {
+                console.log("No shop found.");
+              } else {
+                return res.json({
+                  shops: results,
+                  admin_id: results[0].created_by,
+                  status: "error",
+                });
+              }
+            }
+          });
+        }
       }
     });
   } else {
