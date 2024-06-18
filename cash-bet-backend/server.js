@@ -6,7 +6,6 @@ dotenv.config();
 import cors from "cors";
 import mysql from "mysql";
 import mysql2 from "mysql2/promise";
-import { Sequelize as sequelize } from "sequelize";
 import jwt from "jsonwebtoken";
 import AdminSignUp from "./actions/admin-signup.js";
 import CheckAdminAccount from "../cash-bet-backend/actions/check-admin-account.js";
@@ -53,12 +52,9 @@ import FetchSubscriptionThisMonth from "./actions/fetch-subscription-this-month.
 import FetchMonthlySubscription from "./actions/fetch-monthly-subscription.js";
 import FetchAnualSubscription from "./actions/fetch-anual-subscription.js";
 
-// import xml2js from "xml2js";
-
 const app = express();
 const port = 1991;
 
-import { Server } from "socket.io";
 import { createServer } from "http";
 import SaveReceiptGames from "./actions/save-receipt-game.js";
 import FetchGames from "./actions/fetch-api-games.js";
@@ -66,11 +62,9 @@ import FetchCashierDailyReceipts from "./actions/fetch-cashier-daily-receipts.js
 import FetchReceiptResults from "./actions/fetch_receipt_results.js";
 import FetchResultGames from "./actions/fetch-result-games.js";
 import FetchGameResults from "./actions/fetch-game-results.js";
-import PayReceipt from "./actions/pay-receipt.js";
 import FetchShopBalance from "./actions/fetch-shop-balance.js";
 import FetchManagerBalance from "./actions/fetch-manager-balance.js";
 import FetchResultIDs from "./actions/fetch-result-ids.js";
-import CancelReceipt from "./actions/cancel-receipt.js";
 import ChangeReceiptStatus from "./actions/change-receipt-status.js";
 import SaveGameResults from "./actions/SaveGameResults.js";
 import FetchDatabaseResults from "./actions/fetch-database-results.js";
@@ -80,24 +74,13 @@ import FetchCashierName from "./actions/fetch-cashier-name.js";
 import FetchResults from "./actions/fetch-results.js";
 import FetchReceiptsCachiers from "./actions/fetch-receipts-cashiers.js";
 import FetchReceiptsShops from "./actions/fetch-receipts-shops.js";
-// import ReduceCredit from "./actions/reduce-credit.js";
-// import SaveReceipt from "./actions/save-receipt.js";
 
 const httpServer = createServer();
-const io = new Server(httpServer, {
-  // path: "/my-socket-path",
-  serveClient: true, // Don't serve the client-side library
-  // transports: ["websocket"], // Only allow WebSockets
-  cors: {
-    origin: "*", // Allow CORS from this origin
-  },
-});
 
 app.use(express.json());
 app.use(cors());
 
 // DATABASE CONNECTION
-
 const dbConn = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -119,27 +102,6 @@ const API_KEY = process.env.GAMES_API_KEY;
 
 // GAMES API URL
 const GAMES_URL = process.env.GAMES_API_URL;
-
-// const parseXml = async (xmlString) => {
-//   try {
-//     const parser = new xml2js.Parser();
-//     const parsedXml = await parser.parseStringPromise(xmlString);
-//     return parsedXml;
-//   } catch (error) {
-//     console.error("Error parsing XML:", error);
-//     throw error;
-//   }
-// };
-
-// io.on("connection", (socket) => {
-//   console.log("A user connected");
-
-//   // dbConn.query(
-//   //   "SELECT SUM(credit_amount) AS credit FROM credit WHERE credit_type=?",
-//   //   ["plus"],
-//   //   (error, result) => socket.emit("chat message", result[0].credit)
-//   // );
-// });
 
 // CREATING A SUPER ADMIN ACCOUNT
 app.post("/api/adminSignup", (req, res) => {
@@ -453,8 +415,6 @@ app.post("/api/save-event-numbers", (req, res) => {
     if (error) {
       console.log(error);
     } else {
-      // const query = "INSERT IGNORE INTO event_id(event_number) VALUES?";
-
       values.forEach((value, index) => {
         const query = "INSERT IGNORE INTO event_id(event_number) VALUES(?)";
         dbConn.query(query, [value], (error) => {
