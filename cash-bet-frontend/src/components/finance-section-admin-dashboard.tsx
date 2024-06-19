@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AreaGraph from "./charts/area-graph";
 import axios from "axios";
-import { AppUrl, SocketUrl } from "./activities/app-url";
+import { AppUrl } from "./activities/app-url";
 import { AdminRightsModule } from "./modules/admin-rights-module";
 import LineGraph from "./charts/line-chart";
 import { FormatMoneyExt } from "./activities/format-money";
@@ -67,16 +67,21 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
     setYearsArray(years);
   }, []);
 
-  // FETCH MONTHLY USER REGISTRATION
+  // FETCH MONTHLY CREDIT SUBSCRIPTION
   const handleMonthlySubscription = (year: number) => {
     const currentUser: User = JSON.parse(
       localStorage.getItem("user") as string
     );
     const userToken: string = localStorage.getItem("token") as string;
     axios
-      .get(`${AppUrl()}/fetch-monthly-subscription/${year}`, {
-        headers: { "x-access-token": userToken },
-      })
+      .get(
+        `${AppUrl()}/fetch-monthly-subscription/${year}/${
+          currentUser.user_role
+        }/${currentUser.user_id}`,
+        {
+          headers: { "x-access-token": userToken },
+        }
+      )
       .then((res) => {
         if (res.data.status === "success") {
           setMonthlySubscription(res.data.monthly_subscription);
@@ -97,7 +102,9 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
 
     axios
       .get(
-        `${AppUrl()}/fetch-total-credit-subscription/${currentUser.user_id}`,
+        `${AppUrl()}/fetch-total-credit-subscription/${currentUser.user_role}/${
+          currentUser.user_id
+        }`,
         {
           headers: { "x-access-token": userToken },
         }
@@ -115,10 +122,18 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
   // FETCHING SUBSCRITION IN THE CURRENT YEAR
   useEffect(() => {
     const userToken: string = localStorage.getItem("token") as string;
+    const currentUser: User = JSON.parse(
+      localStorage.getItem("user") as string
+    );
     axios
-      .get(`${AppUrl()}/fetch-subscription-this-year`, {
-        headers: { "x-access-token": userToken },
-      })
+      .get(
+        `${AppUrl()}/fetch-subscription-this-year/${currentUser.user_role}/${
+          currentUser.user_id
+        }`,
+        {
+          headers: { "x-access-token": userToken },
+        }
+      )
       .then((res) => {
         if (res.data.status === "error") {
           window.alert(res.data.message);
@@ -132,10 +147,19 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
   // FETCH SUBSCRIPTION IN THE CURRENT MONTH
   useEffect(() => {
     const userToken: string = localStorage.getItem("token") as string;
+    const currentUser: User = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
     axios
-      .get(`${AppUrl()}/fetch-subscription-this-month`, {
-        headers: { "x-access-token": userToken },
-      })
+      .get(
+        `${AppUrl()}/fetch-subscription-this-month/${currentUser.user_role}/${
+          currentUser.user_id
+        }`,
+        {
+          headers: { "x-access-token": userToken },
+        }
+      )
       .then((res) => {
         if (res.data.status === "error") {
           window.alert(res.data.message);
@@ -147,13 +171,20 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
   }, []);
 
   // FETCH ANNUAL SUBSCRIPTION
-
   useEffect(() => {
     const userToken: string = localStorage.getItem("token") as string;
+    const currentUser: User = JSON.parse(
+      localStorage.getItem("user") as string
+    );
     axios
-      .get(`${AppUrl()}/fetch-annual-subscription`, {
-        headers: { "x-access-token": userToken },
-      })
+      .get(
+        `${AppUrl()}/fetch-annual-subscription/${currentUser.user_role}/${
+          currentUser.user_id
+        }`,
+        {
+          headers: { "x-access-token": userToken },
+        }
+      )
       .then((res) => {
         if (res.data.status === "error") {
           window.alert(res.data.message);
@@ -162,12 +193,6 @@ const FinanceSectionAdminDashboard: React.FC<Props> = ({
         }
       });
   }, []);
-
-  // SOCKET.IO
-  const socket = io(`${SocketUrl()}`);
-  socket.on("chat message", (msg: string) => {
-    console.log(msg);
-  });
 
   return (
     <div className="col-12 dashbord-users p-4 border-2 border-bottom-red">

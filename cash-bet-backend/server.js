@@ -377,34 +377,53 @@ app.get("/api/fetch-shops-per-location", verifyAuth, (req, res) => {
 
 // FETCH TOTAL CREDIT SUBSCRIPTION
 app.get(
-  "/api/fetch-total-credit-subscription/:user_id",
+  "/api/fetch-total-credit-subscription/:user_role/:user_id",
   verifyAuth,
   (req, res) => {
-    const { user_id } = req.params;
-    FetchTotalCreditSubscription(res, dbConn, user_id);
+    const { user_role, user_id } = req.params;
+    FetchTotalCreditSubscription(res, dbConn, user_role, user_id);
   }
 );
 
 // FETCH CREDIT SUBSCRIPTION FOR THIS YEAR
-app.get("/api/fetch-subscription-this-year", verifyAuth, (req, res) => {
-  FetchSubscriptionThisYear(res, dbConn);
-});
+app.get(
+  "/api/fetch-subscription-this-year/:user_role/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { user_role, user_id } = req.params;
+    FetchSubscriptionThisYear(res, dbConn, user_role, user_id);
+  }
+);
 
 // FETCH SUBSCRIPTION THIS MONTH
-app.get("/api/fetch-subscription-this-month", verifyAuth, (req, res) => {
-  FetchSubscriptionThisMonth(res, dbConn);
-});
+app.get(
+  "/api/fetch-subscription-this-month/:user_role/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { user_role, user_id } = req.params;
+    FetchSubscriptionThisMonth(res, dbConn, user_role, user_id);
+  }
+);
 
 // FETCH MONTHLY SUBSCRIPTION
-app.get("/api/fetch-monthly-subscription/:year", verifyAuth, (req, res) => {
-  const { year } = req.params;
-  FetchMonthlySubscription(res, dbConn, year);
-});
+app.get(
+  "/api/fetch-monthly-subscription/:year/:user_role/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { year, user_role, user_id } = req.params;
+    FetchMonthlySubscription(res, dbConn, year, user_role, user_id);
+  }
+);
 
 // FETCH ANNUAL SUBSCRIPTION
-app.get("/api/fetch-annual-subscription", verifyAuth, (req, res) => {
-  FetchAnualSubscription(res, dbConn);
-});
+app.get(
+  "/api/fetch-annual-subscription/:user_role/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { user_role, user_id } = req.params;
+    FetchAnualSubscription(res, dbConn, user_role, user_id);
+  }
+);
 
 // SAVING EVENTS IDs
 app.post("/api/save-event-numbers", (req, res) => {

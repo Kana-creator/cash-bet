@@ -1,8 +1,15 @@
-const FetchMonthlySubscription = (res, dbConn, year) => {
-  const query =
-    "SELECT SUM(credit.credit_amount) AS credit_amount, MONTH(credit.transaction_date) AS transaction_month FROM credit INNER JOIN user ON user.user_id=credit.given_to WHERE YEAR(credit.transaction_date)=? AND user.user_role=? AND credit.credit_type=? GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
+const FetchMonthlySubscription = (res, dbConn, year, user_role, user_id) => {
+  let query = "";
 
-  dbConn.query(query, [year, "partner", "plus"], (error, result) => {
+  if (user_role === "partner") {
+    query =
+      "SELECT SUM(credit.credit_amount) AS credit_amount, MONTH(credit.transaction_date) AS transaction_month FROM credit INNER JOIN user ON user.user_id=credit.given_to WHERE YEAR(credit.transaction_date)=? AND user.user_role=? AND credit.credit_type=? AND given_to=? GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
+  } else {
+    query =
+      "SELECT SUM(credit.credit_amount) AS credit_amount, MONTH(credit.transaction_date) AS transaction_month FROM credit INNER JOIN user ON user.user_id=credit.given_to WHERE YEAR(credit.transaction_date)=? AND user.user_role=? AND credit.credit_type=? GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
+  }
+
+  dbConn.query(query, [year, "partner", "plus", user_id], (error, result) => {
     if (error) {
       return res.json({ message: error.sqlMessage, status: "error" });
     } else {
