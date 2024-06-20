@@ -1,28 +1,48 @@
-const FetchSubscriptionThisMonth = (res, dbConn, user_role, user_id) => {
-  let query = "";
+const FetchSubscriptionThisYear = (res, dbConn, user_role, user_id) => {
+  let query = "SELECT user_id FROM user WHERE user_role=?";
 
-  if (user_role === "partner") {
-    query =
-      "SELECT SUM(credit.credit_amount) AS total_credit FROM credit RIGHT JOIN user ON user.user_id=credit.given_to WHERE credit.credit_type=? AND user.user_role=? AND MONTH(credit.transaction_date)=? AND given_to=?";
-  } else {
-    query =
-      "SELECT SUM(credit.credit_amount) AS total_credit FROM credit RIGHT JOIN user ON user.user_id=credit.given_to WHERE credit.credit_type=? AND user.user_role=? AND MONTH(credit.transaction_date)=?";
-  }
+  dbConn.query(query, ["Admin"], (error, results) => {
+    if (error) {
+      console.log(error.sqlMessage);
+    } else {
+      let arrayValues = [];
 
-  dbConn.query(
-    query,
-    ["plus", "partner", new Date().getMonth() + 1, user_id],
-    (error, results) => {
-      if (error) {
-        return res.json({ message: error.sqlMessage, status: "error" });
+      if (user_role === "partner" || user_role === "internal partner") {
+        query =
+          "SELECT SUM((CASE WHEN credit_type=? AND given_by=? THEN credit_amount ELSE 0 END)-(CASE WHEN credit_type=? AND given_by=? THEN credit_amount ELSE 0 END)) AS total_credit FROM credit RIGHT JOIN user ON user.user_id=credit.given_to WHERE MONTH(credit.transaction_date)=? AND given_to=?";
+        arrayValues = [
+          "plus",
+          results[0].user_id,
+          "minus",
+          results[0].user_id,
+          new Date().getMonth() + 1,
+          user_id,
+        ];
       } else {
-        return res.json({
-          subscription: results[0].total_credit,
-          status: "success",
-        });
+        query =
+          "SELECT SUM((CASE WHEN credit_type=? AND given_by=? THEN credit_amount ELSE 0 END)-(CASE WHEN credit_type=? AND given_by=? THEN credit_amount ELSE 0 END)) AS total_credit FROM credit RIGHT JOIN user ON user.user_id=credit.given_to WHERE MONTH(credit.transaction_date)=? AND user.user_role=? ";
+        arrayValues = [
+          "plus",
+          results[0].user_id,
+          "minus",
+          results[0].user_id,
+          new Date().getMonth() + 1,
+          "partner",
+        ];
       }
+
+      dbConn.query(query, arrayValues, (error, results) => {
+        if (error) {
+          return res.json({ message: error.sqlMessage, status: "error" });
+        } else {
+          return res.json({
+            subscription: results[0].total_credit,
+            status: "success",
+          });
+        }
+      });
     }
-  );
+  });
 };
 
-export default FetchSubscriptionThisMonth;
+export default FetchSubscriptionThisYear;
