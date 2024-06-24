@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../side-bar";
 import { NavLinkModule } from "../modules/nav-link-module";
 import { MdDashboard } from "react-icons/md";
-import PartnerDashboardComponent from "../partner-dashboard";
 import AdminDashboardComponent from "../admin-dashboard";
 import { AdminRightsModule } from "../modules/admin-rights-module";
 

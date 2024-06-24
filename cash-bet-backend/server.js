@@ -305,11 +305,11 @@ app.get(
 
 // FETCHING ALL SYSTEM USERS
 app.get(
-  "/api/fetch-all-system-users/:user_role/:view_dashboard",
+  "/api/fetch-all-system-users/:user_role/:user_id",
   verifyAuth,
   (req, res) => {
-    const { user_role, view_dashboard } = req.params;
-    FetchAllSystemUsers(res, dbConn, user_role, view_dashboard);
+    const { user_role, user_id } = req.params;
+    FetchAllSystemUsers(res, dbConn, user_role, user_id);
   }
 );
 

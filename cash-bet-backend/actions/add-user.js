@@ -16,6 +16,7 @@ const AddUser = async (req, res, dbConn) => {
     new Date(),
   ];
 
+  // CHECK FOR DUPLICATE USERS
   const query = "SELECT * FROM user WHERE user_telephone=? OR user_email=?";
 
   dbConn.query(

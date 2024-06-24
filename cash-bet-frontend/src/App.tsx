@@ -16,8 +16,6 @@ import PartnerShops from "./components/pages/partner-shops";
 import AdminUsersPage from "./components/pages/admin-users-page";
 import CashiersPage from "./components/pages/cashiers-page";
 import PartnerDashboard from "./components/pages/partner-dashboard";
-// import { GameModule } from "./components/modules/game-module";
-// import { AppUrl } from "./components/activities/app-url";
 import ShopManagerReceipts from "./components/pages/shop-manager-receipts";
 import ShopManagerReports from "./components/pages/shop-manager-reports";
 import ShopCashierReceipts from "./components/pages/shop-cashier-receipts";
