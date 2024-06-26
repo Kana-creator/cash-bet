@@ -1,4 +1,4 @@
-const FetchAllUsersByCatecgory = (res, dbConn, user_role, view_dashboard) => {
+const FetchAllUsersByCatecgory = (res, dbConn, user_role, user_d) => {
   const query =
     "SELECT COUNT(user_id) AS number_of_users, user_role FROM user GROUP BY user_role";
 

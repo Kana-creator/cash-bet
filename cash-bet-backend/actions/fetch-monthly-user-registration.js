@@ -2,15 +2,22 @@ const FetchMonthlyUserRegistration = (
   res,
   dbConn,
   user_role,
-  view_dashboard,
+  user_id,
   year
 ) => {
-  const query =
-    "SELECT COUNT(user_id) AS number_of_users, MONTH(date_added) AS registration_month FROM user WHERE YEAR(date_added)=? GROUP BY MONTH(date_added) ORDER BY MONTH(date_added)";
+  let query = "";
 
-  dbConn.query(query, [year], (error, result) => {
+  if (user_role === "Admin" || user_role === "other admin") {
+    query =
+      "SELECT COUNT(user_id) AS number_of_users, MONTH(date_added) AS registration_month FROM user WHERE YEAR(date_added)=? GROUP BY MONTH(date_added) ORDER BY MONTH(date_added)";
+  } else {
+    query =
+      "SELECT COUNT(user_id) AS number_of_users, MONTH(date_added) AS registration_month FROM user WHERE YEAR(date_added)=? AND user.linked_to=? GROUP BY MONTH(date_added) ORDER BY MONTH(date_added)";
+  }
+
+  dbConn.query(query, [year, user_id], (error, result) => {
     if (error) {
-      return res.json({ message: error.sqlMessage, status: "error" });
+      console.log(error.sqlMessage);
     } else {
       const months = [
         "Jan",

@@ -4,6 +4,9 @@ import { NavLinkModule } from "../modules/nav-link-module";
 import { MdDashboard } from "react-icons/md";
 import AdminDashboardComponent from "../admin-dashboard";
 import { AdminRightsModule } from "../modules/admin-rights-module";
+import axios from "axios";
+import { AppUrl } from "../activities/app-url";
+import PartnerDashboardComponent from "../partner-dashboard-component";
 
 interface User {
   linked_to?: number;
@@ -88,6 +91,26 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
     setCurrentUserId(currentUser.user_id);
     setCurrentUserName(currentUser.first_name);
     setCurrentUserRole(currentUser.user_role);
+
+    const userToken = localStorage.getItem("token");
+
+    axios
+      .get(
+        `${AppUrl()}/fetch-all-system-users/${currentUser.user_role}/${Number(
+          currentUser.user_id
+        )}`,
+        {
+          headers: { "x-access-token": userToken },
+        }
+      )
+      .then((res) => {
+        if (res.data.status === "success") {
+          setAllSystemUsers(res.data.allSystemUsers);
+        } else {
+          window.alert(res.data.message);
+        }
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (
@@ -101,7 +124,7 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
             currentUserName={currentUserName}
             currentUserRole={currentUserRole}
           /> */}
-          <AdminDashboardComponent
+          <PartnerDashboardComponent
             currentUserId={currentUserId}
             currentUserName={currentUserName}
             currentUserRole={currentUserRole}

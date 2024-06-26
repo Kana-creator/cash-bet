@@ -3,23 +3,13 @@ import AreaGraph from "./charts/area-graph";
 import DonutChart from "./charts/donut-chart";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
-import { AdminRightsModule } from "./modules/admin-rights-module";
 
 interface Props {
   allSystemUsers: number;
-  allPartners: number;
-  allAdminStaff: number;
   usersRegRate: {
     value: number;
     name: string;
   }[];
-  usersByCategory: {
-    value: number;
-    name: string;
-    fill?: string;
-  }[];
-
-  adminRights: AdminRightsModule[];
 }
 
 interface User {
@@ -36,14 +26,8 @@ interface User {
   token: string;
 }
 
-const UsersSectionAdminDashboard: React.FC<Props> = memo(
-  ({
-    allSystemUsers,
-    allPartners,
-    allAdminStaff,
-    usersByCategory,
-    adminRights,
-  }) => {
+const UsersSectionPartnerDashboard: React.FC<Props> = memo(
+  ({ allSystemUsers }) => {
     const [yearsArray, setYearsArray] = useState<number[]>([]);
     const [usersRegRate, setUsersRegRate] = useState<
       {
@@ -52,6 +36,61 @@ const UsersSectionAdminDashboard: React.FC<Props> = memo(
         fill?: string;
       }[]
     >([]);
+
+    const [allManagers, setAllManagers] = useState<number>(0);
+    const [allCashiers, setAllCashiers] = useState<number>(0);
+    const [usersByCategory, setUsersByCategory] = useState<
+      {
+        value: number;
+        name: string;
+        fill?: string;
+      }[]
+    >([]);
+
+    // FETCH MANAGES, CAHSIERS AND ALL USERS BY CATEGORY BASED ON PARTNER
+    useEffect(() => {
+      const currentUser: User = JSON.parse(
+        localStorage.getItem("user") as string
+      );
+
+      //fetch number of all managers basing on the current partner
+      axios
+        .get(`${AppUrl()}/fetch-number-of-managers/${currentUser.user_id}`)
+        .then((res) => setAllManagers(res.data.allManagers))
+        .catch((error) => console.log(error));
+
+      // fetch the number of all cashiers basing on the current partner
+      axios
+        .get(`${AppUrl()}/fetch-number-of-cashiers/${currentUser.user_id}`)
+        .then((res) => setAllCashiers(res.data.allCashiers))
+        .catch((error) => console.log(error));
+
+      // fetch all users by category
+      axios
+        .get(
+          `${AppUrl()}/fetch-partner-users-by-category/${currentUser.user_id}`
+        )
+        .then((res) => {
+          setUsersByCategory([
+            ...res.data.usersByCategory.map(
+              (
+                users: {
+                  number_of_users: number;
+                  user_role: string;
+                  fill?: string;
+                },
+                index: number
+              ) => {
+                return {
+                  value: users.number_of_users,
+                  name: users.user_role,
+                  fill: `#${index}a${users.number_of_users}d4b2`.slice(0, 5),
+                };
+              }
+            ),
+          ]);
+        });
+    }, []);
 
     // SETTING AN ARRAY OF TEN YEARS
     useEffect(() => {
@@ -101,13 +140,13 @@ const UsersSectionAdminDashboard: React.FC<Props> = memo(
           </div>
           <div className="col-3 alert alert-info">
             {" "}
-            <h5>All Partners</h5>
-            <h1>{allPartners}</h1>
+            <h5>All Managers</h5>
+            <h1>{allManagers}</h1>
           </div>
           <div className="col-3 alert alert-danger">
             {" "}
-            <h5>All Admin Staff</h5>
-            <h1>{allAdminStaff}</h1>
+            <h5>All Cashiers</h5>
+            <h1>{allCashiers}</h1>
           </div>
         </div>
         <div className="col-12 d-flex flex-wrap justify-content-between align-items-center px-5">
@@ -160,4 +199,4 @@ const UsersSectionAdminDashboard: React.FC<Props> = memo(
   }
 );
 
-export default UsersSectionAdminDashboard;
+export default UsersSectionPartnerDashboard;

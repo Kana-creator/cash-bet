@@ -109,9 +109,9 @@ const AdminDashboard: React.FC<Props> = memo(
       // FETCH ALL SYSTME USERS
       axios
         .get(
-          `${AppUrl()}/fetch-all-system-users/${currentUser.user_role}/${
+          `${AppUrl()}/fetch-all-system-users/${currentUser.user_role}/${Number(
             currentUser.user_id
-          }`,
+          )}`,
           {
             headers: { "x-access-token": userToken },
           }

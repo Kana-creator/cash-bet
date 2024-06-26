@@ -74,6 +74,9 @@ import FetchCashierName from "./actions/fetch-cashier-name.js";
 import FetchResults from "./actions/fetch-results.js";
 import FetchReceiptsCachiers from "./actions/fetch-receipts-cashiers.js";
 import FetchReceiptsShops from "./actions/fetch-receipts-shops.js";
+import FetchAllManagers from "./actions/fetch-managers-by-partner.js";
+import FetchAllCashiers from "./actions/fetch-cashiers-by-partner.js";
+import FetchPartnerUsersByCategory from "./actions/fetch-partner-users-by-category.js";
 
 const httpServer = createServer();
 
@@ -342,11 +345,11 @@ app.get(
 
 // FETCH ALL ADMIN STAFF
 app.get(
-  "/api/fetch-monthly-users-registration/:user_role/:view_dashboard/:year",
+  "/api/fetch-monthly-users-registration/:user_role/:user_id/:year",
   verifyAuth,
   (req, res) => {
-    const { user_role, view_dashboard, year } = req.params;
-    FetchMonthlyUserRegistration(res, dbConn, user_role, view_dashboard, year);
+    const { user_role, user_id, year } = req.params;
+    FetchMonthlyUserRegistration(res, dbConn, user_role, user_id, year);
   }
 );
 
@@ -359,6 +362,24 @@ app.get(
     FetchAllUsersByCatecgory(res, dbConn, user_role, view_dashboard);
   }
 );
+
+// FETCH PARTNER USERS BY CATEGORY
+app.get("/api/fetch-partner-users-by-category/:user_id", (req, res) => {
+  const { user_id } = req.params;
+  FetchPartnerUsersByCategory(res, dbConn, user_id);
+});
+
+//FETCHING NUMBER OF ALL MANAGERS BY PARTNER
+app.get("/api/fetch-number-of-managers/:user_id", (req, res) => {
+  const { user_id } = req.params;
+  FetchAllManagers(res, dbConn, user_id);
+});
+
+//FETCHING NUMBER OF ALL CASHIERS BY PARTNER
+app.get("/api/fetch-number-of-cashiers/:user_id", (req, res) => {
+  const { user_id } = req.params;
+  FetchAllCashiers(res, dbConn, user_id);
+});
 
 // FETCHING NUMBER OF ALL EXISINTING SHOPS
 app.get("/api/fetch-number-od-all-shops", verifyAuth, (req, res) => {
