@@ -73,13 +73,7 @@ const PartnerDashboardComponent: React.FC<Props> = ({
           usersRegRate={usersRegRate}
         />
         {/* SHOPS SECTION */}
-        <ShopsSectionAdminDashboard
-          allSystemUsers={allSystemUsers}
-          allPartners={allPartners}
-          allAdminStaff={allAdminStaff}
-          usersRegRate={usersRegRate}
-          usersByCategory={usersByCategory}
-        />
+        <ShopsSectionAdminDashboard />
       </div>
     </div>
   );

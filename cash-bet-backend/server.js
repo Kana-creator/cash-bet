@@ -382,19 +382,25 @@ app.get("/api/fetch-number-of-cashiers/:user_id", (req, res) => {
 });
 
 // FETCHING NUMBER OF ALL EXISINTING SHOPS
-app.get("/api/fetch-number-od-all-shops", verifyAuth, (req, res) => {
+app.get("/api/fetch-number-of-all-shops", verifyAuth, (req, res) => {
   FetchNumberOfAllShops(res, dbConn);
 });
 
 // FETCH NUMBER OF OUR SHOPS
-app.get("/api/fetch-our-shops", verifyAuth, (req, res) => {
-  FetchOurShops(res, dbConn);
+app.get("/api/fetch-our-shops/:user_role/:user_id", verifyAuth, (req, res) => {
+  const { user_role, user_id } = req.params;
+  FetchOurShops(res, dbConn, user_role, user_id);
 });
 
 // FETCH SHOPS PER LOCATION
-app.get("/api/fetch-shops-per-location", verifyAuth, (req, res) => {
-  FetchShopsPerLocation(res, dbConn);
-});
+app.get(
+  "/api/fetch-shops-per-location/:user_role/:user_id",
+  verifyAuth,
+  (req, res) => {
+    const { user_role, user_id } = req.params;
+    FetchShopsPerLocation(res, dbConn, user_role, user_id);
+  }
+);
 
 // FETCH TOTAL CREDIT SUBSCRIPTION
 app.get(

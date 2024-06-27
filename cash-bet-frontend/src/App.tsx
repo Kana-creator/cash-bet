@@ -20,13 +20,10 @@ import ShopManagerReceipts from "./components/pages/shop-manager-receipts";
 import ShopManagerReports from "./components/pages/shop-manager-reports";
 import ShopCashierReceipts from "./components/pages/shop-cashier-receipts";
 import ShopCashierReports from "./components/pages/shop-cashier-reports";
-// import PartnerReports from "./components/pages/partner-reports";
 import AdminReports from "./components/pages/admin-reporpts";
 import { AdminRightsModule } from "./components/modules/admin-rights-module";
-// import xml2js from "xml2js";
 import Fixture from "./components/pages/fixture-page";
 import Results from "./components/pages/results-page";
-import Receipts from "./components/pages/receipts-page";
 import PartnerReports from "./components/pages/partner-reports";
 
 const App: React.FC = () => {
@@ -137,35 +134,9 @@ const App: React.FC = () => {
             }
           />
 
-          <Route
-            path="/fixture"
-            element={
-              <Fixture
-              // adminRights={adminRights}
-              // setAdminRights={setAdminRights}
-              />
-            }
-          />
+          <Route path="/fixture" element={<Fixture />} />
 
-          <Route
-            path="/partiner-results"
-            element={
-              <Results
-              // adminRights={adminRights}
-              // setAdminRights={setAdminRights}
-              />
-            }
-          />
-
-          {/* <Route
-            path="/partner-receipts"
-            element={
-              <Receipts
-              // adminRights={adminRights}
-              // setAdminRights={setAdminRights}
-              />
-            }
-          /> */}
+          <Route path="/partiner-results" element={<Results />} />
         </Routes>
       </BrowserRouter>
     </div>

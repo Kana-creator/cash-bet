@@ -20,7 +20,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           {"Our shops : " + payload[0].value}
         </p>
         <p className="p-0 m-0 text-primary">
-          {"Partner shops : " + payload[1].value}
+          {"Other shops : " + payload[1].value}
         </p>
       </div>
     );
@@ -68,7 +68,7 @@ const BarGraph = ({ data, height, fill, fill2 }) => {
         />
         <YAxis stroke="#FFFFFF" tickLine={false} axisLine={false} />
         <Tooltip content={CustomTooltip} />
-        {/* <Legend /> */}
+        <Legend />
         <Bar dataKey="value" fill="url(#fill)" />
         <Bar dataKey="value2" fill="url(#fill2)" />
       </BarChart>

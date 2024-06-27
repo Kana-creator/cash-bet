@@ -78,21 +78,7 @@ const AdminDashboardComponent: React.FC<Props> = ({
           adminRights={adminRights}
         />
         {/* SHOPS SECTION */}
-        <ShopsSectionAdminDashboard
-          allSystemUsers={allSystemUsers}
-          allPartners={allPartners}
-          allAdminStaff={allAdminStaff}
-          usersRegRate={usersRegRate}
-          usersByCategory={usersByCategory}
-        />
-        {/* USERS SECTION */}
-        {/* <UsersSectionAdminDashboard
-          allSystemUsers={allSystemUsers}
-          allPartners={allPartners}
-          allAdminStaff={allAdminStaff}
-          usersRegRate={usersRegRate}
-          usersByCategory={usersByCategory}
-        /> */}
+        <ShopsSectionAdminDashboard />
       </div>
     </div>
   );
