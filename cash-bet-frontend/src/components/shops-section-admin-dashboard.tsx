@@ -13,7 +13,7 @@ const ShopsSectionAdminDashboard: React.FC<Props> = ({}) => {
     { name: string; value: number }[]
   >([]);
 
-  // FETCH NUMBER OF ALL SHOPS
+  // FETCH NUMBER OF SHOPS
   useEffect(() => {
     const userToken: string = localStorage.getItem("token") as string;
     axios
@@ -32,7 +32,7 @@ const ShopsSectionAdminDashboard: React.FC<Props> = ({}) => {
       });
   }, []);
 
-  // FETCH NUMBER OF OUR SHOPS
+  // FETCH NUMBER OF ALL OUR SHOPS
   useEffect(() => {
     const currentUser: UserModule = JSON.parse(
       localStorage.getItem("user") as string

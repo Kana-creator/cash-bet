@@ -2,6 +2,7 @@ const FetchShopsPerLocation = (res, dbConn, user_role, user_id) => {
   let query = "";
 
   query = "SELECT user_id FROM user WHERE user_role=?";
+
   dbConn.query(query, ["internal partner"], (error, result) => {
     if (error) {
       return res.json({ message: error.sqlMessage, staus: "error" });
@@ -16,7 +17,8 @@ const FetchShopsPerLocation = (res, dbConn, user_role, user_id) => {
         } else {
           user_idd = user_id;
         }
-        const query =
+
+        query =
           "SELECT SUM(CASE WHEN created_by=? THEN 1 ELSE 0 END) AS value, SUM(CASE WHEN created_by!=? THEN 1 ELSE 0 END) AS value2, shop_location AS name FROM shop WHERE shop_name!=? GROUP BY shop_location";
 
         dbConn.query(
