@@ -20,11 +20,9 @@ interface User {
   user_telephone: string;
 }
 
-interface Props {
-  managerCreditBalance: number;
-}
+interface Props {}
 
-const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
+const ManagerHeader: React.FC<Props> = ({}) => {
   const [currentUserRole, setCurrentUserRole] = useState<string>("");
   const [currentUserName, setCurrentUserName] = useState<string>("");
   const [currentUserId, setCurrentUserId] = useState<number>(0);
@@ -103,12 +101,7 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
         <h3>LOGO</h3>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
-        <p className="col-6">
-          Credit balance:{" "}
-          <span className="text-warning">
-            {FormatMoney(managerCreditBalance, 2)}
-          </span>
-        </p>
+        <p className="col-6">Credit balance: </p>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <p className="col-6">

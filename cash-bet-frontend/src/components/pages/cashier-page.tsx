@@ -265,10 +265,6 @@ const CashierPage: React.FC<Props> = ({}) => {
             shop={shop}
             odds={odds}
             setOdds={setOdds}
-            // stake={stake}
-            // setStake={setStake}
-            // possibleWin={possibleWin}
-            // setPossibleWin={setPossibleWin}
             totalOdds={totalOdds}
             setTotalOdds={setTotalOdds}
             receiptNumber={receiptNumber}

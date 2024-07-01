@@ -203,7 +203,7 @@ const AdminDashboard: React.FC<Props> = memo(
     return (
       <div className="main col-12">
         <div className="body d-flex flex-wrap">
-          <h1 className="logo">LOGO</h1>
+          <h1 className="logo">BETCRANE</h1>
           <SideBar navLinks={links} setNavLinks={setLinks} />
           <div className="col-md-10 d-flex flex-wrap justify-content-center height-auto">
             <AdminDashboardComponent

@@ -49,12 +49,6 @@ const Receipts: React.FC = () => {
       link: "/partiner-results",
     },
 
-    // {
-    //   lable: "Receipts",
-    //   link: "/partiner-receipts",
-    //   status: "active",
-    // },
-
     {
       lable: "Reports",
       link: "/partner-receipts",
@@ -91,17 +85,14 @@ const Receipts: React.FC = () => {
   ) : (
     <div className="main col-12">
       <div className="body d-flex flex-wrap">
-        <h1 className="logo">Logo</h1>
+        <h1 className="logo">BETCRANE</h1>
         <SideBar navLinks={links} setNavLinks={setLinks} />
         <div className="col-md-10 px-4">
           <ReceiptsTable
             currentUserId={currentUserId}
             currentUserName={currentUserName}
             currentUserRole={currentUserRole}
-            // refreshGameIDs={() => refreshGameIDs()}
-            // exportToExcel={exportToExcel}
           />
-          {/* <h1>Anatoli Kuwebwa</h1> */}
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../side-bar";
 import { NavLinkModule } from "../modules/nav-link-module";
 import { MdDashboard } from "react-icons/md";
-import AdminDashboardComponent from "../admin-dashboard";
 import { AdminRightsModule } from "../modules/admin-rights-module";
 import axios from "axios";
 import { AppUrl } from "../activities/app-url";
@@ -79,7 +78,6 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
     {
       value: number;
       name: string;
-      // fill?: string;
     }[]
   >([]);
 
@@ -116,14 +114,9 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
   return (
     <div className="main col-12">
       <div className="body d-flex flex-wrap">
-        <h1 className="logo">Logo</h1>
+        <h1 className="logo">BETCRANE</h1>
         <SideBar navLinks={links} setNavLinks={setLinks} />
         <div className="col-md-10 d-flex flex-wrap justify-content-center height-auto">
-          {/* <PartnerDashboardComponent
-            currentUserId={currentUserId}
-            currentUserName={currentUserName}
-            currentUserRole={currentUserRole}
-          /> */}
           <PartnerDashboardComponent
             currentUserId={currentUserId}
             currentUserName={currentUserName}

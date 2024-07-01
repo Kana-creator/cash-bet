@@ -14,7 +14,6 @@ import { SelectedGameModule } from "../modules/selected-game-module";
 import { GameNumber } from "../modules/game_number_module";
 
 import xml2js from "xml2js";
-import ScreenPreloader from "../screen-preloader";
 
 interface UserData {
   block_status: number;
@@ -64,8 +63,6 @@ const ManagerPage: React.FC<Props> = ({}) => {
     long_score: "",
   });
   const [odds, setOdds] = useState<number[]>([1]);
-  const [stake, setStake] = useState<number>(0);
-  // const [possibleWin, setPossibleWin] = useState<number>(0);
   const [totalOdds, setTotalOdds] = useState<number>(4);
   const [shop, setShop] = useState<ShopModule>({
     shopID: 0,
@@ -78,7 +75,6 @@ const ManagerPage: React.FC<Props> = ({}) => {
     maxPaypout: 0,
     shopOperator: 0,
   });
-  // const [games, setGames] = useState<GameModule[]>([]);
 
   const [currentGame, setCurrentGame] = useState<GameModule[]>([]);
 
@@ -92,14 +88,6 @@ const ManagerPage: React.FC<Props> = ({}) => {
       lable: "Cashiers",
       link: "/cashiers-page",
     },
-    // {
-    //   lable: "Receipts",
-    //   link: "/shop-manager-receipts",
-    // },
-    // {
-    //   lable: "Reports",
-    //   link: "/shop-manager-reports",
-    // },
   ]);
 
   const [eventNumbers, setEventNumbers] = useState<GameNumber[]>([]);
@@ -247,7 +235,7 @@ const ManagerPage: React.FC<Props> = ({}) => {
 
   return (
     <div className="main">
-      <ManagerHeader managerCreditBalance={managerCreditBalance} />
+      <ManagerHeader />
       <div className="body col-12 d-flex flex-wrap">
         <SideBar navLinks={navLinks} setNavLinks={setNavLinks} />
         <div className="games col-md-7 col-sm-12 col-lg-7 col-xl-7 border-right border-danger">

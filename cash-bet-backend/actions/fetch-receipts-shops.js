@@ -44,11 +44,15 @@ const FetchReceiptsShops = (req, res, dbConn) => {
       if (error) {
         console.log(error.sqlMessage);
       } else {
-        return res.json({
-          shops: results,
-          admin_id: results[0].created_by,
-          status: "error",
-        });
+        if (results.length < 1) {
+          console.log("No shop found.");
+        } else {
+          return res.json({
+            shops: results,
+            admin_id: results[0].created_by,
+            status: "error",
+          });
+        }
       }
     });
   }

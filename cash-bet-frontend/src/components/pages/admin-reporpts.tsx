@@ -100,7 +100,7 @@ const AdminReports: React.FC<Props> = ({ adminRights, setAdminRights }) => {
     <div className="main col-12">
       <div className="body d-flex flex-wrap">
         <h1 className="logo">
-          LOGO
+          BETCRANE
           {/* <img
             src="images/logos/XMA-LOGO.jpeg"
             alt="no img"

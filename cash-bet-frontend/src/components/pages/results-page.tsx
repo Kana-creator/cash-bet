@@ -3,8 +3,8 @@ import SideBar from "../side-bar";
 import { NavLinkModule } from "../modules/nav-link-module";
 import ScreenPreloader from "../screen-preloader";
 
-import * as FileSaver from "file-saver";
-import * as XLSX from "xlsx";
+// import * as FileSaver from "file-saver";
+// import * as XLSX from "xlsx";
 import ResultsTable from "../results-table";
 
 interface User {
@@ -89,7 +89,7 @@ const Results: React.FC = () => {
   ) : (
     <div className="main col-12">
       <div className="body d-flex flex-wrap">
-        <h1 className="logo">Logo</h1>
+        <h1 className="logo">BETCRANE</h1>
         <SideBar navLinks={links} setNavLinks={setLinks} />
         <div className="col-md-10 px-4">
           <ResultsTable
