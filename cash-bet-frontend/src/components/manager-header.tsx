@@ -109,11 +109,59 @@ const ManagerHeader: React.FC<Props> = ({}) => {
           <span className="text-warning">{FormatMoney(shopBalance, 2)}</span>
         </p>
       </div>
-      <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
-        <p className="col-6">
+      <div
+        className="col-2 p-2 border border-light d-flex justify-content-center align-items-center"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          const form = document.getElementById("withdraw-form");
+          form?.classList.add("active");
+          form?.classList.remove("actives");
+        }}
+      >
+        <p className="col-6 cursor-pointer">
           Manager Bal:{" "}
           <span className="text-warning">{FormatMoney(managerBalance, 2)}</span>
         </p>
+        <div className="withdraw-form" id="withdraw-form">
+          <h1>Available balance: {FormatMoney(managerBalance, 2)}</h1>
+          <form action="">
+            <div className="form-groupd col-12 py-5">
+              <label htmlFor="" className="col-12 text-start">
+                Amount
+              </label>
+              <input type="text" className="form-control" />
+              <small className="col-12"></small>
+            </div>
+            <div className="form-groupd col-12">
+              <label htmlFor="" className="col-12 text-start">
+                Email / Telephone
+              </label>
+              <input type="text" className="form-control" />
+              <small className="col-12"></small>
+            </div>
+            <div className="form-groupd col-12 py-2">
+              <label htmlFor="" className="col-12 text-start">
+                Confirm with password
+              </label>
+              <input type="text" className="form-control" />
+              <small className="col-12"></small>
+            </div>
+            <div className="form-groupd col-12 py-5 d-flex justify-content-around">
+              <button className="col-4 btn btn-secondary">Submit</button>
+              <p
+                className="col-4 btn btn-secondary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const form = document.getElementById("withdraw-form");
+                  form?.classList.remove("active");
+                  form?.classList.add("actives");
+                }}
+              >
+                Cancil
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <p className="col-6">

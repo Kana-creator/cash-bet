@@ -184,4 +184,38 @@ table tbody tr td:hover {
 
 .fixed-column {
   max-width: 90px;
+}
+
+.withdraw-form {
+  background-color: red;
+  width: 300px;
+  height: 0px;
+  position: absolute;
+  z-index: 1000000;
+  top: 50px;
+  padding: 0px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.withdraw-form.active {
+  background-color: red;
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  z-index: 1000000;
+  top: 50px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.withdraw-form.actives {
+  background-color: green;
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  z-index: 1000000;
+  top: 50px;
+  padding: 20px;
+  border-radius: 5px;
 }/*# sourceMappingURL=main-style.css.map */
