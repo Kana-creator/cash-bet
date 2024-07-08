@@ -585,6 +585,12 @@ app.get("/api/fetch-receipts-shops/:user_id/:user_role", (req, res) => {
   FetchReceiptsShops(req, res, dbConn);
 });
 
+// WITHDRAW CASHIER OR MANAGER BALANCE
+app.post("/api/withdraw-balance", (req, res) => {
+  console.log(req.body);
+  res.json({ message: "connected", status: "error" });
+});
+
 app.get("/api/health", (req, res) => {
   res.status(200).send("App is healthy");
 });

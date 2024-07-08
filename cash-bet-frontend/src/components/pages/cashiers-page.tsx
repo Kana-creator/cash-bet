@@ -24,7 +24,10 @@ const CashiersPage: React.FC = () => {
 
   return (
     <div className="main">
-      <ManagerHeader />
+      <ManagerHeader
+        managerCreditBalance={managerCreditBalance}
+        setManagerCreditBalance={setManagerCreditBalance}
+      />
       <div className="body col-12 d-flex flex-wrap">
         <SideBar navLinks={navLinks} setNavLinks={setNavLinks} />
         <div className="col-md-10 d-flex flex-wrap justify-content-center height-auto">

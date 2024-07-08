@@ -4,6 +4,10 @@ import { UserLogOut } from "./activities/signout-action";
 import { FormatMoney } from "./activities/format-money";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
+import { WithdrawModel } from "./modules/withdraw-model";
+import { WithdrawBalance } from "./activities/withdraw-balance";
+import { FormValidation } from "./activities/form-validation";
+import { UserModule } from "./modules/user-module";
 
 interface User {
   date_added: string;
@@ -20,15 +24,25 @@ interface User {
   user_telephone: string;
 }
 
-interface Props {}
+interface Props {
+  managerCreditBalance: number;
+  setManagerCreditBalance: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const ManagerHeader: React.FC<Props> = ({}) => {
+const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
   const [currentUserRole, setCurrentUserRole] = useState<string>("");
   const [currentUserName, setCurrentUserName] = useState<string>("");
   const [currentUserId, setCurrentUserId] = useState<number>(0);
   const [dailyCashierReceipts, setDailyCashierReceipts] = useState<number>(0);
   const [shopBalance, setShopBalance] = useState<number>(0);
   const [managerBalance, setManagerBalance] = useState<number>(0);
+  const [isBalanceActive, setIsBalanceActive] = useState<boolean>(false);
+  const [withdraw, setWithdraw] = useState<WithdrawModel>({
+    cashier_id: "",
+    amount: "",
+    email: "",
+    password: "",
+  });
 
   // SET USER CURRENT USER DETAILS FROM LOCAL STORAGE
   useEffect(() => {
@@ -95,13 +109,27 @@ const ManagerHeader: React.FC<Props> = ({}) => {
     return () => clearInterval(interval);
   });
 
+  // SET CURRENT USER ID ON WITHDRAW
+  useEffect(() => {
+    const currentUser: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
+  }, []);
+
   return (
     <div className="bg-dark manager-header position-fixed col-12 d-flex justify-content-center text-center">
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <h3>LOGO</h3>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
-        <p className="col-6">Credit balance: </p>
+        <p className="col-6">
+          Credit balance:{" "}
+          <span className="text-warning">
+            {FormatMoney(managerCreditBalance, 2)}
+          </span>
+        </p>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <p className="col-6">
@@ -110,58 +138,16 @@ const ManagerHeader: React.FC<Props> = ({}) => {
         </p>
       </div>
       <div
-        className="col-2 p-2 border border-light d-flex justify-content-center align-items-center"
+        className={`col-2 p-2 border border-light d-flex justify-content-center align-items-center`}
         style={{ cursor: "pointer" }}
         onClick={() => {
-          const form = document.getElementById("withdraw-form");
-          form?.classList.add("active");
-          form?.classList.remove("actives");
+          setIsBalanceActive(true);
         }}
       >
         <p className="col-6 cursor-pointer">
           Manager Bal:{" "}
           <span className="text-warning">{FormatMoney(managerBalance, 2)}</span>
         </p>
-        <div className="withdraw-form" id="withdraw-form">
-          <h1>Available balance: {FormatMoney(managerBalance, 2)}</h1>
-          <form action="">
-            <div className="form-groupd col-12 py-5">
-              <label htmlFor="" className="col-12 text-start">
-                Amount
-              </label>
-              <input type="text" className="form-control" />
-              <small className="col-12"></small>
-            </div>
-            <div className="form-groupd col-12">
-              <label htmlFor="" className="col-12 text-start">
-                Email / Telephone
-              </label>
-              <input type="text" className="form-control" />
-              <small className="col-12"></small>
-            </div>
-            <div className="form-groupd col-12 py-2">
-              <label htmlFor="" className="col-12 text-start">
-                Confirm with password
-              </label>
-              <input type="text" className="form-control" />
-              <small className="col-12"></small>
-            </div>
-            <div className="form-groupd col-12 py-5 d-flex justify-content-around">
-              <button className="col-4 btn btn-secondary">Submit</button>
-              <p
-                className="col-4 btn btn-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const form = document.getElementById("withdraw-form");
-                  form?.classList.remove("active");
-                  form?.classList.add("actives");
-                }}
-              >
-                Cancil
-              </p>
-            </div>
-          </form>
-        </div>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <p className="col-6">
@@ -186,6 +172,93 @@ const ManagerHeader: React.FC<Props> = ({}) => {
             Logout
           </p>
         </details>
+      </div>
+
+      <div
+        className={`withdraw-form ${isBalanceActive ? "active" : ""}`}
+        id="withdraw-form"
+      >
+        <form action="" onSubmit={(e) => e.preventDefault()}>
+          <h1 className="col-12">Withdraw balance</h1>
+          <h2 className="col-12">{FormatMoney(managerBalance, 2)}</h2>
+          <div className="form-groupd col-12 py-5 pt-2">
+            <h3 className="pb-2 text-danger hidden bold">
+              Insufficient balance.
+            </h3>
+
+            <label htmlFor="" className="col-12 text-start">
+              Amount {isBalanceActive}
+            </label>
+            <input
+              type="number"
+              id="amount"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, amount: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12">
+            <label htmlFor="" className="col-12 text-start">
+              Email / Telephone
+            </label>
+            <input
+              type="text"
+              id="email"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, email: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-2">
+            <label htmlFor="" className="col-12 text-start">
+              Confirm with password
+            </label>
+            <input
+              type="password"
+              id="password"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, password: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-5 d-flex justify-content-around">
+            <button
+              type="button"
+              className="col-4 btn btn-dark"
+              onClick={() =>
+                WithdrawBalance(withdraw, [
+                  document.getElementById("amount") as HTMLInputElement,
+                  document.getElementById("email") as HTMLInputElement,
+                  document.getElementById("password") as HTMLInputElement,
+                ])
+              }
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              className="col-4 btn btn-secondary"
+              onClick={() => {
+                setIsBalanceActive(false);
+                console.log(isBalanceActive);
+              }}
+            >
+              Cancil
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

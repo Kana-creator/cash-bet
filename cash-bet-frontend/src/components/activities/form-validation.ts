@@ -2,7 +2,11 @@ export const FormValidation = (input: HTMLInputElement) => {
   const parent = input.parentElement as HTMLElement;
   const small = parent.querySelector("small") as HTMLElement;
 
-  return (small.innerText = input.id + " is required");
+  if (input.value.length < 1) {
+    return (small.innerText = input.id + " is required");
+  } else {
+    return (small.innerText = "");
+  }
 };
 
 export const emailValidation = (email: HTMLInputElement) => {

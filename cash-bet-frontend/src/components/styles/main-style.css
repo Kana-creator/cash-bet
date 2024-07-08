@@ -187,35 +187,34 @@ table tbody tr td:hover {
 }
 
 .withdraw-form {
-  background-color: red;
-  width: 300px;
+  background-color: rgba(50, 50, 50, 0.1);
+  width: 0px;
   height: 0px;
   position: absolute;
   z-index: 1000000;
-  top: 50px;
+  top: 0px;
+  bottom: 0px;
   padding: 0px;
   border-radius: 5px;
   overflow: hidden;
+  transition: all ease-in-out 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.withdraw-form form {
+  width: 300px;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: rgba(18, 18, 18, 0.8);
+  padding: 20px;
+}
+.withdraw-form form h1 {
+  font-size: 16pt;
 }
 
 .withdraw-form.active {
-  background-color: red;
-  width: 300px;
-  height: 500px;
-  position: absolute;
-  z-index: 1000000;
-  top: 50px;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.withdraw-form.actives {
-  background-color: green;
-  width: 300px;
-  height: 500px;
-  position: absolute;
-  z-index: 1000000;
-  top: 50px;
-  padding: 20px;
-  border-radius: 5px;
+  width: 100%;
+  height: 100vh;
 }/*# sourceMappingURL=main-style.css.map */

@@ -235,7 +235,10 @@ const ManagerPage: React.FC<Props> = ({}) => {
 
   return (
     <div className="main">
-      <ManagerHeader />
+      <ManagerHeader
+        managerCreditBalance={managerCreditBalance}
+        setManagerCreditBalance={setManagerCreditBalance}
+      />
       <div className="body col-12 d-flex flex-wrap">
         <SideBar navLinks={navLinks} setNavLinks={setNavLinks} />
         <div className="games col-md-7 col-sm-12 col-lg-7 col-xl-7 border-right border-danger">

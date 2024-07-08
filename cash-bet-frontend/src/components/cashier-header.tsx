@@ -6,6 +6,10 @@ import { UserLogOut } from "./activities/signout-action";
 import { FormatMoney } from "./activities/format-money";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
+import { WithdrawModel } from "./modules/withdraw-model";
+import { UserModule } from "./modules/user-module";
+import { WithdrawBalance } from "./activities/withdraw-balance";
+import { FormValidation } from "./activities/form-validation";
 
 interface User {
   date_added: string;
@@ -36,6 +40,13 @@ const CashierHeader: React.FC<Props> = ({
   const [currentUserId, setCurrentUserId] = useState<number>(0);
   const [dailyCashierReceipts, setDailyCashierReceipts] = useState<number>(0);
   const [chashierBalance, setCashierBalance] = useState<number>(0);
+  const [isBalanceActive, setIsBalanceActive] = useState<boolean>(false);
+  const [withdraw, setWithdraw] = useState<WithdrawModel>({
+    cashier_id: "",
+    amount: "",
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     const user = localStorage.getItem("user") as string;
@@ -80,6 +91,15 @@ const CashierHeader: React.FC<Props> = ({
     return () => clearInterval(interval);
   });
 
+  // SET CURRENT USER ID ON WITHDRAW
+  useEffect(() => {
+    const currentUser: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
+  }, []);
+
   return (
     <div className="bg-dark cashier-header position-fixed col-12 d-flex justify-content-center text-center">
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
@@ -93,7 +113,13 @@ const CashierHeader: React.FC<Props> = ({
           </span>
         </p>
       </div>
-      <div className="col-3 p-2 border border-light d-flex justify-content-center align-items-center">
+      <div
+        className="col-3 p-2 border border-light d-flex justify-content-center align-items-center"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setIsBalanceActive(true);
+        }}
+      >
         <p>
           Cashier balance:{" "}
           <span className="text-warning">
@@ -124,6 +150,92 @@ const CashierHeader: React.FC<Props> = ({
             Logout
           </p>
         </details>
+      </div>
+
+      <div
+        className={`withdraw-form ${isBalanceActive ? "active" : ""}`}
+        id="withdraw-form"
+      >
+        <form action="" onSubmit={(e) => e.preventDefault()}>
+          <h1 className="col-12">Withdraw balance</h1>
+          <h2 className="col-12">{FormatMoney(chashierBalance, 2)}</h2>
+          <h3 className="pb-2 text-danger hidden bold">
+            Insufficient balance.
+          </h3>
+          <div className="form-groupd col-12 py-3">
+            <label htmlFor="amount" className="col-12 text-start">
+              Amount {isBalanceActive}
+            </label>
+            <input
+              type="number"
+              id="amount"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, amount: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12">
+            <label htmlFor="email" className="col-12 text-start">
+              Email / Telephone
+            </label>
+            <input
+              type="text"
+              id="email"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, email: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-2">
+            <label htmlFor="password" className="col-12 text-start">
+              Confirm with password
+            </label>
+            <input
+              type="password"
+              id="password"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, password: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-5 d-flex justify-content-around">
+            <button
+              type="button"
+              className="col-4 btn btn-dark"
+              onClick={() =>
+                WithdrawBalance(withdraw, [
+                  document.getElementById("amount") as HTMLInputElement,
+                  document.getElementById("email") as HTMLInputElement,
+                  document.getElementById("password") as HTMLInputElement,
+                ])
+              }
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              className="col-4 btn btn-secondary"
+              onClick={() => {
+                setIsBalanceActive(false);
+                console.log(isBalanceActive);
+              }}
+            >
+              Cancil
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
