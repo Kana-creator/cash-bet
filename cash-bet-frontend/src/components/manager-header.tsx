@@ -43,6 +43,7 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
     email: "",
     password: "",
   });
+  const [balanceMessage, setBalanceMessage] = useState<string>("");
 
   // SET USER CURRENT USER DETAILS FROM LOCAL STORAGE
   useEffect(() => {
@@ -116,12 +117,12 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
     );
 
     setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
-  }, []);
+  }, [withdraw]);
 
   return (
     <div className="bg-dark manager-header position-fixed col-12 d-flex justify-content-center text-center">
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
-        <h3>LOGO</h3>
+        <h3>BETCRANE</h3>
       </div>
       <div className="col-2 p-2 border border-light d-flex justify-content-center align-items-center">
         <p className="col-6">
@@ -182,9 +183,7 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
           <h1 className="col-12">Withdraw balance</h1>
           <h2 className="col-12">{FormatMoney(managerBalance, 2)}</h2>
           <div className="form-groupd col-12 py-5 pt-2">
-            <h3 className="pb-2 text-danger hidden bold">
-              Insufficient balance.
-            </h3>
+            <h3 className="pb-2 text-danger hidden bold">{balanceMessage}</h3>
 
             <label htmlFor="" className="col-12 text-start">
               Amount {isBalanceActive}
@@ -237,13 +236,23 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
             <button
               type="button"
               className="col-4 btn btn-dark"
-              onClick={() =>
+              onClick={() => {
+                if (Number(withdraw.amount) > managerBalance) {
+                  setBalanceMessage("Insufficient balance");
+                  return;
+                }
+
+                if (Number(withdraw.amount) <= 0) {
+                  setBalanceMessage("Invalid withdraw amount.");
+                  return;
+                }
                 WithdrawBalance(withdraw, [
                   document.getElementById("amount") as HTMLInputElement,
                   document.getElementById("email") as HTMLInputElement,
                   document.getElementById("password") as HTMLInputElement,
-                ])
-              }
+                ]);
+                setIsBalanceActive(false);
+              }}
             >
               Submit
             </button>

@@ -419,9 +419,9 @@ const ReceiptsTable: React.FC<Props> = ({
               {currentUserName} {<MdSettings />}
             </span>
           </summary>
-          <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p>
+          {/* <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p> */}
           <p
-            className="btn btn-secondary px-2 py-2 col-12"
+            className="btn btn-secondary px-2 py-2 col-12 mt-4"
             onClick={() => UserLogOut(currentUserRole, currentUserId)}
           >
             Logout

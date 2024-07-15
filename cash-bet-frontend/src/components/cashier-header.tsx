@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MdSettings } from "react-icons/md";
 import { UserLogOut } from "./activities/signout-action";
-// import axios from "axios";
-// import { AppUrl } from "./activities/app-url";
 import { FormatMoney } from "./activities/format-money";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
@@ -31,10 +29,7 @@ interface Props {
   setManagerCreditBalance: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const CashierHeader: React.FC<Props> = ({
-  managerCreditBalance,
-  // setManagerCreditBalance,
-}) => {
+const CashierHeader: React.FC<Props> = ({ managerCreditBalance }) => {
   const [currentUserName, setCurrentUserName] = useState<string>("");
   const [currentUserRole, setCurrentUserRole] = useState<string>("");
   const [currentUserId, setCurrentUserId] = useState<number>(0);
@@ -47,6 +42,7 @@ const CashierHeader: React.FC<Props> = ({
     email: "",
     password: "",
   });
+  const [balanceMessage, setBalanceMessage] = useState<string>("");
 
   useEffect(() => {
     const user = localStorage.getItem("user") as string;
@@ -73,7 +69,7 @@ const CashierHeader: React.FC<Props> = ({
     return () => clearInterval(interval);
   }, []);
 
-  // FETCHING CASHIER BALCNE
+  // FETCHING CASHIER BALANCE
   useEffect(() => {
     const user = localStorage.getItem("user") as string;
     const current_user: User = JSON.parse(user);
@@ -98,7 +94,7 @@ const CashierHeader: React.FC<Props> = ({
     );
 
     setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
-  }, []);
+  }, [withdraw]);
 
   return (
     <div className="bg-dark cashier-header position-fixed col-12 d-flex justify-content-center text-center">
@@ -159,9 +155,7 @@ const CashierHeader: React.FC<Props> = ({
         <form action="" onSubmit={(e) => e.preventDefault()}>
           <h1 className="col-12">Withdraw balance</h1>
           <h2 className="col-12">{FormatMoney(chashierBalance, 2)}</h2>
-          <h3 className="pb-2 text-danger hidden bold">
-            Insufficient balance.
-          </h3>
+          <h3 className="pb-2 text-danger hidden bold">{balanceMessage}</h3>
           <div className="form-groupd col-12 py-3">
             <label htmlFor="amount" className="col-12 text-start">
               Amount {isBalanceActive}
@@ -214,13 +208,23 @@ const CashierHeader: React.FC<Props> = ({
             <button
               type="button"
               className="col-4 btn btn-dark"
-              onClick={() =>
+              onClick={() => {
+                if (Number(withdraw.amount) > chashierBalance) {
+                  setBalanceMessage("Insufficient balance.");
+                  return;
+                }
+
+                if (Number(withdraw.amount) <= 0) {
+                  setBalanceMessage("Invalid balance amount.");
+                  return;
+                }
                 WithdrawBalance(withdraw, [
                   document.getElementById("amount") as HTMLInputElement,
                   document.getElementById("email") as HTMLInputElement,
                   document.getElementById("password") as HTMLInputElement,
-                ])
-              }
+                ]);
+                setIsBalanceActive(false);
+              }}
             >
               Submit
             </button>

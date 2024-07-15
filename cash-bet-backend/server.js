@@ -77,6 +77,7 @@ import FetchReceiptsShops from "./actions/fetch-receipts-shops.js";
 import FetchAllManagers from "./actions/fetch-managers-by-partner.js";
 import FetchAllCashiers from "./actions/fetch-cashiers-by-partner.js";
 import FetchPartnerUsersByCategory from "./actions/fetch-partner-users-by-category.js";
+import WithdrawBalance from "./actions/withdraw-balance.js";
 
 const httpServer = createServer();
 
@@ -588,7 +589,7 @@ app.get("/api/fetch-receipts-shops/:user_id/:user_role", (req, res) => {
 // WITHDRAW CASHIER OR MANAGER BALANCE
 app.post("/api/withdraw-balance", (req, res) => {
   console.log(req.body);
-  res.json({ message: "connected", status: "error" });
+  WithdrawBalance(req, res, dbConn);
 });
 
 app.get("/api/health", (req, res) => {

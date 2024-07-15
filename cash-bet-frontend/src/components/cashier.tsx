@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { Credit } from "./modules/credit-module";
 import axios from "axios";
 import { AppUrl } from "./activities/app-url";
 import { FormatMoney } from "./activities/format-money";
-import { error } from "console";
+import { FormValidation } from "./activities/form-validation";
+import { WithdrawBalance } from "./activities/withdraw-balance";
+import { WithdrawModel } from "./modules/withdraw-model";
+import { UserModule } from "./modules/user-module";
 
 interface Props {
   userData: {
@@ -51,7 +53,15 @@ const Cashier: React.FC<Props> = ({
 }) => {
   const [creditBalance, setCreditBalance] = useState<number>(0);
   const [userSession, setUserSession] = useState<number>(0);
-  const navigate = useNavigate();
+  const [chashierBalance, setCashierBalance] = useState<number>(0);
+  const [isBalanceActive, setIsBalanceActive] = useState<boolean>(false);
+  const [withdraw, setWithdraw] = useState<WithdrawModel>({
+    cashier_id: "",
+    amount: "",
+    email: "",
+    password: "",
+  });
+  const [balanceMessage, setBalanceMessage] = useState<string>("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,7 +85,7 @@ const Cashier: React.FC<Props> = ({
       .catch((error) => console.log(error));
 
     return () => clearInterval(interval);
-  }, []);
+  }, [userData.user_id, userToken]);
 
   // SARTING CASHIER'S SESSION
   const startSession = (user_id: number) => {
@@ -106,6 +116,31 @@ const Cashier: React.FC<Props> = ({
       })
       .catch((error) => console.log(error));
   };
+
+  // FETCHING CASHIER BALANCE
+  useEffect(() => {
+    const interval = setInterval(() => {
+      axios
+        .get(`${AppUrl()}/fetch-manager-balance/${userData.user_id}`)
+        .then((res) => {
+          if (res.data.status === "error") {
+            window.alert(res.data.message);
+          } else {
+            setCashierBalance(res.data.manager_balance);
+          }
+        });
+    }, 3000);
+    return () => clearInterval(interval);
+  });
+
+  // SET CURRENT USER ID ON WITHDRAW
+  useEffect(() => {
+    const currentUser: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
+  }, [withdraw]);
 
   return (
     <div className="user col-md-11 p-1 my-1">
@@ -201,6 +236,20 @@ const Cashier: React.FC<Props> = ({
                   +
                 </span>
               </div>
+
+              {/* BALANCE */}
+              <div
+                className="credit col-2 d-flex flex-wrap align-items-center text-left"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setIsBalanceActive(true);
+                }}
+              >
+                <h5 className="col-12">Cashier balance</h5>
+                <p className="col-12 text-warning">
+                  {FormatMoney(chashierBalance, 2)}
+                </p>
+              </div>
               <div className="actions-div col-2  d-flex">
                 {userSession === 0 ? (
                   <button
@@ -221,6 +270,102 @@ const Cashier: React.FC<Props> = ({
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={`withdraw-form ${isBalanceActive ? "active" : ""}`}
+        id="withdraw-form"
+      >
+        <form action="" onSubmit={(e) => e.preventDefault()}>
+          <h1 className="col-12 text-center">Withdraw balance</h1>
+          <h2 className="col-12 text-center">
+            {FormatMoney(chashierBalance, 2)}
+          </h2>
+          <h3 className="pb-2 text-danger hidden bold text-center">
+            {balanceMessage}
+          </h3>
+          <div className="form-groupd col-12 py-3">
+            <label htmlFor="amount" className="col-12 text-start">
+              Amount {isBalanceActive}
+            </label>
+            <input
+              type="number"
+              id="amount1"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, amount: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12">
+            <label htmlFor="email" className="col-12 text-start">
+              Email / Telephone
+            </label>
+            <input
+              type="text"
+              id="email1"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, email: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-2">
+            <label htmlFor="password" className="col-12 text-start">
+              Confirm with password
+            </label>
+            <input
+              type="password"
+              id="password1"
+              autoComplete="false"
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWithdraw({ ...withdraw, password: e.target.value });
+                FormValidation(e.target);
+              }}
+            />
+            <small className="col-12"></small>
+          </div>
+          <div className="form-groupd col-12 py-5 d-flex justify-content-around">
+            <button
+              type="button"
+              className="col-4 btn btn-dark"
+              onClick={() => {
+                if (Number(withdraw.amount) > chashierBalance) {
+                  setBalanceMessage("Insufficient balance.");
+                  return;
+                }
+
+                if (Number(withdraw.amount) <= 0) {
+                  setBalanceMessage("Invalid balance input amount.");
+                  return;
+                }
+                WithdrawBalance(withdraw, [
+                  document.getElementById("amount1") as HTMLInputElement,
+                  document.getElementById("email1") as HTMLInputElement,
+                  document.getElementById("password1") as HTMLInputElement,
+                ]);
+              }}
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              className="col-4 btn btn-secondary"
+              onClick={() => {
+                setIsBalanceActive(false);
+                setBalanceMessage("");
+              }}
+            >
+              Cancil
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
