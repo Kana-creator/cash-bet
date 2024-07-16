@@ -85,7 +85,7 @@ const CashierHeader: React.FC<Props> = ({ managerCreditBalance }) => {
       });
     }, 3000);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   // SET CURRENT USER ID ON WITHDRAW
   useEffect(() => {

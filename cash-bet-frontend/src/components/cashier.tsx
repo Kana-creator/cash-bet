@@ -131,7 +131,7 @@ const Cashier: React.FC<Props> = ({
         });
     }, 3000);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   // SET CURRENT USER ID ON WITHDRAW
   useEffect(() => {

@@ -1,8 +1,6 @@
 const FetchManagerBalance = (req, res, dbConn) => {
   const { user_id } = req.params;
-  console.log(user_id);
-  const date = new Date();
-  const query =
+  let query =
     "SELECT SUM(stake) AS manager_balance FROM receipt WHERE cashier_id=?";
 
   dbConn.query(query, [user_id], (error, results) => {
@@ -10,9 +8,30 @@ const FetchManagerBalance = (req, res, dbConn) => {
       console.log(error);
       res.json({ message: error.sqlMessage, status: "error" });
     } else {
-      res.json({
-        manager_balance: results[0].manager_balance,
-        status: "success",
+      query =
+        "SELECT SUM(amount) AS withdraw_amount FROM withdraw WHERE cashier_id=?";
+      dbConn.query(query, [user_id], (error, withdraw_results) => {
+        if (error) {
+          console.log(error.sqlMessage);
+        } else {
+          if (
+            withdraw_results[0].withdraw_amount <= 0 ||
+            results[0].manager_balance - withdraw_results[0].withdraw_amount <=
+              0
+          ) {
+            res.json({
+              manager_balance: 0,
+              status: "success",
+            });
+          } else {
+            res.json({
+              manager_balance:
+                results[0].manager_balance -
+                withdraw_results[0].withdraw_amount,
+              status: "success",
+            });
+          }
+        }
       });
     }
   });

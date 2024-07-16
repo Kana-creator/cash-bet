@@ -533,6 +533,7 @@ app.get("/api/fetch-shop-balance/:shop_id", (req, res) => {
 
 // FETCHING MANAGER OR CASHIER BALANCE
 app.get("/api/fetch-manager-balance/:user_id", (req, res) => {
+  const { user_id } = req.params;
   FetchManagerBalance(req, res, dbConn);
 });
 
@@ -588,7 +589,6 @@ app.get("/api/fetch-receipts-shops/:user_id/:user_role", (req, res) => {
 
 // WITHDRAW CASHIER OR MANAGER BALANCE
 app.post("/api/withdraw-balance", (req, res) => {
-  console.log(req.body);
   WithdrawBalance(req, res, dbConn);
 });
 
