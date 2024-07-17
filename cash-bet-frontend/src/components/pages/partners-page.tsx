@@ -78,6 +78,11 @@ const UsersPage: React.FC<Props> = ({ adminRights, setAdminRights }) => {
             link: "/admin-reports",
             view: res.data.adminRights[0].view_reports,
           },
+          {
+            lable: "Withdraws",
+            link: "/admin-withdraw-report",
+            view: res.data.adminRights[0].view_reports,
+          },
         ]);
       })
       .catch((error) => console.log(error));

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../side-bar";
 import { NavLinkModule } from "../modules/nav-link-module";
-import { MdDashboard } from "react-icons/md";
-import AdminDashboardComponent from "../admin-dashboard";
-import AdminReportsComponent from "../admin-reports-component";
+// import { MdDashboard } from "react-icons/md";
+// import AdminDashboardComponent from "../admin-dashboard";
+// import AdminReportsComponent from "../admin-reports-component";
 import axios from "axios";
 import { AppUrl } from "../activities/app-url";
 import { AdminRightsModule } from "../modules/admin-rights-module";
@@ -91,10 +91,15 @@ const AdminReports: React.FC<Props> = ({ adminRights, setAdminRights }) => {
             status: "active",
             view: res.data.adminRights[0].view_reports,
           },
+          {
+            lable: "Withdraws",
+            link: "/admin-withdraw-report",
+            view: res.data.adminRights[0].view_reports,
+          },
         ]);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [setAdminRights]);
 
   return (
     <div className="main col-12">

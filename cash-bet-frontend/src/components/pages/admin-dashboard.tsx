@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import SideBar from "../side-bar";
 import { NavLinkModule } from "../modules/nav-link-module";
-import { MdDashboard } from "react-icons/md";
+// import { MdDashboard } from "react-icons/md";
 import AdminDashboardComponent from "../admin-dashboard";
 import { AdminRightsModule } from "../modules/admin-rights-module";
 import axios from "axios";
@@ -36,7 +36,7 @@ const AdminDashboard: React.FC<Props> = memo(
     const [allSystemUsers, setAllSystemUsers] = useState<number>(0);
     const [allPartners, setAllPartners] = useState<number>(0);
     const [allAdminStaff, setAllAdminStaff] = useState<number>(0);
-    const [usersRegRate, setUsersRegRate] = useState<
+    const [usersRegRate] = useState<
       {
         value: number;
         name: string;
@@ -102,6 +102,12 @@ const AdminDashboard: React.FC<Props> = memo(
               link: "/admin-reports",
               view: res.data.adminRights[0].view_reports,
             },
+
+            {
+              lable: "Withdraws",
+              link: "/admin-withdraw-report",
+              // view: res.data.adminRights[0].view_reports,
+            },
           ]);
         })
         .catch((error) => console.log(error));
@@ -162,7 +168,7 @@ const AdminDashboard: React.FC<Props> = memo(
           }
         })
         .catch((error) => console.log(error));
-    }, []);
+    }, [adminRights, setAdminRights]);
 
     // FETCH NUMBER OF USERS BY CATEGORY
     useEffect(() => {
@@ -198,7 +204,7 @@ const AdminDashboard: React.FC<Props> = memo(
             ),
           ]);
         });
-    }, []);
+    }, [adminRights]);
 
     return (
       <div className="main col-12">
