@@ -25,6 +25,7 @@ import { AdminRightsModule } from "./components/modules/admin-rights-module";
 import Fixture from "./components/pages/fixture-page";
 import Results from "./components/pages/results-page";
 import PartnerReports from "./components/pages/partner-reports";
+import AdminWithdrawReport from "./components/pages/admin-withdraw-report";
 
 const App: React.FC = () => {
   const [adminRights, setAdminRights] = useState<AdminRightsModule[]>([
@@ -137,6 +138,15 @@ const App: React.FC = () => {
           <Route path="/fixture" element={<Fixture />} />
 
           <Route path="/partiner-results" element={<Results />} />
+          <Route
+            path="/admin-withdraw-report"
+            element={
+              <AdminWithdrawReport
+                adminRights={adminRights}
+                setAdminRights={setAdminRights}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
