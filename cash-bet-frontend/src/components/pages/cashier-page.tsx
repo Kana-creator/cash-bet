@@ -174,7 +174,7 @@ const CashierPage: React.FC<Props> = ({}) => {
           setLoading(false);
         })
         .catch((error) => console.log(error));
-    }, 30000);
+    }, 300000);
     return () => clearInterval(interval);
   }, []);
 

@@ -2017,7 +2017,7 @@ const ResultsTable: React.FC<Props> = ({
           setGroupedGame(groupedArray);
         })
         .catch((error) => console.log(error));
-    }, 1000);
+    }, 50000);
     return () => clearInterval(interval);
   }, []);
 
@@ -2067,7 +2067,8 @@ const ResultsTable: React.FC<Props> = ({
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
 
-        {groupedGames.length > 0 ? (
+        {
+          // groupedGames.length > 0 ? (
           groupedGames.map((gg, index) => {
             const sortedGames = gg.sort(
               (a: any, b: any) => Number(a.game_number) - Number(b.game_number)
@@ -2136,11 +2137,12 @@ const ResultsTable: React.FC<Props> = ({
               </table>
             );
           })
-        ) : (
-          <div className="main d-flex justify-content-center align-items-center w-100 h-30">
-            <ScreenPreloader />
-          </div>
-        )}
+          // ) : (
+          //   <div className="main d-flex justify-content-center align-items-center w-100 h-30">
+          //     <ScreenPreloader />
+          //   </div>
+          // )
+        }
       </div>
     </div>
   );

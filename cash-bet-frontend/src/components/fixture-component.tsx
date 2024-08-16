@@ -83,7 +83,8 @@ const FixtureComponent: React.FC<Props> = ({
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
 
-        {groupedGames.length > 0 ? (
+        {/* {games.length > 0 ? ( */}
+        {
           groupedGames.map((gg, index) => {
             const sortedGames = gg.sort(
               (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
@@ -113,7 +114,6 @@ const FixtureComponent: React.FC<Props> = ({
                     <th rowSpan={2}>League</th>
                     <th rowSpan={2}>Home</th>
                     <th rowSpan={2}>Away</th>
-
                     <th colSpan={3}>1x2</th>
                     <th colSpan={2}>2.5</th>
                     <th colSpan={2}>1.5</th>
@@ -168,11 +168,12 @@ const FixtureComponent: React.FC<Props> = ({
               </table>
             );
           })
-        ) : (
-          <div className="main d-flex justify-content-center align-items-center w-100 h-30">
-            <ScreenPreloader />
-          </div>
-        )}
+          // ) : (
+          //   <div className="main d-flex justify-content-center align-items-center w-100 h-30">
+          //     <ScreenPreloader />
+          //   </div>
+          // )}
+        }
       </div>
     </div>
   );

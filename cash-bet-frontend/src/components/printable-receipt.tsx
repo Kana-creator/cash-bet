@@ -46,7 +46,10 @@ const PrintableReceipt: React.FC<Props> = ({
   }, []);
 
   return (
-    <div className="col-12 d-flex justify-content-center position-absolute">
+    <div
+      className="col-12 d-flex justify-content-center position-absolute"
+      style={{ fontSize: "8pt" }}
+    >
       <div className="col-md-4">
         <div className="p-receit-head col-12 d-flex flex-wrap justify-content-center">
           <div className="col-12">
@@ -70,7 +73,7 @@ const PrintableReceipt: React.FC<Props> = ({
             </h6>
           </div>
         </div>
-        <div className="p-receipt-body col-12 px-5 min-height-100">
+        <div className="p-receipt-body col-12 px-1 min-height-100">
           <div className="col-12 mt-2 d-flex justify-content-between border-bottom border-seconday border-1">
             <p>
               <strong>Stake: </strong>
@@ -101,33 +104,30 @@ const PrintableReceipt: React.FC<Props> = ({
               const date1: string[] = localDateString.split(", ");
               const time = date1[1];
               return (
-                <p
-                  key={index}
-                  className="mb-2 p-0 d-flex justify-content-between align-items-center "
-                >
-                  <span className="col-1 text-center">{rg.game_number}</span>
-                  <span className="d-flex flex-wrap px-4">
-                    {/* <span className="col-12">{rg.bet}</span> */}
-                    <span>
-                      {rg.home_team}-{rg.away_team}
+                <div key={index} className="col-12 mb-2 p-1 border border-dark">
+                  <p className="col-12 text-end">
+                    {new Date(dateString).toDateString()} | {time}
+                  </p>
+                  <p className="col-12 fw-bold d-flex justify-content-start align-items-center ">
+                    <span className="col-1 text-center text-light bg-dark p-1">
+                      {rg.game_number}
                     </span>
-                    {/* <span className="col-12">Full time</span> */}
+                    <span className="px-2 d-flex flex-wrap align-items-center">
+                      <span>
+                        {rg.home_team}-{rg.away_team}
+                      </span>
+                    </span>
+                  </p>
+                  <p className="col-2 text-left py-1 d-flex justify-content-between align-items-center ">
                     <span className="col-12">{rg.bet}</span>
-                  </span>
-                  <span className="col-3 text-left">
-                    {new Date(dateString).toDateString()}|{time}
-                  </span>
-                  <strong>{rg.odd}</strong>
-                </p>
+                    <strong>{rg.odd}</strong>
+                  </p>
+                </div>
               );
             })}
           </div>
 
           <div className="col-12 border-top py-3">
-            {/* <p>
-              <strong className="col-12 text-left">Total Odds: </strong>
-              <span>24</span>
-            </p> */}
             <p className="col-12 text-end">
               <strong>Possible win: </strong>
               <span>{FormatMoney(possibleWin, 2)}</span>
@@ -145,7 +145,7 @@ const PrintableReceipt: React.FC<Props> = ({
           </div>
         </div>
         <div className="p-receipt-foot col-12 text-center">
-          <Barcode width={3} height={50} value={receiptNumber.toString()} />
+          <Barcode width={1} height={50} value={receiptNumber.toString()} />
         </div>
       </div>
     </div>
