@@ -86,6 +86,7 @@ const FixtureComponent: React.FC<Props> = ({
         {/* {games.length > 0 ? ( */}
         {
           groupedGames.map((gg, index) => {
+            // window.alert(JSON.stringify(gg));
             const sortedGames = gg.sort(
               (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
             );

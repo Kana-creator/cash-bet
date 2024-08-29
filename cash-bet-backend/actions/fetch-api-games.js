@@ -59,7 +59,7 @@ const FetchGames = async (res, axios) => {
       .catch((error) => console.log(error));
     return res.json({ games: !response ? [] : response.data });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     return []; // Or handle errors more gracefully
   }
 };

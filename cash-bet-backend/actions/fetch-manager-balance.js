@@ -15,9 +15,8 @@ const FetchManagerBalance = (req, res, dbConn) => {
           console.log(error.sqlMessage);
         } else {
           if (
-            withdraw_results[0].withdraw_amount <= 0 ||
             results[0].manager_balance - withdraw_results[0].withdraw_amount <=
-              0
+            0
           ) {
             res.json({
               manager_balance: 0,

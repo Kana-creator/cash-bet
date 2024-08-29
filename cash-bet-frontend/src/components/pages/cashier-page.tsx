@@ -132,50 +132,48 @@ const CashierPage: React.FC<Props> = ({}) => {
 
   // FETCHING API PRE-MATCH GAMES
   useEffect(() => {
-    const interval = setInterval(() => {
-      axios
-        .get(`${AppUrl()}/fetch-games`)
-        .then(async (res) => {
-          const result = await parseXml(res.data.games);
-          const pre_match_games = [
-            ...result.markets.S.map((s: any) =>
-              s.C.map((c: any) =>
-                c.L.map((l: any) =>
-                  l.E.map((e: any, i: number) => {
-                    return {
-                      league_name: c.$.N + " " + l.$.N,
-                      event: e.$,
-                      markets: e.M,
-                    };
-                  })
-                )
-              )
-            ),
-          ];
-
-          const allGames: GameModule[] = [];
-          const markets: any[] = [];
-          pre_match_games.forEach((game) => {
-            const pr_game = [...game.map((g: any) => g)];
-            pr_game.forEach((prg: any) =>
-              prg.map((pg: any) =>
-                pg.forEach((p: any) => {
-                  allGames.push(p);
-                  const mts = [p.markets];
-                  mts.forEach((m) => markets.push(m));
+    // const interval = setInterval(() => {
+    axios
+      .get(`${AppUrl()}/fetch-games`)
+      .then(async (res) => {
+        const result = await parseXml(res.data.games);
+        const pre_match_games = [
+          ...result.markets.S.map((s: any) =>
+            s.C.map((c: any) =>
+              c.L.map((l: any) =>
+                l.E.map((e: any, i: number) => {
+                  return {
+                    league_name: c.$.N + " " + l.$.N,
+                    event: e.$,
+                    markets: e.M,
+                  };
                 })
               )
-            );
-          });
+            )
+          ),
+        ];
 
-          setAllPreMatchGames(
-            allGames.filter((ag) => ag.markets !== undefined)
+        const allGames: GameModule[] = [];
+        const markets: any[] = [];
+        pre_match_games.forEach((game) => {
+          const pr_game = [...game.map((g: any) => g)];
+          pr_game.forEach((prg: any) =>
+            prg.map((pg: any) =>
+              pg.forEach((p: any) => {
+                allGames.push(p);
+                const mts = [p.markets];
+                mts.forEach((m) => markets.push(m));
+              })
+            )
           );
-          setLoading(false);
-        })
-        .catch((error) => console.log(error));
-    }, 300000);
-    return () => clearInterval(interval);
+        });
+
+        setAllPreMatchGames(allGames.filter((ag) => ag.markets !== undefined));
+        setLoading(false);
+      })
+      .catch((error) => console.log(error));
+    // }, 300000);
+    // return () => clearInterval(interval);
   }, []);
 
   // SETTING CURRENT USER DETAILS

@@ -115,7 +115,7 @@ const Fixture: React.FC = () => {
               c.L.map((l: any) =>
                 l.E.map((e: any, i: number) => {
                   return {
-                    league_name: l.$.N,
+                    league_name: c.$.N + " " + l.$.N,
                     event: e.$,
                     markets: e.M,
                   };
