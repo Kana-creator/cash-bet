@@ -52,6 +52,8 @@ const ReceiptResults: React.FC<Props> = ({
     const notFoundStatus = status.includes("Missing");
     const winStatus = status.includes("Win");
 
+    console.log(status);
+
     const interval = setInterval(() => {
       const receipt_status = receiptResults.map((rr) => rr.receipt_status);
       setReceiptStatus(Number(receipt_status[0]));

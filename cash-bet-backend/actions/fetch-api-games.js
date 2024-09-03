@@ -1,6 +1,4 @@
 const FetchGames = async (res, axios) => {
-  console.log(process.env.GAMES_API_PASSWORD);
-
   const todayMonth = new Date().getMonth() + 1;
   const todayYear = new Date().getFullYear();
   const todayDate = new Date().getDate();
@@ -52,11 +50,18 @@ const FetchGames = async (res, axios) => {
     const selectedLeagueIDs =
       "225,70,66,1157,199,314,314,165,80,148,61,141,110,171,47,188,179,1637,206, 161,124,90,404,512,158,204,372,1104,313,167,182,52,213,107,5,6,181,58,21087,432";
 
+    // const response = await axios
+    //   .get(
+    //     `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&edt=${futureDateString}&lid&bid&cid=${selectedCountryIDs}`
+    //   )
+    //   .catch((error) => console.log(error));
+
     const response = await axios
       .get(
-        `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&edt=${futureDateString}&lid&bid&cid=${selectedCountryIDs}`
+        `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&edt=${futureDateString}`
       )
       .catch((error) => console.log(error));
+
     return res.json({ games: !response ? [] : response.data });
   } catch (error) {
     // console.log(error.message);

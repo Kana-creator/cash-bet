@@ -45,7 +45,7 @@ const FixtureComponent: React.FC<Props> = ({
 
     const groupedArray = Object.values(groupByDate);
     setGroupedGame(groupedArray);
-  }, []);
+  }, [games]);
 
   return (
     <div className=" col-12 d-flex flex-wrap justify-content-center">
@@ -82,9 +82,10 @@ const FixtureComponent: React.FC<Props> = ({
         className="text-center pt-5 pb-3 mt-5 col-12 d-flex flex-wrap justify-content-center overflow-x-auto px-3"
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
+        <h1>{games.length !== 0}</h1>
 
-        {/* {games.length > 0 ? ( */}
-        {
+        {games.length > 0 ? (
+          // {
           groupedGames.map((gg, index) => {
             // window.alert(JSON.stringify(gg));
             const sortedGames = gg.sort(
@@ -92,7 +93,7 @@ const FixtureComponent: React.FC<Props> = ({
             );
             return (
               <table key={index} className="table-bordered my-5">
-                <div className="bg-danger col-12 h-100"></div>
+                {/* <div className="bg-danger col-12 h-100"></div> */}
                 <thead>
                   <tr>
                     <th
@@ -169,12 +170,12 @@ const FixtureComponent: React.FC<Props> = ({
               </table>
             );
           })
-          // ) : (
-          //   <div className="main d-flex justify-content-center align-items-center w-100 h-30">
-          //     <ScreenPreloader />
-          //   </div>
-          // )}
-        }
+        ) : (
+          <div className="main d-flex justify-content-center align-items-center w-100 h-30">
+            <ScreenPreloader />
+          </div>
+        )}
+        {/* } */}
       </div>
     </div>
   );

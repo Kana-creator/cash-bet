@@ -1955,43 +1955,45 @@ const ResultsTable: React.FC<Props> = ({
     const dates =
       today.getFullYear() + "-" + today.getMonth() + 1 + "-" + today.getDate();
 
-    const interval = setInterval(() => {
-      axios
-        .get(`${AppUrl()}/fetch-result-ids`)
-        .then((res) => {
-          res.data.IDs.forEach((id: any) => {
-            axios
-              .get(`${AppUrl()}/fetch-api-results/${id.event_id}`)
-              .then(async (res) => {
-                const result = await parseXml(res.data.game);
+    // const interval = setInterval(() => {
+    axios
+      .get(`${AppUrl()}/fetch-result-ids`)
+      .then((res) => {
+        res.data.IDs.forEach((id: any) => {
+          axios
+            .get(`${AppUrl()}/fetch-api-results/${id.event_id}`)
+            .then(async (res) => {
+              // window.alert(JSON.stringify(res.data));
 
-                if (result.markets.$.CNT !== "0") {
-                  const result_game = [
-                    ...result.markets.S.map((s: any) =>
-                      s.C.map((c: any) =>
-                        c.L.map((l: any) =>
-                          l.E.map((e: any, i: number) => {
-                            saveResults(
-                              e.$.I,
-                              e.$.sc,
-                              e.$.sce,
-                              e.$.DT,
-                              c.$.N + " " + l.$.N
-                            );
-                          })
-                        )
+              const result = await parseXml(res.data.game);
+
+              if (result.markets.$.CNT !== "0") {
+                const result_game = [
+                  ...result.markets.S.map((s: any) =>
+                    s.C.map((c: any) =>
+                      c.L.map((l: any) =>
+                        l.E.map((e: any, i: number) => {
+                          saveResults(
+                            e.$.I,
+                            e.$.sc,
+                            e.$.sce,
+                            e.$.DT,
+                            c.$.N + " " + l.$.N
+                          );
+                        })
                       )
-                    ),
-                  ];
-                }
-              })
+                    )
+                  ),
+                ];
+              }
+            })
 
-              .catch((error) => console.log(error));
-          });
-        })
-        .catch((error) => console.log(error));
-    }, 10000);
-    return () => clearInterval(interval);
+            .catch((error) => console.log(error));
+        });
+      })
+      .catch((error) => console.log(error));
+    // }, 10000);
+    // return () => clearInterval(interval);
   }, []);
 
   // FETCH DATABASE GAME RESULTS
@@ -2000,6 +2002,7 @@ const ResultsTable: React.FC<Props> = ({
       axios
         .get(`${AppUrl()}/fetch-database-results`)
         .then((res) => {
+          window.alert(JSON.stringify(res.data));
           const groupByDate = res.data.databaseResults.reduce(
             (acc: any, obj: any) => {
               const key = new Date(obj.date_played).getDate(); // Grouping based on age
@@ -2066,6 +2069,7 @@ const ResultsTable: React.FC<Props> = ({
         className="text-center pt-5 pb-3 mt-5 col-12 d-flex flex-wrap justify-content-center overflow-x-auto px-3"
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
+        <h1>{groupedGames.length}</h1>
 
         {
           // groupedGames.length > 0 ? (

@@ -1,9 +1,9 @@
 const FetchShopBalance = (req, res, dbConn) => {
   const { shop_id } = req.params;
   console.log(shop_id);
-  const date = new Date();
-  const query =
-    "SELECT SUM(stake) AS shop_balance FROM receipt WHERE shop_id=?";
+
+  let query = "";
+  query = "SELECT SUM(stake) AS shop_balance FROM receipt WHERE shop_id=?";
 
   dbConn.query(query, [shop_id], (error, results) => {
     if (error) {

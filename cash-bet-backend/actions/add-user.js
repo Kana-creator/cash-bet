@@ -1,6 +1,8 @@
 import bcryptjs from "bcryptjs";
 
 const AddUser = async (req, res, dbConn) => {
+  console.log(req.body.user_role);
+
   const sallt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(req.body.password, sallt);
 
@@ -31,20 +33,22 @@ const AddUser = async (req, res, dbConn) => {
           status: "error",
         });
       } else {
-        if (req.body.role === "manager") {
+        if (req.body.user_role === "manager") {
           const query = "SELECT manager_id FROM shop WHERE shop_id=?";
           dbConn.query(query, [req.body.dutyStation], (error, results) => {
             if (error) {
               return res
                 .status(201)
                 .json({ message: error.sqlMessage, status: "error" });
-            } else if (results[0].manager_id !== 0) {
-              return res.status(201).json({
-                message:
-                  "The shop you are choosing as duty station already has a manager. Please chose a different shop!",
-                status: "error",
-              });
-            } else {
+            }
+            // else if (results[0].manager_id !== 0) {
+            //   return res.status(201).json({
+            //     message:
+            //       "The shop you are choosing as duty station already has a manager. Please chose a different shop!",
+            //     status: "error",
+            //   });
+            // }
+            else {
               const query =
                 "INSERT INTO user(linked_to, first_name, last_name, user_email, user_telephone, user_role, duty_station, user_password, date_added) VALUES(?)";
 
@@ -54,7 +58,7 @@ const AddUser = async (req, res, dbConn) => {
                     .status(201)
                     .json({ message: error.sqlMessage, status: "error" });
                 } else {
-                  if (req.body.role === "manager") {
+                  if (req.body.user_role === "manager") {
                     const query =
                       "SELECT user_id FROM user WHERE user_telephone=?";
                     dbConn.query(
@@ -109,14 +113,16 @@ const AddUser = async (req, res, dbConn) => {
                 .status(201)
                 .json({ message: error.sqlMessage, status: "error" });
             } else {
-              if (req.body.role === "manager") {
+              if (req.body.user_role === "manager") {
                 const query = "SELECT user_id FROM user WHERE user_telephone=?";
                 dbConn.query(query, [req.body.telephone], (error, results) => {
                   if (error) {
+                    console.log(error);
                     return res
                       .status(201)
                       .json({ message: error.sqlMessage, status: "error" });
                   } else {
+                    console.log("results[0].user_id");
                     const query =
                       "UPDATE shop SET manager_id = ? WHERE shop_id = ?";
                     dbConn.query(

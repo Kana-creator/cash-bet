@@ -48,9 +48,9 @@ const PrintableReceipt: React.FC<Props> = ({
   return (
     <div
       className="col-12 d-flex justify-content-center position-absolute"
-      style={{ fontSize: "8pt" }}
+      style={{ fontSize: "11pt", color: "black" }}
     >
-      <div className="col-md-4">
+      <div className="col-12">
         <div className="p-receit-head col-12 d-flex flex-wrap justify-content-center">
           <div className="col-12">
             {/* <h1 className="text-center">LOGO</h1> */}
@@ -104,13 +104,13 @@ const PrintableReceipt: React.FC<Props> = ({
               const date1: string[] = localDateString.split(", ");
               const time = date1[1];
               return (
-                <div key={index} className="col-12 mb-2 p-1 border border-dark">
+                <div key={index} className="col-12 p-1 border border-dark">
                   <p className="col-12 text-end">
                     {new Date(dateString).toDateString()} | {time}
                   </p>
-                  <p className="col-12 fw-bold d-flex justify-content-start align-items-center ">
-                    <span className="col-1 text-center text-light bg-dark p-1">
-                      {rg.game_number}
+                  <p className="col-12 fw-bold d-flex justify-content-between align-items-center ">
+                    <span className="text-center text-light bg-dark px-1">
+                      {"[ " + rg.game_number + " ]"}
                     </span>
                     <span className="px-2 d-flex flex-wrap align-items-center">
                       <span>

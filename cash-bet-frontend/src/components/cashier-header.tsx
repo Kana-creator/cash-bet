@@ -93,7 +93,8 @@ const CashierHeader: React.FC<Props> = ({ managerCreditBalance }) => {
       localStorage.getItem("user") as string
     );
 
-    setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
+    return () =>
+      setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
   }, [withdraw]);
 
   return (

@@ -32,11 +32,9 @@ const FetchGameResults = async (req, res, axios) => {
       .get(
         `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&eid=${event_id}&edt=${futureDateString}stc=0&sdt=${passedDateString}`
       )
-      .catch((error) => console.log("error"));
-    // console.log(response.data);
+      .catch((error) => console.log("error", error));
     return res.json({ game: !response.data ? [] : response.data });
   } catch (error) {
-    // console.log(error);
     return []; // Or handle errors more gracefully
   }
 };
