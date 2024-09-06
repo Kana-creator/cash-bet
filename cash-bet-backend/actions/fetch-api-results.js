@@ -1,5 +1,4 @@
 const FetchGames = async (res, axios) => {
-  console.log(res);
   const todayMonth = new Date().getMonth() + 1;
   const todayYear = new Date().getFullYear();
   const todayDate = new Date().getDate();
@@ -39,9 +38,12 @@ const FetchGames = async (res, axios) => {
 
     const response = await axios
       .get(
-        `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&edt=${futureDateString}&lid&bid=17,43,144&btgrp`
+        `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&edt=${futureDateString}&lid&bid&btgrp`
       )
       .catch((error) => console.log(error));
+
+    console.log(response.data);
+    console.log({ games: !response ? [] : response.data });
     return res.json({ games: !response ? [] : response.data });
   } catch (error) {
     console.log(error.message);

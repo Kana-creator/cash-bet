@@ -172,20 +172,20 @@ table {
   }
   td {
     padding: 0 2px;
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 8px;
+    font-weight: 700;
     overflow-x: hidden;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border: 2px solid black;
+    border: 1px solid black;
   }
 
   th {
-    padding: 2px;
-    font-size: 10px;
+    padding: 1px;
+    font-size: 8px;
     font-weight: 800;
-    border: 2px solid black;
+    border: 1px solid black;
   }
 }
 
@@ -214,7 +214,7 @@ table {
 }
 
 .fixed-column {
-  max-width: 90px;
+  max-width: 70px;
 }
 
 .withdraw-form {

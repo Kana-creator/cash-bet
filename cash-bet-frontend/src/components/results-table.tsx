@@ -2002,7 +2002,6 @@ const ResultsTable: React.FC<Props> = ({
       axios
         .get(`${AppUrl()}/fetch-database-results`)
         .then((res) => {
-          window.alert(JSON.stringify(res.data));
           const groupByDate = res.data.databaseResults.reduce(
             (acc: any, obj: any) => {
               const key = new Date(obj.date_played).getDate(); // Grouping based on age
@@ -2069,7 +2068,7 @@ const ResultsTable: React.FC<Props> = ({
         className="text-center pt-5 pb-3 mt-5 col-12 d-flex flex-wrap justify-content-center overflow-x-auto px-3"
       >
         <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
-        <h1>{groupedGames.length}</h1>
+        <h1 className="col-12 fixture-head">{groupedGames.length}</h1>
 
         {
           // groupedGames.length > 0 ? (
