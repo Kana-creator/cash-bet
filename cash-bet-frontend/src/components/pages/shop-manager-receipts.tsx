@@ -25,6 +25,10 @@ const ShopManagerReceipts: React.FC = () => {
       lable: "Reports",
       link: "/shop-manager-reports",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
 
   return (

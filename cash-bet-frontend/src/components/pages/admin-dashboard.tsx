@@ -108,6 +108,10 @@ const AdminDashboard: React.FC<Props> = memo(
               link: "/admin-withdraw-report",
               // view: res.data.adminRights[0].view_reports,
             },
+            {
+              lable: "Credit",
+              link: "/credit-report",
+            },
           ]);
         })
         .catch((error) => console.log(error));

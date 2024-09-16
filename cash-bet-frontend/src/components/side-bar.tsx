@@ -44,11 +44,13 @@ const SideBar: React.FC<Props> = ({ navLinks, setNavLinks }) => {
           if (res.data.status === "success") {
             setCreditBalance(res.data.credit_balance.available_credit);
           } else {
-            window.alert(res.data.message);
+            if (res.data.message === "Authentication failed") {
+              window.location.href = "/";
+            }
           }
         })
         .catch((error) => console.log(error));
-    }, 3000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);

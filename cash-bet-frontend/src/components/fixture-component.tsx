@@ -49,13 +49,24 @@ const FixtureComponent: React.FC<Props> = ({
 
   return (
     <div className=" col-12 d-flex flex-wrap justify-content-center">
-      <div className="page-heading col-10 d-flex justify-content-between mb-4 p-4">
+      <div
+        className="page-heading col-10 d-flex justify-content-between mb-4 p-4"
+        style={{ height: "fit" }}
+      >
         <h4>Fixture</h4>
-        <button className="btn btn-info" onClick={() => refreshGameIDs()}>
+        <button
+          className="btn btn-info"
+          style={{ height: "40px" }}
+          onClick={() => refreshGameIDs()}
+        >
           Refresh game IDs
         </button>
 
-        <button className="btn btn-secondary" onClick={handlePrint}>
+        <button
+          className="btn btn-secondary"
+          style={{ height: "40px" }}
+          onClick={handlePrint}
+        >
           Print fixture
         </button>
 
@@ -68,7 +79,7 @@ const FixtureComponent: React.FC<Props> = ({
               {currentUserName} {<MdSettings />}
             </span>
           </summary>
-          <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p>
+          {/* <p className="btn btn-secondary px-2 py-2 col-12 mt-3">Profile</p> */}
           <p
             className="btn btn-secondary px-2 py-2 col-12"
             onClick={() => UserLogOut(currentUserRole, currentUserId)}

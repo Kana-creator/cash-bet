@@ -1,4 +1,4 @@
-const SaveReceiptGames = (req, res, dbConn, dbConn2) => {
+const SaveReceiptGames = (req, res, dbConn) => {
   const games = req.body.games.map((game) => [
     game.event_id,
     game.game_number,

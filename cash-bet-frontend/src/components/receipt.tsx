@@ -394,6 +394,7 @@ const Receipt: React.FC<Props> = ({
                           adminId,
                           linkedTo
                         );
+                        document.getElementById("search-game")?.focus();
                       } else {
                         window.alert("Can't submit empty receipt.");
                       }

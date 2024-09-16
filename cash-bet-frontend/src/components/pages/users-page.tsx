@@ -22,6 +22,10 @@ const UsersPage: React.FC = () => {
       lable: "Users",
       link: "/users",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
   // const [userRole, setUserRole] = useState<string>("");
 

@@ -71,30 +71,29 @@ const AdminWithdrawReport: React.FC<Props> = ({
           {
             lable: "Dashbord",
             link: "/admin-dashboard",
-            view: res.data.adminRights[0].view_dashboard,
           },
 
           {
             lable: "Partners",
             link: "/partners",
-            view: res.data.adminRights[0].view_partners,
           },
           {
             lable: "Users",
             link: "/admin-users",
-            view: res.data.adminRights[0].view_users,
           },
 
           {
             lable: "Reports",
             link: "/admin-reports",
-            view: res.data.adminRights[0].view_reports,
           },
           {
             lable: "Withdraws",
             link: "/admin-withdraw-report",
-            view: res.data.adminRights[0].view_reports,
             status: "active",
+          },
+          {
+            lable: "Credit",
+            link: "/credit-report",
           },
         ]);
       })

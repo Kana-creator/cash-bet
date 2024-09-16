@@ -30,7 +30,6 @@ const Fixture: React.FC = () => {
     {
       lable: "Dashbord",
       link: "/partner-dashboard",
-      status: "",
     },
 
     {
@@ -56,6 +55,10 @@ const Fixture: React.FC = () => {
     {
       lable: "Reports",
       link: "/partner-receipts",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
 

@@ -7,10 +7,10 @@ const UpdateUser = (req, res, dbConn, user_id) => {
     } else {
       // RESET DUTY STATION FOR THE USER WITH DUTY STATION SIMILAR TO THE PROVIDED DUTY STATION
       query =
-        "UPDATE user SET duty_station=? WHERE user_id=? OR user_id!=? AND duty_station=?";
+        "UPDATE user SET duty_station=? WHERE user_id=? OR user_id!=? AND duty_station=? AND user_role=?";
       dbConn.query(
         query,
-        [0, user_id, user_id, req.body.dutyStation],
+        [0, user_id, user_id, req.body.dutyStation, "manager"],
         (error) => {
           if (error) {
             console.log(error.sqlMessage);

@@ -50,6 +50,10 @@ const PartnerReports: React.FC = () => {
       link: "/partner-receipts",
       status: "active",
     },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
+    },
   ]);
 
   const [currentUserId, setCurrentUserId] = useState<number>(0);

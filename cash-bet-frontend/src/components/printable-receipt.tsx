@@ -48,7 +48,7 @@ const PrintableReceipt: React.FC<Props> = ({
   return (
     <div
       className="col-12 d-flex justify-content-center position-absolute"
-      style={{ fontSize: "11pt", color: "black" }}
+      style={{ fontSize: "10pt", color: "black" }}
     >
       <div className="col-12">
         <div className="p-receit-head col-12 d-flex flex-wrap justify-content-center">
@@ -104,22 +104,35 @@ const PrintableReceipt: React.FC<Props> = ({
               const date1: string[] = localDateString.split(", ");
               const time = date1[1];
               return (
-                <div key={index} className="col-12 p-1 border border-dark">
-                  <p className="col-12 text-end">
+                <div
+                  key={index}
+                  className="col-12 p-1 py-0 border border-dark"
+                  style={{ fontSize: "10pt", fontWeight: "400" }}
+                >
+                  <p
+                    className="col-12 text-end py-0"
+                    style={{ lineHeight: "1" }}
+                  >
                     {new Date(dateString).toDateString()} | {time}
                   </p>
-                  <p className="col-12 fw-bold d-flex justify-content-between align-items-center ">
-                    <span className="text-center text-light bg-dark px-1">
+                  <p
+                    className="col-12 fw-bold d-flex justify-content-between align-items-center py-0"
+                    style={{ lineHeight: "1" }}
+                  >
+                    <span className="col-3 text-center text-light bg-dark px-1 fw-bold">
                       {"[ " + rg.game_number + " ]"}
                     </span>
-                    <span className="px-2 d-flex flex-wrap align-items-center">
+                    <span className="col-9 px-2 d-flex flex-wrap align-items-center">
                       <span>
-                        {rg.home_team}-{rg.away_team}
+                        {rg.home_team} - {rg.away_team}
                       </span>
                     </span>
                   </p>
-                  <p className="col-2 text-left py-1 d-flex justify-content-between align-items-center ">
-                    <span className="col-12">{rg.bet}</span>
+                  <p
+                    className="col-12 text-left d-flex justify-content-between align-items-center px-2 py-0"
+                    style={{ lineHeight: "1" }}
+                  >
+                    <span>{rg.bet}</span>
                     <strong>{rg.odd}</strong>
                   </p>
                 </div>
@@ -145,7 +158,7 @@ const PrintableReceipt: React.FC<Props> = ({
           </div>
         </div>
         <div className="p-receipt-foot col-12 text-center">
-          <Barcode width={1} height={50} value={receiptNumber.toString()} />
+          <Barcode width={2} height={50} value={receiptNumber.toString()} />
         </div>
       </div>
     </div>

@@ -23,6 +23,10 @@ const ShopCashierReceipts: React.FC<Props> = () => {
       lable: "Reports",
       link: "/shop-cashier-reports",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
 
   return (

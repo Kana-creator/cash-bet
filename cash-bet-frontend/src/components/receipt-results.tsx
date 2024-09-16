@@ -40,7 +40,6 @@ const ReceiptResults: React.FC<Props> = ({
       .then((res) => {
         if (status === 3 || status === 4) {
           setShowResults(false);
-          window.alert(res.data.message);
         }
       })
       .catch((error) => console.log(error));

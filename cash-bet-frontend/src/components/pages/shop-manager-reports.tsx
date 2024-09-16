@@ -25,6 +25,10 @@ const ShopManagerReports: React.FC = () => {
       link: "/shop-manager-reports",
       status: "active",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
 
   return (

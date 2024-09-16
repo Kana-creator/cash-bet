@@ -12,7 +12,6 @@ const PartnerUsers: React.FC = () => {
     {
       lable: "Dashbord",
       link: "/partner-dashboard",
-      icon: MdDashboard,
     },
 
     {
@@ -20,6 +19,7 @@ const PartnerUsers: React.FC = () => {
       link: "/partner-users",
       status: "active",
     },
+
     {
       lable: "Shops",
       link: "/partner-shops",
@@ -37,6 +37,10 @@ const PartnerUsers: React.FC = () => {
     {
       lable: "Reports",
       link: "/partner-receipts",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
   return (

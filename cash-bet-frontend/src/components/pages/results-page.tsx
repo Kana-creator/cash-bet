@@ -26,7 +26,6 @@ const Results: React.FC = () => {
     {
       lable: "Dashbord",
       link: "/partner-dashboard",
-      status: "",
     },
 
     {
@@ -49,14 +48,13 @@ const Results: React.FC = () => {
       status: "active",
     },
 
-    // {
-    //   lable: "Receipts",
-    //   link: "/partiner-receipts",
-    // },
-
     {
       lable: "Reports",
       link: "/partner-receipts",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
 

@@ -17,6 +17,7 @@ const PartnerShops: React.FC = () => {
       lable: "Users",
       link: "/partner-users",
     },
+
     {
       lable: "Shops",
       link: "/partner-shops",
@@ -31,9 +32,14 @@ const PartnerShops: React.FC = () => {
       lable: "Results",
       link: "/partiner-results",
     },
+
     {
       lable: "Reports",
       link: "/partner-receipts",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
   return (

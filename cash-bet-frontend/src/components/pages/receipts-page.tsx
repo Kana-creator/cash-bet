@@ -27,7 +27,6 @@ const Receipts: React.FC = () => {
     {
       lable: "Dashbord",
       link: "/partner-dashboard",
-      status: "",
     },
 
     {
@@ -53,6 +52,10 @@ const Receipts: React.FC = () => {
       lable: "Reports",
       link: "/partner-receipts",
       status: "active",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
 

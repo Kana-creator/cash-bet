@@ -24,6 +24,10 @@ const ShopsPage: React.FC = () => {
       lable: "Shops",
       link: "/shops",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
   return (
     <div className="main col-12">

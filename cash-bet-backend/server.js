@@ -78,6 +78,7 @@ import FetchAllManagers from "./actions/fetch-managers-by-partner.js";
 import FetchAllCashiers from "./actions/fetch-cashiers-by-partner.js";
 import FetchPartnerUsersByCategory from "./actions/fetch-partner-users-by-category.js";
 import WithdrawBalance from "./actions/withdraw-balance.js";
+import FetchCredit from "./actions/fetch-credit.js";
 
 const httpServer = createServer();
 
@@ -488,7 +489,7 @@ app.get("/api/fetch-event-numbers", (req, res) => {
 
 // SAVING RECEIPT GAMES
 app.post("/api/save-receipt-games", (req, res) => {
-  SaveReceiptGames(req, res, dbConn, dbConn2);
+  SaveReceiptGames(req, res, dbConn);
 });
 
 // FETCHING CASHIER DAILY RECEIPTS
@@ -592,8 +593,9 @@ app.post("/api/withdraw-balance", (req, res) => {
   WithdrawBalance(req, res, dbConn);
 });
 
-app.get("/api/health", (req, res) => {
-  res.status(200).send("App is healthy");
+app.get("/api/fetch-credit/:userId", (req, res) => {
+  const { userId } = req.params;
+  FetchCredit(res, dbConn, userId);
 });
 
 //unhandled routes

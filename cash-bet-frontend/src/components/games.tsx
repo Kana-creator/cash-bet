@@ -165,7 +165,14 @@ const Games: React.FC<Props> = ({
             handleSearch(search.value);
           }}
           onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            const search = document.getElementById(
+              "search-game"
+            ) as HTMLInputElement;
             if (e.key === "Enter") {
+              if (search.value.trim().length < 1) {
+                document.getElementById("stake")?.focus();
+                return;
+              }
               if (searchResults.length === 1) {
                 setShowGameDetails(true);
                 setCurrentGame([searchResults[0]]);

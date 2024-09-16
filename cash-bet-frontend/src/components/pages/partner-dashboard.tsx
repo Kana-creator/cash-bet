@@ -30,7 +30,6 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
     {
       lable: "Dashbord",
       link: "/partner-dashboard",
-      icon: MdDashboard,
       status: "active",
     },
 
@@ -56,6 +55,10 @@ const PartnerDashboard: React.FC<Props> = ({ adminRights }) => {
     {
       lable: "Reports",
       link: "/partner-receipts",
+    },
+    {
+      lable: "Credit",
+      link: "/partner-credit-report",
     },
   ]);
 

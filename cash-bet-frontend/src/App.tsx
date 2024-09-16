@@ -26,6 +26,9 @@ import Fixture from "./components/pages/fixture-page";
 import Results from "./components/pages/results-page";
 import PartnerReports from "./components/pages/partner-reports";
 import AdminWithdrawReport from "./components/pages/admin-withdraw-report";
+import CreditReportPage from "./components/pages/credit-report-page";
+import PartnerCreditReportPage from "./components/pages/partner-credit-report";
+import ManagerCreditReportPage from "./components/pages/manager-credit-page";
 
 const App: React.FC = () => {
   const [adminRights, setAdminRights] = useState<AdminRightsModule[]>([
@@ -146,6 +149,40 @@ const App: React.FC = () => {
                 setAdminRights={setAdminRights}
               />
             }
+          />
+
+          <Route
+            path="/credit-report"
+            element={
+              <CreditReportPage
+                adminRights={adminRights}
+                setAdminRights={setAdminRights}
+              />
+            }
+          />
+
+          <Route
+            path="/partner-credit-report"
+            element={
+              <PartnerCreditReportPage
+                adminRights={adminRights}
+                setAdminRights={setAdminRights}
+              />
+            }
+          />
+          <Route
+            path="/partner-credit-report"
+            element={
+              <PartnerCreditReportPage
+                adminRights={adminRights}
+                setAdminRights={setAdminRights}
+              />
+            }
+          />
+
+          <Route
+            path="/manager-credit-report"
+            element={<ManagerCreditReportPage />}
           />
         </Routes>
       </BrowserRouter>

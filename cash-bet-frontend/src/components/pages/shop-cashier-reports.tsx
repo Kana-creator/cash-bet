@@ -24,6 +24,10 @@ const ShopCashierReports: React.FC<Props> = () => {
       link: "/shop-cashier-reports",
       status: "active",
     },
+    {
+      lable: "Credit",
+      link: "/credit-report",
+    },
   ]);
   return (
     <div className="main">

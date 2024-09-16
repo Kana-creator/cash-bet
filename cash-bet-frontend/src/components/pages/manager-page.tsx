@@ -88,6 +88,10 @@ const ManagerPage: React.FC<Props> = ({}) => {
       lable: "Cashiers",
       link: "/cashiers-page",
     },
+    {
+      lable: "Credit",
+      link: "/manager-credit-report",
+    },
   ]);
 
   const [eventNumbers, setEventNumbers] = useState<GameNumber[]>([]);
@@ -212,7 +216,9 @@ const ManagerPage: React.FC<Props> = ({}) => {
         if (res.data.status === "success") {
           setManagerCreditBalance(res.data.credit_balance.available_credit);
         } else {
-          window.alert(res.data.message);
+          if (res.data.message === "Authentication failed") {
+            window.location.href = "/";
+          }
         }
       })
       .catch((error) => console.log(error));

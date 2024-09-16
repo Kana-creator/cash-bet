@@ -20,6 +20,10 @@ const CashiersPage: React.FC = () => {
       link: "/cashiers-page",
       status: "active",
     },
+    {
+      lable: "Credit",
+      link: "/manager-credit-report",
+    },
   ]);
 
   return (
