@@ -106,17 +106,17 @@ const PrintableReceipt: React.FC<Props> = ({
               return (
                 <div
                   key={index}
-                  className="col-12 p-1 py-0 border border-dark"
+                  className="col-12 p-1 border border-dark"
                   style={{ fontSize: "10pt", fontWeight: "400" }}
                 >
-                  <p
-                    className="col-12 text-end py-0"
-                    style={{ lineHeight: "1" }}
+                  <div
+                    className="col-12 text-end py-0 bg-blue"
+                    style={{ lineHeight: "1", fontSize: "8pt" }}
                   >
                     {new Date(dateString).toDateString()} | {time}
-                  </p>
-                  <p
-                    className="col-12 fw-bold d-flex justify-content-between align-items-center py-0"
+                  </div>
+                  <div
+                    className="col-12 fw-bold d-flex justify-content-between align-items-center py-1"
                     style={{ lineHeight: "1" }}
                   >
                     <span className="col-3 text-center text-light bg-dark px-1 fw-bold">
@@ -127,14 +127,14 @@ const PrintableReceipt: React.FC<Props> = ({
                         {rg.home_team} - {rg.away_team}
                       </span>
                     </span>
-                  </p>
-                  <p
+                  </div>
+                  <div
                     className="col-12 text-left d-flex justify-content-between align-items-center px-2 py-0"
-                    style={{ lineHeight: "1" }}
+                    style={{ lineHeight: "1", fontSize: "8pt" }}
                   >
                     <span>{rg.bet}</span>
                     <strong>{rg.odd}</strong>
-                  </p>
+                  </div>
                 </div>
               );
             })}
