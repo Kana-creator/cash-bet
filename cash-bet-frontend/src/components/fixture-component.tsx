@@ -34,15 +34,18 @@ const FixtureComponent: React.FC<Props> = ({
 
   useEffect(() => {
     refreshGameIDs();
-    const groupByDate = games.reduce((acc: any, obj) => {
-      const key = new Date(obj.event.DT).getDate(); // Grouping based on age
-      if (!acc[key]) {
-        acc[key] = [];
-      }
-      acc[key].push(obj);
-      return acc;
-    }, {});
-
+    const groupByDate = games
+      .sort((a, b) => {
+        return Number(a.event_number) - Number(b.event_number);
+      })
+      .reduce((acc: any, obj) => {
+        const key = new Date(obj.event.DT).getDate(); // Grouping based on age
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+      }, {});
     const groupedArray = Object.values(groupByDate);
     setGroupedGame(groupedArray);
   }, [games]);
@@ -96,15 +99,12 @@ const FixtureComponent: React.FC<Props> = ({
         <h1>{games.length !== 0}</h1>
 
         {games.length > 0 ? (
-          // {
           groupedGames.map((gg, index) => {
-            // window.alert(JSON.stringify(gg));
             const sortedGames = gg.sort(
               (a: any, b: any) => Number(a.event.I) - Number(b.event.I)
             );
             return (
               <table key={index} className="table-bordered my-5">
-                {/* <div className="bg-danger col-12 h-100"></div> */}
                 <thead>
                   <tr>
                     <th
@@ -169,13 +169,7 @@ const FixtureComponent: React.FC<Props> = ({
                 </thead>
                 <tbody>
                   {sortedGames.map((game: GameModule, index: number) => {
-                    return (
-                      <FixtureRow
-                        key={index}
-                        game={game}
-                        // eventNumbers={eventNumbers}
-                      />
-                    );
+                    return <FixtureRow key={index} game={game} />;
                   })}
                 </tbody>
               </table>
@@ -186,7 +180,6 @@ const FixtureComponent: React.FC<Props> = ({
             <ScreenPreloader />
           </div>
         )}
-        {/* } */}
       </div>
     </div>
   );

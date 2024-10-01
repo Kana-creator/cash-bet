@@ -57,6 +57,9 @@ const Receipt: React.FC<Props> = ({
   const [sumOdds, setSumOdds] = useState<number>(0);
   const [linkedTo, setLinkedTo] = useState<number>(0);
 
+  const [showPrintableReceipt, setShowPrintableReceipt] =
+    useState<boolean>(false);
+
   let componentRef = useRef<HTMLDivElement | null>(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -65,6 +68,11 @@ const Receipt: React.FC<Props> = ({
   function validateNumericInput(input: HTMLInputElement) {
     input.value = input.value.replace(/[^0-9]/g, "");
   }
+
+  // hide printable receipt if receipt games are null
+  useEffect(() => {
+    if (receiptGames.length < 1) setShowPrintableReceipt(false);
+  }, [receiptGames]);
 
   useEffect(() => {
     const stake_field = document.getElementById("stake") as HTMLInputElement;
@@ -417,23 +425,14 @@ const Receipt: React.FC<Props> = ({
           <div className="betting mt-1">
             <div className="d-flex mt-1 py-2 px-4 justify-content-between">
               <span>Possible Win</span>
-              <span>
-                {/* {receiptGames.length !== 0
-                  ? FormatMoney(
-                      [...receiptGames.map((rg) => rg.odd)].reduce(
-                        (a, b) => a * b
-                      ) * stake,
-                      2
-                    )
-                  : 0} */}
-                {FormatMoney(possibleWin, 0)}
-              </span>
+              <span>{FormatMoney(possibleWin, 0)}</span>
             </div>
 
             <div className="col-12 px-4 pb-2">
               <button
                 className="btn btn-primary col-12"
                 onClick={() => {
+                  setShowPrintableReceipt(true);
                   const stake_field = document.getElementById(
                     "stake"
                   ) as HTMLInputElement;
@@ -495,23 +494,25 @@ const Receipt: React.FC<Props> = ({
         </div>
       </div>
       <div className="col-12" ref={componentRef}>
-        <PrintableReceipt
-          receiptGames={receiptGames}
-          stake={stake}
-          possibleWin={possibleWin}
-          totalOdds={totalOdds}
-          shop={shop}
-          receiptNumber={receiptNumber}
-        />
+        {showPrintableReceipt && (
+          <PrintableReceipt
+            receiptGames={receiptGames}
+            stake={stake}
+            possibleWin={possibleWin}
+            totalOdds={totalOdds}
+            shop={shop}
+            receiptNumber={receiptNumber}
+          />
+        )}
       </div>
 
-      {showResults ? (
+      {showResults && (
         <ReceiptResults
           resultReceiptNumber={resultReceiptNumber}
           receiptResults={receiptResults}
           setShowResults={setShowResults}
         />
-      ) : null}
+      )}
     </div>
   );
 };

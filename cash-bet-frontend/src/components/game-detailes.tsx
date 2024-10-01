@@ -753,6 +753,33 @@ const GameDetails: React.FC<Props> = ({
               selectedGame.bet = `BTS_NO`;
               selectedGame.odd = BTS_odds[1];
               setOdds([...odds, BTS_odds[1]]);
+            } else if (e.target.value === "/1") {
+              // 1X2_H1
+              selectedGame.bet = "1X2_H1: 1";
+              selectedGame.odd = x2_H1Odds[0];
+              setOdds([...odds, x2_H1Odds[0]]);
+            } else if (e.target.value === "/0") {
+              selectedGame.bet = "1X2_H1: X";
+              selectedGame.odd = x2_H1Odds[1];
+              setOdds([...odds, x2_H1Odds[1]]);
+            } else if (e.target.value === "/2") {
+              selectedGame.bet = "1X2_H1: 2";
+              selectedGame.odd = x2_H1Odds[2];
+              setOdds([...odds, x2_H1Odds[2]]);
+
+              //DC
+            } else if (e.target.value === "10") {
+              selectedGame.bet = "DC_T1/X";
+              selectedGame.odd = DC_odds[0];
+              setOdds([...odds, DC_odds[0]]);
+            } else if (e.target.value === "12") {
+              selectedGame.bet = "DC_T1/T2";
+              selectedGame.odd = DC_odds[1];
+              setOdds([...odds, DC_odds[1]]);
+            } else if (e.target.value === "02") {
+              selectedGame.bet = "DC_X/T2";
+              selectedGame.odd = DC_odds[2];
+              setOdds([...odds, DC_odds[2]]);
             } else {
               selectedGame.bet = "";
               selectedGame.odd = 0;
