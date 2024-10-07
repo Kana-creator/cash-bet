@@ -79,6 +79,7 @@ import FetchAllCashiers from "./actions/fetch-cashiers-by-partner.js";
 import FetchPartnerUsersByCategory from "./actions/fetch-partner-users-by-category.js";
 import WithdrawBalance from "./actions/withdraw-balance.js";
 import FetchCredit from "./actions/fetch-credit.js";
+import FetchPartnerDetails from "./actions/fetch-partner-details.js";
 
 const httpServer = createServer();
 
@@ -89,7 +90,7 @@ app.use(cors());
 const dbConn = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  password: process.env.DB_PASSWORD + "#",
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
 });
@@ -593,9 +594,16 @@ app.post("/api/withdraw-balance", (req, res) => {
   WithdrawBalance(req, res, dbConn);
 });
 
+// FETCH CREDIT BY USER
 app.get("/api/fetch-credit/:userId", (req, res) => {
   const { userId } = req.params;
   FetchCredit(res, dbConn, userId);
+});
+
+// FETCH PARTNER DETAILS
+app.get("/api/fetch-partner-details/:partner_id", (req, res) => {
+  const { partner_id } = req.params;
+  FetchPartnerDetails(res, dbConn, partner_id);
 });
 
 //unhandled routes

@@ -16,7 +16,7 @@ const UpdateUser = (req, res, dbConn, user_id) => {
             console.log(error.sqlMessage);
           } else {
             query =
-              "UPDATE user SET user_role=?, duty_station=?, first_name=?, last_name=?, user_email=?, user_telephone=?, date_updated=? WHERE user_id=?";
+              "UPDATE user SET user_role=?, duty_station=?, first_name=?, last_name=?, user_email=?, user_telephone=?, company_name=?, date_updated=? WHERE user_id=?";
             dbConn.query(
               query,
               [
@@ -26,6 +26,7 @@ const UpdateUser = (req, res, dbConn, user_id) => {
                 req.body.lastName,
                 req.body.email,
                 req.body.telephone,
+                req.body.company_name,
                 new Date(),
                 user_id,
               ],

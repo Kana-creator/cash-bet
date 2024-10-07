@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Barcode from "react-barcode";
-import { GameModule } from "./modules/game-module";
 import { FormatMoney } from "./activities/format-money";
 import { ShopModule } from "./modules/shop-module";
 import { SelectedGameModule } from "./modules/selected-game-module";
@@ -12,6 +11,11 @@ interface Props {
   totalOdds: number;
   shop: ShopModule;
   receiptNumber: number;
+
+  partner: {
+    company_name: string | null;
+    logo: string | null;
+  };
 }
 
 const PrintableReceipt: React.FC<Props> = ({
@@ -21,14 +25,17 @@ const PrintableReceipt: React.FC<Props> = ({
   totalOdds,
   shop,
   receiptNumber,
+  partner,
 }) => {
   const [tax, setTax] = useState<number>(0);
   const [winAmount, setWinAmount] = useState<number>(0);
 
+  // calculate and set tax
   useEffect(() => {
     setTax((15 / 100) * possibleWin);
   }, [possibleWin]);
 
+  // calculate and set win amount
   useEffect(() => {
     const amount =
       Number(
@@ -53,8 +60,8 @@ const PrintableReceipt: React.FC<Props> = ({
       <div className="col-12">
         <div className="p-receit-head col-12 d-flex flex-wrap justify-content-center">
           <div className="col-12">
-            {/* <h1 className="text-center">LOGO</h1> */}
-            <h3 className="text-center">Xma sports betting</h3>
+            <h1 className="text-center">LOGO {partner.logo}</h1>
+            <h3 className="text-center">{partner.company_name}</h3>
           </div>
           <div className="col-12 d-flex flex-wrap justify-content-around border-bottom border-dark border-3">
             <h6 className="col-6 text-center">Receipt No.: {receiptNumber}</h6>

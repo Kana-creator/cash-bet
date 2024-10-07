@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MdClose, MdDelete } from "react-icons/md";
 import PrintableReceipt from "./printable-receipt";
 import { useReactToPrint } from "react-to-print";
@@ -59,6 +59,11 @@ const Receipt: React.FC<Props> = ({
 
   const [showPrintableReceipt, setShowPrintableReceipt] =
     useState<boolean>(false);
+
+  const [partner, setPartner] = useState<{
+    company_name: string | null;
+    logo: string | null;
+  }>({ company_name: null, logo: null });
 
   let componentRef = useRef<HTMLDivElement | null>(null);
   const handlePrint = useReactToPrint({
@@ -181,6 +186,30 @@ const Receipt: React.FC<Props> = ({
       })
       .catch((error) => console.log(error));
   };
+
+  // handle fetch partner details
+  const fetchPartnerDetails = useCallback((partner_id: number | null) => {
+    axios
+      .get(`${AppUrl()}/fetch-partner-details/${partner_id}`)
+      .then((res) => {
+        setPartner(res.data.partner);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  // fetch partner details on component rendering
+  useEffect(() => {
+    const current_user: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    const partnerId =
+      current_user.user_role !== "partner"
+        ? current_user.linked_to
+        : current_user.user_id;
+
+    fetchPartnerDetails(Number(partnerId));
+  }, []);
 
   return (
     <div className="receipt col-12">
@@ -323,11 +352,6 @@ const Receipt: React.FC<Props> = ({
                   const stake_field = document.getElementById(
                     "stake"
                   ) as HTMLInputElement;
-                  // const amount =
-                  //   Number(shop.maxPaypout) >=
-                  //   Number(e.target.value) * totalOdds
-                  //     ? Number(e.target.value) * totalOdds
-                  //     : Number(shop.maxPaypout);
 
                   validateNumericInput(stake_field);
                   setStake(Number(e.target.value));
@@ -502,6 +526,7 @@ const Receipt: React.FC<Props> = ({
             totalOdds={totalOdds}
             shop={shop}
             receiptNumber={receiptNumber}
+            partner={partner}
           />
         )}
       </div>

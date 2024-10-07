@@ -25,7 +25,6 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const AreaGraph = ({ data, height, XAxisKey, dataKey, fill, color_id }) => {
   return (
-    // <div className="col-12 bg-light shadow-lg">
     <ResponsiveContainer
       width="100%"
       height={height}
@@ -64,7 +63,6 @@ const AreaGraph = ({ data, height, XAxisKey, dataKey, fill, color_id }) => {
         <CartesianGrid opacity={0.3} vertical={false} strokeDasharray="3 3" />
       </AreaChart>
     </ResponsiveContainer>
-    // </div>
   );
 };
 

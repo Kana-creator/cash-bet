@@ -26,16 +26,13 @@ const FetchGameResults = async (req, res, axios) => {
 
   // Format the passed date as a string
   const passedDateString = passedDate.toISOString().split("T")[0]; // Format: YYYY-MM-DD
-
   try {
     const response = await axios
       .get(
         `${process.env.GAMES_API_URL}?l=1&u=${process.env.GAMES_API_USER}&p=${process.env.GAMES_API_PASSWORD}&eid=${event_id}&edt=${futureDateString}stc=0&sdt=${passedDateString}`
       )
       .catch((error) => console.log("error", error));
-    console.log(response.data);
-    // return res.json({ game: !response.data ? [] : response.data });
-    return res.json({ game: response.data });
+    return res.json({ game: !response.data ? [] : response.data });
   } catch (error) {
     return []; // Or handle errors more gracefully
   }

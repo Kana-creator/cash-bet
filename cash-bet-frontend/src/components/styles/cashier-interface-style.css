@@ -33,7 +33,6 @@
 .main .body .games .game-details {
   font-size: 12px;
   position: relative;
-  background-color: rgba(51, 153, 187, 0.2);
   padding: 1px;
 }
 .main .body .games .game-details .back-button {
@@ -50,12 +49,12 @@
   transform: scale(0.8);
 }
 .main .body .games .heading {
-  background-color: #1a224b;
+  background-color: rgba(18, 18, 18, 0.3);
   padding: 20px 0;
   margin-bottom: 1px;
 }
 .main .body .games .details-body {
-  background-color: #1a224b;
+  background-color: rgba(18, 18, 18, 0.3);
 }
 .main .body .games .details-body .left table tbody tr {
   text-align: center;

@@ -14,6 +14,7 @@ const AddUser = async (req, res, dbConn) => {
     req.body.telephone,
     req.body.user_role,
     req.body.dutyStation,
+    req.body.company_name,
     hashedPassword,
     new Date(),
   ];
@@ -50,7 +51,7 @@ const AddUser = async (req, res, dbConn) => {
             // }
             else {
               const query =
-                "INSERT INTO user(linked_to, first_name, last_name, user_email, user_telephone, user_role, duty_station, user_password, date_added) VALUES(?)";
+                "INSERT INTO user(linked_to, first_name, last_name, user_email, user_telephone, user_role, duty_station, company_name, user_password, date_added) VALUES(?)";
 
               dbConn.query(query, [values], (error) => {
                 if (error) {
@@ -105,7 +106,7 @@ const AddUser = async (req, res, dbConn) => {
           });
         } else {
           const query =
-            "INSERT INTO user(linked_to, first_name, last_name, user_email, user_telephone, user_role, duty_station, user_password, date_added) VALUES(?)";
+            "INSERT INTO user(linked_to, first_name, last_name, user_email, user_telephone, user_role, duty_station, company_name, user_password, date_added) VALUES(?)";
 
           dbConn.query(query, [values], (error) => {
             if (error) {

@@ -78,6 +78,8 @@ const UserForm: React.FC<Props> = ({ showUserForm, setShowUserForm }) => {
     dutyStation: 0,
     password: "",
     confirmPassword: "",
+    company_name: "",
+    logo: "",
   });
 
   const [editableUser, setEditableUser] = useState<EditableUser[]>([]);
@@ -88,6 +90,7 @@ const UserForm: React.FC<Props> = ({ showUserForm, setShowUserForm }) => {
   const navigate = useNavigate();
   const { user_id } = useParams();
 
+  // fetch user's duty station
   useEffect(() => {
     const userData = localStorage.getItem("user") as string;
     const currentUser: User = JSON.parse(userData);
@@ -121,6 +124,7 @@ const UserForm: React.FC<Props> = ({ showUserForm, setShowUserForm }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // fetch user details
   useEffect(() => {
     const token: string = localStorage.getItem("token") as string;
     if (user_id) {
@@ -151,6 +155,7 @@ const UserForm: React.FC<Props> = ({ showUserForm, setShowUserForm }) => {
     return;
   }, []);
 
+  // update user's info
   const handleUpdate = () => {
     axios
       .post(`${AppUrl()}/update-user/${user_id}`, user, {

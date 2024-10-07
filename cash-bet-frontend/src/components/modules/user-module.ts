@@ -12,4 +12,6 @@ export interface UserModule {
   confirmPassword?: string;
   shop?: ShopModule;
   user_id?: number;
+  company_name?: string;
+  logo?: string;
 }

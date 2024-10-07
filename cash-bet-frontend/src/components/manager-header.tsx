@@ -117,7 +117,7 @@ const ManagerHeader: React.FC<Props> = ({ managerCreditBalance }) => {
     );
 
     setWithdraw({ ...withdraw, cashier_id: `${currentUser.user_id}` });
-  }, [withdraw]);
+  }, []);
 
   return (
     <div className="bg-dark manager-header position-fixed col-12 d-flex justify-content-center text-center">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
 import { UserLogOut } from "./activities/signout-action";
 import { useReactToPrint } from "react-to-print";
@@ -8,6 +8,7 @@ import { AppUrl } from "./activities/app-url";
 import xml2js from "xml2js";
 import { SelectedGameModule } from "./modules/selected-game-module";
 import ScreenPreloader from "./screen-preloader";
+import { UserModule } from "./modules/user-module";
 
 interface Props {
   currentUserId: number;
@@ -25,7 +26,11 @@ const ResultsTable: React.FC<Props> = ({
   // exportToExcel,
 }) => {
   const [groupedGames, setGroupedGame] = useState<any[]>([]);
-  const [receiptStatus, setReceiptStatus] = useState<number>(0);
+
+  const [partner, setPartner] = useState<{
+    company_name: string | null;
+    logo: string | null;
+  }>({ company_name: null, logo: null });
 
   let componentRef = useRef<HTMLDivElement | null>(null);
   const handlePrint = useReactToPrint({
@@ -1998,29 +2003,53 @@ const ResultsTable: React.FC<Props> = ({
 
   // FETCH DATABASE GAME RESULTS
   useEffect(() => {
-    const interval = setInterval(() => {
-      axios
-        .get(`${AppUrl()}/fetch-database-results`)
-        .then((res) => {
-          const groupByDate = res.data.databaseResults.reduce(
-            (acc: any, obj: any) => {
-              const key = new Date(obj.date_played).getDate(); // Grouping based on age
-              if (!acc[key]) {
-                acc[key] = [];
-              }
-              acc[key].push(obj);
-              return acc;
-            },
-            {}
-          );
+    // const interval = setInterval(() => {
+    axios
+      .get(`${AppUrl()}/fetch-database-results`)
+      .then((res) => {
+        const groupByDate = res.data.databaseResults.reduce(
+          (acc: any, obj: any) => {
+            const key = new Date(obj.date_played).getDate(); // Grouping based on age
+            if (!acc[key]) {
+              acc[key] = [];
+            }
+            acc[key].push(obj);
+            return acc;
+          },
+          {}
+        );
 
-          const groupedArray = Object.values(groupByDate);
+        const groupedArray = Object.values(groupByDate);
 
-          setGroupedGame(groupedArray);
-        })
-        .catch((error) => console.log(error));
-    }, 50000);
-    return () => clearInterval(interval);
+        setGroupedGame(groupedArray);
+      })
+      .catch((error) => console.log(error));
+    // }, 50000);
+    // return () => clearInterval(interval);
+  }, []);
+
+  // handle fetch partner details
+  const fetchPartnerDetails = useCallback((partner_id: number | null) => {
+    axios
+      .get(`${AppUrl()}/fetch-partner-details/${partner_id}`)
+      .then((res) => {
+        setPartner(res.data.partner);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  // fetch partner details on component rendering
+  useEffect(() => {
+    const current_user: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    const partnerId =
+      current_user.user_role !== "partner"
+        ? current_user.linked_to
+        : current_user.user_id;
+    
+    fetchPartnerDetails(Number(partnerId));
   }, []);
 
   return (
@@ -2067,7 +2096,7 @@ const ResultsTable: React.FC<Props> = ({
         ref={componentRef}
         className="text-center pt-5 pb-3 mt-5 col-12 d-flex flex-wrap justify-content-center overflow-x-auto px-3"
       >
-        <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
+        <h1 className="col-12 fixture-head">{partner.company_name}</h1>
         <h1 className="col-12 fixture-head">{groupedGames.length}</h1>
 
         {

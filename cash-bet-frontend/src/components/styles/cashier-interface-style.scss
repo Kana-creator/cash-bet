@@ -35,7 +35,7 @@
       .game-details {
         font-size: 12px;
         position: relative;
-        background-color: rgba($color: $btn-text-bg, $alpha: 0.2);
+        // background-color: rgba($color: $btn-text-bg, $alpha: 0.2);
         padding: 1px;
         .back-button {
           padding: 0 10px;
@@ -53,13 +53,15 @@
       }
 
       .heading {
-        background-color: rgba($color: $dark-blue, $alpha: 1);
+        background-color: rgba($color: $dark-color, $alpha: 0.3);
+
         padding: 20px 0;
         margin-bottom: 1px;
       }
 
       .details-body {
-        background-color: rgba($color: $dark-blue, $alpha: 1);
+        background-color: rgba($color: $dark-color, $alpha: 0.3);
+
         .left {
           table {
             tbody {

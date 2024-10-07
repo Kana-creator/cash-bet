@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
 import { UserLogOut } from "./activities/signout-action";
 import FixtureRow from "./fixture-row";
 import { GameModule } from "./modules/game-module";
 import { useReactToPrint } from "react-to-print";
 import ScreenPreloader from "./screen-preloader";
+import axios from "axios";
+import { AppUrl } from "./activities/app-url";
+import { UserModule } from "./modules/user-module";
 
 interface Props {
   currentUserId: number;
@@ -26,6 +29,11 @@ const FixtureComponent: React.FC<Props> = ({
   loading,
 }) => {
   const [groupedGames, setGroupedGame] = useState<any[]>([]);
+
+  const [partner, setPartner] = useState<{
+    company_name: string | null;
+    logo: string | null;
+  }>({ company_name: null, logo: null });
 
   let componentRef = useRef<HTMLDivElement | null>(null);
   const handlePrint = useReactToPrint({
@@ -49,6 +57,30 @@ const FixtureComponent: React.FC<Props> = ({
     const groupedArray = Object.values(groupByDate);
     setGroupedGame(groupedArray);
   }, [games]);
+
+  // handle fetch partner details
+  const fetchPartnerDetails = useCallback((partner_id: number | null) => {
+    axios
+      .get(`${AppUrl()}/fetch-partner-details/${partner_id}`)
+      .then((res) => {
+        setPartner(res.data.partner);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  // fetch partner details on component rendering
+  useEffect(() => {
+    const current_user: UserModule = JSON.parse(
+      localStorage.getItem("user") as string
+    );
+
+    const partnerId =
+      current_user.user_role !== "partner"
+        ? current_user.linked_to
+        : current_user.user_id;
+
+    fetchPartnerDetails(Number(partnerId));
+  }, []);
 
   return (
     <div className=" col-12 d-flex flex-wrap justify-content-center">
@@ -95,7 +127,7 @@ const FixtureComponent: React.FC<Props> = ({
         ref={componentRef}
         className="text-center pt-5 pb-3 mt-5 col-12 d-flex flex-wrap justify-content-center overflow-x-auto px-3"
       >
-        <h1 className="col-12 fixture-head">Xma Sports Betting</h1>
+        <h1 className="col-12 fixture-head">{partner.company_name}</h1>
         <h1>{games.length !== 0}</h1>
 
         {games.length > 0 ? (

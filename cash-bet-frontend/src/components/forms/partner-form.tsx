@@ -41,6 +41,8 @@ const PartnerForm: React.FC<Props> = ({ setShowPartnerForm }) => {
     dutyStation: 0,
     password: "",
     confirmPassword: "",
+    company_name: "",
+    logo: "",
   });
 
   useEffect(() => {
@@ -185,6 +187,21 @@ const PartnerForm: React.FC<Props> = ({ setShowPartnerForm }) => {
           placeholder="Enter phone number here..."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setUser({ ...user, telephone: e.target.value })
+          }
+          onKeyUp={() => {}}
+        />
+
+        <TextField
+          span=""
+          className="form-group my-3 px-4 col-md-12 "
+          label="Company name"
+          type="text"
+          id="company-name"
+          value={user_id ? editableUser[0]?.user_telephone : ""}
+          autoFocus={false}
+          placeholder="Enter company name here..."
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUser({ ...user, company_name: e.target.value })
           }
           onKeyUp={() => {}}
         />
