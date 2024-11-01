@@ -35,6 +35,12 @@ const FixtureComponent: React.FC<Props> = ({
     logo: string | null;
   }>({ company_name: null, logo: null });
 
+  const [initialDate] = useState<string>(new Date().getDate().toString());
+  const [fromDate, setFromDate] = useState<string | null>(String(initialDate));
+  const [toDate, setToDate] = useState<string | null>(null);
+
+  const [filteredGames, setFilteredGames] = useState<any[]>([]);
+
   let componentRef = useRef<HTMLDivElement | null>(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -82,13 +88,24 @@ const FixtureComponent: React.FC<Props> = ({
     fetchPartnerDetails(Number(partnerId));
   }, []);
 
+  // set filtered games
+  useEffect(() => {
+    const originalGames = groupedGames;
+    if (
+      (fromDate !== null && fromDate !== "" && toDate === "") ||
+      toDate === null
+    ) {
+      // setFilteredGames(groupedGames.filter);
+    }
+  }, [groupedGames]);
+
   return (
     <div className=" col-12 d-flex flex-wrap justify-content-center">
       <div
         className="page-heading col-10 d-flex justify-content-between mb-4 p-4"
         style={{ height: "fit" }}
       >
-        <h4>Fixture</h4>
+        <h4>Fixture {initialDate.toString()}</h4>
         <button
           className="btn btn-info"
           style={{ height: "40px" }}
@@ -96,6 +113,24 @@ const FixtureComponent: React.FC<Props> = ({
         >
           Refresh game IDs
         </button>
+        <div className="col-4 d-flex justify-content-around align-items-center">
+          <input
+            type="date"
+            name="fromTime"
+            id="fromtTime"
+            value={fromDate?.toString()}
+            className="p-2"
+            onChange={(e) => setFromDate(e.target.value)}
+          />
+          TO
+          <input
+            type="date"
+            name="toTime"
+            id="toTime"
+            className="p-2"
+            onChange={(e) => setToDate(e.target.value)}
+          />
+        </div>
 
         <button
           className="btn btn-secondary"

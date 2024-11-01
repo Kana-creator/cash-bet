@@ -60,7 +60,7 @@ const PrintableReceipt: React.FC<Props> = ({
       <div className="col-12">
         <div className="p-receit-head col-12 d-flex flex-wrap justify-content-center">
           <div className="col-12">
-            <h1 className="text-center">LOGO {partner.logo}</h1>
+            <h1 className="text-center">{partner.logo}</h1>
             <h3 className="text-center">{partner.company_name}</h3>
           </div>
           <div className="col-12 d-flex flex-wrap justify-content-around border-bottom border-dark border-3">
